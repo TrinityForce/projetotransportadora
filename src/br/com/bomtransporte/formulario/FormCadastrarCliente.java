@@ -8,8 +8,9 @@ import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.regrasnegocio.ClienteRN;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
-import br.com.bomtransporte.util.Tela;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -113,6 +114,20 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jTF_NomeCidade.setText("");
     }
 
+    private boolean verificarCamposVazios(List<String> list) {
+        Boolean x = null;
+        if(list!=null){
+            x = true;
+            for(String campo : list){
+                if(campo == null){
+                    x = false;
+                    break;
+                }
+            }
+        }
+        return x;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,14 +142,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jBT_Salvar = new javax.swing.JButton();
         jBT_Verificar = new javax.swing.JButton();
         jTF_Nome = new javax.swing.JTextField();
-        jTF_Cep = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter cep= new javax.swing.text.MaskFormatter("#####-###"); 
-            jTF_Cep = new javax.swing.JFormattedTextField(cep); 
-        } 
-        catch (Exception e){ 
-        }
-        jTF_NomeCidade = new javax.swing.JTextField();
         jTF_Cpf = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("###.###.###-##"); 
@@ -142,17 +149,27 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
-        jTF_Celular = new javax.swing.JTextField();
-        try{ 
-            javax.swing.text.MaskFormatter celular= new javax.swing.text.MaskFormatter("(##)#####-####"); 
-            jTF_Celular = new javax.swing.JFormattedTextField(celular); 
-        } 
-        catch (Exception e){ 
-        }
         jTF_Telefone = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter telefone= new javax.swing.text.MaskFormatter("(##)####-####"); 
             jTF_Telefone = new javax.swing.JFormattedTextField(telefone); 
+        } 
+        catch (Exception e){ 
+        }
+        jTF_Cep = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter cep= new javax.swing.text.MaskFormatter("#####-###"); 
+            jTF_Cep = new javax.swing.JFormattedTextField(cep); 
+        } 
+        catch (Exception e){ 
+        }
+        jTF_Bairro = new javax.swing.JTextField();
+        jTF_NomeCidade = new javax.swing.JTextField();
+        jTF_Uf = new javax.swing.JTextField();
+        jTF_Celular = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter celular= new javax.swing.text.MaskFormatter("(##)#####-####"); 
+            jTF_Celular = new javax.swing.JFormattedTextField(celular); 
         } 
         catch (Exception e){ 
         }
@@ -166,8 +183,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
-        jTF_Bairro = new javax.swing.JTextField();
-        jTF_Uf = new javax.swing.JTextField();
         jLB_Obrigatorio4 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLB_Obrigatorio1 = new javax.swing.JLabel();
@@ -238,17 +253,23 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
             }
         });
         jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 210, 30));
-        jPN_Background.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 210, 30));
-        jPN_Background.add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 130, 30));
         jPN_Background.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 210, 30));
-        jPN_Background.add(jTF_Celular, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 210, 30));
         jPN_Background.add(jTF_Telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 30));
+        jPN_Background.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 210, 30));
+        jPN_Background.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 200, 30));
+        jPN_Background.add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 130, 30));
+        jPN_Background.add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 100, 30));
+
+        jTF_Celular.setName("jTF_Celular"); // NOI18N
+        jPN_Background.add(jTF_Celular, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 210, 30));
+
+        jTF_Complemento.setName("jTF_Complemento"); // NOI18N
         jPN_Background.add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, 330, 30));
         jPN_Background.add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 80, 30));
         jPN_Background.add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 570, 30));
+
+        jTF_Telefone2.setName("jTF_Telefone2"); // NOI18N
         jPN_Background.add(jTF_Telefone2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 210, 30));
-        jPN_Background.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 200, 30));
-        jPN_Background.add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 100, 30));
 
         jLB_Obrigatorio4.setText("*");
         jPN_Background.add(jLB_Obrigatorio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
@@ -348,10 +369,8 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTF_NomeActionPerformed
 
     private void jBT_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SalvarActionPerformed
-        Tela tela = new Tela();
-        //Boolean camposPreenchidos = tela.verificarCamposCliente(jPN_Background, jTF_Complemento, jTF_Telefone2, jTF_Celular);
-
         String nome, cpf, telefone, telefone2, celular, numero, complemento;
+        List<String> listaCampos = new ArrayList<>();
 
         nome = jTF_Nome.getText();
         cpf = jTF_Cpf.getText();
@@ -361,32 +380,39 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         numero = jTF_Numero.getText();
         complemento = jTF_Complemento.getText();
 
-        if (nome != null){
-            if (!ClienteRN.validarCPF(cpf) && !verificarCep()) {
-                Cliente cliente = new Cliente();
-                ClienteDao clienteDao = new ClienteDao();
+        listaCampos.add(nome);
+        listaCampos.add(cpf);
+        listaCampos.add(telefone);
+        listaCampos.add(numero);
 
-                cliente.setNome(nome);
-                cliente.setDataCadastro(Datas.dataAtual());
-                cliente.setTelefone(telefone);
-                cliente.setTelefone2(telefone2);
-                cliente.setCelular(celular);
-                cliente.setCpf(ajustarCpf(cpf));
-                cliente.setIdEndereco(idEndereco);
-                cliente.setNumeroCasa(numero);
-                cliente.setComplemento(complemento);
+        if (verificarCamposVazios(listaCampos)==true) {
+            if (!ClienteRN.validarCPF(cpf) && verificarCep()) {
                 try {
+                    Cliente cliente = new Cliente();
+                    ClienteDao clienteDao = new ClienteDao();
+
+                    cliente.setNome(nome);
+                    cliente.setDataCadastro(Datas.dataAtual());
+                    cliente.setTelefone(telefone);
+                    cliente.setTelefone2(telefone2);
+                    cliente.setCelular(celular);
+                    cliente.setCpf(ajustarCpf(cpf));
+                    cliente.setIdEndereco(idEndereco);
+                    cliente.setNumeroCasa(numero);
+                    cliente.setComplemento(complemento);
+
                     clienteDao.inserir(cliente);
                     JOptionPane.showMessageDialog(this, "Cliente" + nome + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLIntegrityConstraintViolationException ex) {
                     JOptionPane.showMessageDialog(this, "ESTE CPF JÁ ESTA CADASTRADO NO SISTEMA.\n", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace(System.err);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "CPF inválido, por favor corrigir", "CPF INVÁLIDO", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBT_SalvarActionPerformed
@@ -409,7 +435,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -421,22 +447,16 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormCadastrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormCadastrarCliente().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new FormCadastrarCliente().setVisible(true);
         });
     }
 

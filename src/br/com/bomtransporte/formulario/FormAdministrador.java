@@ -156,15 +156,15 @@ public class FormAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarSenhaActionPerformed
 
     private void jBT_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ClienteActionPerformed
-//        FormCadastrarCliente formCliente = new FormCadastrarCliente();
-//        formCliente.setVisible(true);
-//        dispose();
+        FormCadastrarCliente formCliente = new FormCadastrarCliente();
+        formCliente.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_ClienteActionPerformed
 
     private void jBT_RotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_RotaActionPerformed
-//        FormCadastrarRota fcr = new FormCadastrarRota();
-//        fcr.setVisible(true);
-//        dispose();
+        FormCadastrarRota fcr = new FormCadastrarRota();
+        fcr.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_RotaActionPerformed
 
     private void jBT_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SairActionPerformed
@@ -203,15 +203,12 @@ public class FormAdministrador extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 

@@ -2,6 +2,8 @@ package br.com.bomtransporte.util;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -11,7 +13,7 @@ import javax.swing.JTextField;
  * @author JhonattanSouza_
  */
 public class Tela {
-    
+
     private boolean verificarCampo(String campo) {
         return campo != null && campo.trim().length() > 0;
     }
@@ -25,19 +27,31 @@ public class Tela {
         }
     }
 
-    
-    
-    public Boolean verificarCamposCliente(Container container){
-        for(Component c : container.getComponents()){
-            if(c instanceof JTextField){
-                JTextField camp = (JTextField) c;
-                return camp.getText() != null && camp.getText().trim().length() > 0;
+    private boolean verificarNomeCampo(JTextField campo, String nomeCampo) {
+        return campo.getName() != null && campo.getName().equals(nomeCampo) && !verificarCampo(campo.getText());
+    }
+
+    public boolean verificarCamposCliente(Container container) {
+        List<String> tempLista = new ArrayList<>();
+        Boolean tudoPreenchido = false;
+        for (Component c : container.getComponents()) {
+            if (c instanceof JTextField) {
+                JTextField tempCampo = (JTextField) c;
+                tempLista.add(tempCampo.getText());
             }
         }
-        return false;
+        if (tempLista != null){
+            tudoPreenchido = true;
+            for(String item : tempLista){
+                if(item == null){
+                    tudoPreenchido = false;
+                    break;
+                }
+            }
+        }
+        return tudoPreenchido;
     }
-    
-    
+
     public static Boolean verificarCampos(Container container) {
         for (Component c : container.getComponents()) {
             if (c instanceof JTextField || c instanceof JPasswordField) {

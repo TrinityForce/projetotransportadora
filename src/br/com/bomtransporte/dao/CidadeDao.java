@@ -29,13 +29,13 @@ public class CidadeDao extends Conexao implements Dao{
     @Override
     public List<Object> listar() throws Exception {
         List<Object> listaCidade = new ArrayList();
-        Cidade cidade;
+        Cidade cidade = null;
         
         inicializarAtributos();
         
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         
-        stmt = con.prepareStatement("select id, nome, uf from cidades;");
+        stmt = con.prepareStatement("select id, nome, uf from CidadeCorreios;");
         
         rs = stmt.executeQuery();
         
@@ -50,23 +50,23 @@ public class CidadeDao extends Conexao implements Dao{
         return listaCidade;
     }  
     
-    public Integer BuscarCidade(String nomeCidade, String uf) throws Exception{
-
-        Integer idCidade = null;
-
+    public List<Object> listarUf() throws Exception {
+        List<Object> listaCidade = new ArrayList();
+        Cidade cidade = null;
+        
         inicializarAtributos();
+        
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         
-        stmt= con.prepareStatement("select * from CidadeCorreios where nome = ? and uf =?;");
-        stmt.setString(1, nomeCidade);
-        stmt.setString(2, uf);
+        stmt = con.prepareStatement("select distinct uf from cidadecorreios;");
+        
         rs = stmt.executeQuery();
         
-        if (rs.next()) {
-
-            idCidade =(rs.getInt("id"));
+        while(rs.next()){
+            cidade = new Cidade();
+            cidade.setUf(rs.getString("uf"));
+            listaCidade.add(cidade);
         }
-       
-    return idCidade;
-    }
+        return listaCidade;
+    }  
 }
