@@ -113,19 +113,20 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jTF_Uf.setText("");
         jTF_NomeCidade.setText("");
     }
-
+    
+    //verifica se todos os campos da lista estao preenchidos e retorna true
     private boolean verificarCamposVazios(List<String> list) {
-        Boolean x = null;
+        Boolean camposPreenchidos = null;
         if(list!=null){
-            x = true;
+            camposPreenchidos = true;
             for(String campo : list){
                 if(campo == null){
-                    x = false;
+                    camposPreenchidos = false;
                     break;
                 }
             }
         }
-        return x;
+        return camposPreenchidos;
     }
 
     /**
@@ -217,7 +218,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
 
         jBT_Novo.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Novo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/new-icon.png"))); // NOI18N
         jBT_Novo.setText("Criar Novo");
         jBT_Novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +228,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_Salvar.setText("Salvar");
         jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,8 +353,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Nome");
         jPN_Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
-
-        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cliente-bg.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPN_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -372,37 +369,46 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         String nome, cpf, telefone, telefone2, celular, numero, complemento;
         List<String> listaCampos = new ArrayList<>();
 
-        nome = jTF_Nome.getText();
-        cpf = jTF_Cpf.getText();
-        telefone = jTF_Telefone.getText();
+        //campos com o preenchimento opcional
         telefone2 = jTF_Telefone2.getText();
         celular = jTF_Celular.getText();
-        numero = jTF_Numero.getText();
-        complemento = jTF_Complemento.getText();
+        
+        //cria uma lista com os campos que sao de preenchimento obrigatorio
+        listaCampos.add(jTF_Nome.getText());
+        listaCampos.add(jTF_Telefone.getText());
+        listaCampos.add(jTF_Cpf.getText());
+        listaCampos.add(jTF_Numero.getText());
+        listaCampos.add(jTF_Complemento.getText());
 
-        listaCampos.add(nome);
-        listaCampos.add(cpf);
-        listaCampos.add(telefone);
-        listaCampos.add(numero);
-
+        //verifica se algum campo obrigatorio esta vazio
         if (verificarCamposVazios(listaCampos)==true) {
-            if (!ClienteRN.validarCPF(cpf) && verificarCep()) {
+            //apresenta uma msg de erro caso o cep nao esteja cadastrado no banco
+            if (verificarCep()) {
+                //apresenta uma mensagem de erro caso o cpf esteja invalido
+                if(ClienteRN.validarCPF(listaCampos.get(3)) ){
                 try {
+                    //preenche o objeto cliente
                     Cliente cliente = new Cliente();
                     ClienteDao clienteDao = new ClienteDao();
-
-                    cliente.setNome(nome);
-                    cliente.setDataCadastro(Datas.dataAtual());
-                    cliente.setTelefone(telefone);
-                    cliente.setTelefone2(telefone2);
-                    cliente.setCelular(celular);
-                    cliente.setCpf(ajustarCpf(cpf));
+                    cliente.setNome(listaCampos.get(0));
+                    cliente.setTelefone(listaCampos.get(1));
+                    cliente.setCpf(ajustarCpf(listaCampos.get(2)));
+                    cliente.setNumeroCasa(listaCampos.get(3));
+                    cliente.setComplemento(listaCampos.get(4));
                     cliente.setIdEndereco(idEndereco);
-                    cliente.setNumeroCasa(numero);
-                    cliente.setComplemento(complemento);
-
+                    cliente.setDataCadastro(Datas.dataAtual());
+                    
+                    //caso as variaves opcionais estejam preenchidas add no objeto
+                    if(telefone2 != null) {
+                        cliente.setTelefone2(telefone2);
+                    }
+                    if(celular != null){
+                        cliente.setCelular(celular);
+                    }
+                    
+                    //insere um novo cliente
                     clienteDao.inserir(cliente);
-                    JOptionPane.showMessageDialog(this, "Cliente" + nome + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLIntegrityConstraintViolationException ex) {
                     JOptionPane.showMessageDialog(this, "ESTE CPF JÁ ESTA CADASTRADO NO SISTEMA.\n", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
@@ -411,6 +417,9 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "CPF inválido, por favor corrigir", "CPF INVÁLIDO", JOptionPane.ERROR_MESSAGE);
+            }
+            }else{
+                 JOptionPane.showMessageDialog(this, "CEP inválido, por favor corrigir", "CEP INVÁLIDO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
