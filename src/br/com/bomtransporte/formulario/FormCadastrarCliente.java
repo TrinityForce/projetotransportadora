@@ -10,6 +10,7 @@ import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -81,7 +82,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Um erro ocorreu ao verificar o cep", "Erro", JOptionPane.INFORMATION_MESSAGE);
         }
         return false;
     }
@@ -112,21 +113,35 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jTF_Logradouro.setText("");
         jTF_Uf.setText("");
         jTF_NomeCidade.setText("");
+        jTF_Complemento.setText("");
+        jTF_Numero.setText("");
+        jTF_Cep.setText("");
+
     }
-    
+
+    private void limparCamposCliente() {
+        jTF_Cpf.setText("");
+        jTF_Nome.setText("");
+        jTF_Telefone.setText("");
+        jTF_Telefone2.setText("");
+
+    }
+
     //verifica se todos os campos da lista estao preenchidos e retorna true
     private boolean verificarCamposVazios(List<String> list) {
-        Boolean camposPreenchidos = null;
-        if(list!=null){
-            camposPreenchidos = true;
-            for(String campo : list){
-                if(campo == null){
-                    camposPreenchidos = false;
-                    break;
+        Boolean vazio = true;
+        if (list != null && !list.isEmpty()) {
+            for (Iterator<String> it = list.iterator(); it.hasNext();) {
+                String campo = it.next();
+                if (campo == null || campo.trim().length() == 0) {
+                    vazio = false;
                 }
             }
+        } else {
+            vazio = false;
         }
-        return camposPreenchidos;
+        System.err.println("retornando:  " + vazio);
+        return vazio;
     }
 
     /**
@@ -366,60 +381,60 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTF_NomeActionPerformed
 
     private void jBT_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SalvarActionPerformed
-        String nome, cpf, telefone, telefone2, celular, numero, complemento;
+        String  telefone2, celular ;
         List<String> listaCampos = new ArrayList<>();
 
         //campos com o preenchimento opcional
         telefone2 = jTF_Telefone2.getText();
         celular = jTF_Celular.getText();
-        
+
         //cria uma lista com os campos que sao de preenchimento obrigatorio
         listaCampos.add(jTF_Nome.getText());
         listaCampos.add(jTF_Telefone.getText());
         listaCampos.add(jTF_Cpf.getText());
         listaCampos.add(jTF_Numero.getText());
         listaCampos.add(jTF_Complemento.getText());
+        listaCampos.add(ajustarCpf(jTF_Cep.getText()));
 
         //verifica se algum campo obrigatorio esta vazio
-        if (verificarCamposVazios(listaCampos)==true) {
+        if (verificarCamposVazios(listaCampos)) {
             //apresenta uma msg de erro caso o cep nao esteja cadastrado no banco
             if (verificarCep()) {
                 //apresenta uma mensagem de erro caso o cpf esteja invalido
-                if(ClienteRN.validarCPF(listaCampos.get(3)) ){
-                try {
-                    //preenche o objeto cliente
-                    Cliente cliente = new Cliente();
-                    ClienteDao clienteDao = new ClienteDao();
-                    cliente.setNome(listaCampos.get(0));
-                    cliente.setTelefone(listaCampos.get(1));
-                    cliente.setCpf(ajustarCpf(listaCampos.get(2)));
-                    cliente.setNumeroCasa(listaCampos.get(3));
-                    cliente.setComplemento(listaCampos.get(4));
-                    cliente.setIdEndereco(idEndereco);
-                    cliente.setDataCadastro(Datas.dataAtual());
-                    
-                    //caso as variaves opcionais estejam preenchidas add no objeto
-                    if(telefone2 != null) {
+                if (ClienteRN.validarCPF(listaCampos.get(2))) {
+                    try {
+                        //preenche o objeto cliente
+                        Cliente cliente = new Cliente();
+                        ClienteDao clienteDao = new ClienteDao();
+                        cliente.setNome(listaCampos.get(0));
+                        cliente.setTelefone(listaCampos.get(1));
+                        cliente.setCpf(ajustarCpf(listaCampos.get(2)));
+                        cliente.setNumeroCasa(listaCampos.get(3));
+                        cliente.setComplemento(listaCampos.get(4));
+                        cliente.setIdEndereco(idEndereco);
+                        cliente.setDataCadastro(Datas.dataAtual());
                         cliente.setTelefone2(telefone2);
-                    }
-                    if(celular != null){
                         cliente.setCelular(celular);
+
+                        //insere um novo cliente
+                        clienteDao.inserir(cliente);
+
+                        //limpa os campos
+                        limparCamposCep();
+                        limparCamposCliente();
+
+                        JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+
+                    } catch (SQLIntegrityConstraintViolationException ex) {
+                        JOptionPane.showMessageDialog(this, "ESTE CPF JÁ ESTA CADASTRADO NO SISTEMA.\n", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
                     }
-                    
-                    //insere um novo cliente
-                    clienteDao.inserir(cliente);
-                    JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-                } catch (SQLIntegrityConstraintViolationException ex) {
-                    JOptionPane.showMessageDialog(this, "ESTE CPF JÁ ESTA CADASTRADO NO SISTEMA.\n", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace(System.err);
+                } else {
+                    JOptionPane.showMessageDialog(this, "CPF inválido, por favor corrigir", "CPF INVÁLIDO", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "CPF inválido, por favor corrigir", "CPF INVÁLIDO", JOptionPane.ERROR_MESSAGE);
-            }
-            }else{
-                 JOptionPane.showMessageDialog(this, "CEP inválido, por favor corrigir", "CEP INVÁLIDO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "CEP inválido, por favor corrigir", "CEP INVÁLIDO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
