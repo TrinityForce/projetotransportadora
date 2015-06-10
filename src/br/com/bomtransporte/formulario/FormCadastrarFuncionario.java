@@ -43,7 +43,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     }
 
     private void limparCampos() {
-        jTF_Pesquisar.setText("");
         jTF_Cargo.setText("");
         jTF_Login.setText("");
         jTF_Email.setText("");
@@ -89,7 +88,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
 
         try {
             funcionarioDao = new FuncionarioDao();
-            final List<Object> listaFuncionario = funcionarioDao.consultarFuncionarioPorNome(jTF_Pesquisar.getText());
+            final List<Object> listaFuncionario = funcionarioDao.listar();
 
             if (listaFuncionario != null && listaFuncionario.size() > 0) {
                 listaFuncionario.forEach((Object funcionarioAtual) -> {
@@ -125,7 +124,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
 
                     try {
 
-                        List<Object> lista = funcionarioDao.consultarFuncionarioPorNome(jTF_Pesquisar.getText());
+                        List<Object> lista = funcionarioDao.listar();
                         funcionarioSelecionado = (Funcionario) lista.
                                 get(jTableFuncionario.convertRowIndexToModel(jTableFuncionario.getSelectedRow()));
 
@@ -177,14 +176,12 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jBT_Excluir = new javax.swing.JButton();
         jBT_Salvar = new javax.swing.JButton();
         jBT_Alterar = new javax.swing.JButton();
-        jBT_Pesquisar = new javax.swing.JButton();
         jRB_Administrador = new javax.swing.JRadioButton();
         jRB_Funcionario = new javax.swing.JRadioButton();
         jPS_Senha = new javax.swing.JPasswordField();
         jTF_Email = new javax.swing.JTextField();
         jTF_Login = new javax.swing.JTextField();
         jTF_Cargo = new javax.swing.JTextField();
-        jTF_Pesquisar = new javax.swing.JTextField();
         jTF_Nome = new javax.swing.JTextField();
         jLB_Fechar = new javax.swing.JLabel();
         jLB_Texto6 = new javax.swing.JLabel();
@@ -258,14 +255,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 150, 90));
 
-        jBT_Pesquisar.setText("Pesquisar");
-        jBT_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_PesquisarActionPerformed(evt);
-            }
-        });
-        jPN_Background.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 100, 30));
-
         BG_Perfil.add(jRB_Administrador);
         jRB_Administrador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Administrador.setText("Administrador");
@@ -285,9 +274,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
 
         jTF_Cargo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPN_Background.add(jTF_Cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 250, 30));
-
-        jTF_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 220, 30));
 
         jTF_Nome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 250, 30));
@@ -347,18 +333,17 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         habilitarBotao(jBT_Salvar);
         desabilitarBotao(jBT_Alterar);
         desabilitarBotao(jBT_Excluir);
-        jTF_Pesquisar.requestFocus();
     }//GEN-LAST:event_jBT_NovoActionPerformed
 
     private void jBT_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SalvarActionPerformed
-        String nome = jTF_Pesquisar.getText();
+        String nome = jTF_Nome.getText();
         String cargo = jTF_Cargo.getText();
         String login = jTF_Login.getText();
         String senha = jPS_Senha.getText();
         String email = jTF_Email.getText();
         String dataCadastro = Datas.dataAtual();
         Integer idPerfil;
-
+        
         try {
             if (Tela.verificarCampos(jPN_Background) && verificarRadio(jRB_Administrador, jRB_Funcionario)) {
                 ValidarEmail ve = new ValidarEmail();
@@ -397,7 +382,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_SalvarActionPerformed
 
     private void jBT_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarActionPerformed
-        String nome = jTF_Pesquisar.getText();
+        String nome = jTF_Nome.getText();
         String cargo = jTF_Cargo.getText();
         String login = jTF_Login.getText();
         String email = jTF_Email.getText();
@@ -459,10 +444,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_ExcluirActionPerformed
 
-    private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
-        preencherTabela();
-    }//GEN-LAST:event_jBT_PesquisarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -495,7 +476,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Alterar;
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_Novo;
-    private javax.swing.JButton jBT_Pesquisar;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Fechar;
@@ -514,7 +494,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_Email;
     private javax.swing.JTextField jTF_Login;
     private javax.swing.JTextField jTF_Nome;
-    private javax.swing.JTextField jTF_Pesquisar;
     private javax.swing.JTable jTableFuncionario;
     // End of variables declaration//GEN-END:variables
 }

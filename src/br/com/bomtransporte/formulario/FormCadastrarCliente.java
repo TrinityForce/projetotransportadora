@@ -82,7 +82,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                 return false;
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Um erro ocorreu ao verificar o cep", "Erro", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Um erro ocorreu ao verificar o cep: " + ex.getMessage(),"ERRO", JOptionPane.INFORMATION_MESSAGE);
         }
         return false;
     }
@@ -140,7 +140,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         } else {
             vazio = false;
         }
-        System.err.println("retornando:  " + vazio);
         return vazio;
     }
 

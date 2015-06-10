@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -14,7 +15,7 @@ import javax.swing.JTextField;
  */
 public class Tela {
 
-    private boolean verificarCampo(String campo) {
+    public boolean verificarCampo(String campo) {
         return campo != null && campo.trim().length() > 0;
     }
 
@@ -63,19 +64,20 @@ public class Tela {
         return false;
     }
 
-    public static void limparCampos(Container container) {
+    public void limparCampos(Container container) {
         for (Component c : container.getComponents()) {
-            if (c instanceof JTextField || c instanceof JPasswordField) {
-                c.setEnabled(false);
+            if (c instanceof JTextField) {
+                JTextField jtf = (JTextField) c;
+                jtf.setText("");
             }
         }
     }
+    
+    public void habilitarBotao(JButton bt) {
+        bt.setEnabled(true);
+    }
 
-    public static void habilitarCampos(Container container) {
-        for (Component c : container.getComponents()) {
-            if (c instanceof JTextField) {
-                c.setEnabled(false);
-            }
-        }
+    public void desabilitarBotao(JButton bt) {
+        bt.setEnabled(false);
     }
 }
