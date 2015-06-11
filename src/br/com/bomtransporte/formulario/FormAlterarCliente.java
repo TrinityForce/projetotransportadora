@@ -18,18 +18,55 @@ import javax.swing.JOptionPane;
  *
  * @author Andre
  */
-public class FormCadastrarCliente extends javax.swing.JFrame {
+public class FormAlterarCliente extends javax.swing.JFrame {
 
-    private Integer idEndereco;
+    private Integer idEndereco,idContato,idPessoa,idCliente;
 
     /**
      * Creates new form FormCadastrarCliente
      */
-    public FormCadastrarCliente() {
+    public FormAlterarCliente() {
         initComponents();
-        desabilitarCampos();
-        desabilitarBotao(jBT_Salvar);
+        preencherCampos();
         jLB_ErroCep.setVisible(false);
+    }
+    
+    private void preencherCampos() {
+        try {
+            ClienteDao clienteDao = new ClienteDao();
+            Cliente cliente = clienteDao.consultarPorId(FormClientePedido.idCliente);
+
+            if (cliente != null) {
+
+                EnderecoDao enderecoDao = new EnderecoDao();
+                Endereco endereco = enderecoDao.retornarEnderecoPorId(cliente.getIdEndereco());
+
+                if (endereco != null) {
+                    jTF_Bairro.setText(endereco.getBairro());
+                    jTF_Celular.setText(cliente.getCelular());
+                    jTF_Cep.setText(endereco.getCep());
+                    jTF_Complemento.setText(cliente.getComplemento());
+                    jTF_Cpf.setText(cliente.getCpf());
+                    jTF_Logradouro.setText(endereco.getLogradouro());
+                    jTF_Nome.setText(cliente.getNome());
+                    jTF_Numero.setText(cliente.getNumeroCasa());
+                    jTF_Telefone.setText(cliente.getTelefone());
+                    jTF_Telefone2.setText(cliente.getTelefone2());
+                    jTF_Uf.setText(endereco.getUf());
+                    idContato = cliente.getIdContato();
+                    idPessoa = cliente.getIdPessoa();
+                    idCliente = cliente.getIdCliente();
+                } else {
+                    System.out.println("endereco n encontrado");
+                }
+
+            } else {
+                System.out.println("cliente n encontrado");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     private void desabilitarCampos() {
@@ -418,9 +455,9 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                         cliente.setTelefone2(telefone2);
                         cliente.setCelular(celular);
                         
-                        if(!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2)))){
-                            clienteDao.inserir(cliente);
-                            JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                        if(!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2))) ){
+                            clienteDao.alterar(cliente);
+                            JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " ALTERADO COM SUCESSO!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                             limparCamposCep();
                             limparCamposCliente();
                         }else{
@@ -471,15 +508,16 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormAlterarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new FormCadastrarCliente().setVisible(true);
+            new FormAlterarCliente().setVisible(true);
         });
     }
 
