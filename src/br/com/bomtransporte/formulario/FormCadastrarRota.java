@@ -100,7 +100,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setUndecorated(true);
         setResizable(false);
@@ -112,6 +111,11 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Cadastrar.add(jFTF_Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 130, 30));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_RotasActionPerformed(evt);
+            }
+        });
         jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
 
         Origem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -282,6 +286,10 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jCB_RotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_RotasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_RotasActionPerformed
 
     /**
      * @param args the command line arguments

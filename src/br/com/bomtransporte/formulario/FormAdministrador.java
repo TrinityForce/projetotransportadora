@@ -178,9 +178,9 @@ public class FormAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_LogoutActionPerformed
 
     private void jBT_PesqClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesqClienteActionPerformed
-//        FormConsultarCliente formConsulta = new FormConsultarCliente();
-//        formConsulta.setVisible(true);
-//        dispose();
+       FormClientePedido formCliente = new FormClientePedido();
+        formCliente.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_PesqClienteActionPerformed
 
     private void jBT_PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PedidoActionPerformed

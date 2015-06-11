@@ -2,27 +2,51 @@ package br.com.bomtransporte.dao;
 
 import br.com.bomtransporte.modelo.Carga;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CargaDao extends Conexao implements Dao{
 
-    @Override
-    public void inserir(Object obj) throws Exception {
+    
+    public Integer insertGetKey(Object obj) throws Exception {
         Carga carga = (Carga) obj;
-        
-        inicializarAtributos();
-        
+
+        try {  
+            inicializarAtributos();
+            con.setAutoCommit(false);
+
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         
-        stmt = con.prepareStatement("INSERT INTO CARGA(descricao,peso,quantidade) VALUES(?,?,?)");
+        stmt = con.prepareStatement("INSERT INTO CARGA(descricao,peso,quantidade) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, carga.getDescricao());
         stmt.setDouble(2, carga.getPeso());
         stmt.setInt(3, carga.getQuantidade());
         
         stmt.execute();
         
-        con.close();
+        rs = stmt.getGeneratedKeys();
+        rs.next();
+        carga.setIdCarga(rs.getInt(1));
+        
+        con.commit();
+        System.err.println("cargadao foi");
+        return carga.getIdCarga();
+        
+        } catch (SQLException e) {
+            if (con != null) {
+                con.rollback();
+                System.out.println("Connection rollback...");
+            }
+            e.printStackTrace();
+
+        } finally {
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -83,6 +107,11 @@ public class CargaDao extends Conexao implements Dao{
         }
         con.close();
         return listaCargas;
+    }
+
+    @Override
+    public void inserir(Object obj) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
