@@ -19,10 +19,11 @@ public class CargaDao extends Conexao implements Dao{
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         
-        stmt = con.prepareStatement("INSERT INTO CARGA(descricao,peso,quantidade) VALUES(?,?,?)",Statement.RETURN_GENERATED_KEYS);
+        stmt = con.prepareStatement("INSERT INTO CARGA(descricao,peso,quantidade, idPedido_Cli) VALUES(?,?,?, ?)",Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, carga.getDescricao());
         stmt.setDouble(2, carga.getPeso());
         stmt.setInt(3, carga.getQuantidade());
+        stmt.setInt(4, carga.getIdPedido());
         
         stmt.execute();
         

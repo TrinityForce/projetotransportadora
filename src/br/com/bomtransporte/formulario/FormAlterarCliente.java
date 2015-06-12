@@ -34,7 +34,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     private void preencherCampos() {
         try {
             ClienteDao clienteDao = new ClienteDao();
-            Cliente cliente = clienteDao.consultarPorId(FormClientePedido.idCliente);
+            Cliente cliente = clienteDao.consultarPorId(FormCrudPedido.idCliente);
 
             if (cliente != null) {
 

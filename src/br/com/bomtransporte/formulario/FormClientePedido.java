@@ -119,6 +119,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         jBT_Alterar = new javax.swing.JButton();
         jBT_Pesquisar = new javax.swing.JButton();
         jTF_Consulta = new javax.swing.JTextField();
+        jBT_AdicionarCarga = new javax.swing.JButton();
         jPN_CadastrarPedido = new javax.swing.JPanel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -151,7 +152,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_ExcluirActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 210, 70));
+        jPN_PesquisarCliente.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 70));
 
         jBT_CadastrarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_CadastrarPedido.setText("Cadastrar Pedido");
@@ -160,7 +161,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_CadastrarPedidoActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 230, 70));
+        jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 130, 70));
 
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Alterar.setText("Alterar Cliente");
@@ -169,7 +170,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AlterarActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 230, 70));
+        jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 140, 70));
 
         jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Pesquisar.setText("PESQUISAR");
@@ -182,6 +183,15 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 340, 60));
+
+        jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AdicionarCarga.setText("Add carga");
+        jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AdicionarCargaActionPerformed(evt);
+            }
+        });
+        jPN_PesquisarCliente.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 130, 70));
 
         jTB_CliPedido.addTab("Pesquisar Cliente", null, jPN_PesquisarCliente, "Pesquisar cliente e selecionar uma ação.");
 
@@ -227,8 +237,8 @@ public class FormClientePedido extends javax.swing.JFrame {
   //      jTB_CliPedido.setEnabledAt(0, false);
     //    jTB_CliPedido.setSelectedIndex(1);
         
-        FormCadProduto formCard = new FormCadProduto();
-       formCard.setVisible(true);
+        FormCadastrarCarga formCad = new FormCadastrarCarga();
+       formCad.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBT_CadastrarPedidoActionPerformed
 
@@ -241,6 +251,12 @@ public class FormClientePedido extends javax.swing.JFrame {
         preencherTabela();
         desabilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
+
+    private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
+        FormCrudPedido formCrudPedido = new FormCrudPedido();
+        formCrudPedido.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
     public static void main(String args[]) {
         /* Set the Windows look and feel */
@@ -269,6 +285,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBT_AdicionarCarga;
     private javax.swing.JButton jBT_Alterar;
     private javax.swing.JButton jBT_CadastrarPedido;
     private javax.swing.JButton jBT_Excluir;

@@ -114,6 +114,11 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Cadastrar.add(jFTF_Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 130, 30));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_RotasActionPerformed(evt);
+            }
+        });
         jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
 
         Origem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

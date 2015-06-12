@@ -108,7 +108,7 @@ public class FormManterCarga extends javax.swing.JFrame {
 
                         jTF_id.setText(String.valueOf(cargaSelecionada.getIdCarga()));
                         jTF_Descricao.setText(cargaSelecionada.getDescricao());
-                        jTF_Peso.setText(String.valueOf(cargaSelecionada.getPeso()));
+                       jTF_Peso.setText(String.valueOf(cargaSelecionada.getPeso()));
                         jTF_Quantidade.setText(String.valueOf(cargaSelecionada.getQuantidade()));
 
                         t = new Tela();
@@ -124,7 +124,7 @@ public class FormManterCarga extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
         }
-    }
+    } 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

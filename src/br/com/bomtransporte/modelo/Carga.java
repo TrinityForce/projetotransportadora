@@ -9,16 +9,20 @@ public class Carga {
     private String descricao;
     private Double peso;
     private Integer quantidade;
+    private  Integer idPedido;
 
     public Carga() {
     }
 
-    public Carga(Integer idCarga, String descricao, Double peso, Integer quantidade) {
+    public Carga(Integer idCarga, String descricao, Double peso, Integer quantidade, Integer idPedido) {
         this.idCarga = idCarga;
         this.descricao = descricao;
         this.peso = peso;
         this.quantidade = quantidade;
+        this.idPedido = idPedido;
     }
+
+
 
     /**
      * @return the idCarga
@@ -75,4 +79,14 @@ public class Carga {
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
+
+    public Integer getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Integer idPedido) {
+        this.idPedido = idPedido;
+    }
+    
+    
 }

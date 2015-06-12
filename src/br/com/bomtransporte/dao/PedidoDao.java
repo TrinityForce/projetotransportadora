@@ -20,8 +20,7 @@ import java.util.List;
  */
 public class PedidoDao extends Conexao implements Dao {
 
-   
-    public Integer insertGetKey (Object obj) throws Exception {
+    public Integer insertGetKey(Object obj) throws Exception {
         Pedido pedido = (Pedido) obj;
 
         try {
@@ -67,32 +66,38 @@ public class PedidoDao extends Conexao implements Dao {
         } finally {
             if (con != null && !con.isClosed()) {
                 con.close();
-                
+
             }
         }
         return null;
     }
 
-    public void inserirPedidoCli(Integer idCliente, Integer idCarga,
-            Integer idPedido, Integer idPrecoDistancia) throws Exception {
-
+    public Integer inserirPedidoCli(Integer idCliente, Integer idPedido,
+            Integer idPrecoDistancia) throws Exception {
+        Integer pedidoKey = null;
         try {
             inicializarAtributos();
 
             con.setAutoCommit(false);
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            stmt = con.prepareStatement("Insert into Pedido_Cli (idCliente,"
-                    + " idCarga, iDPedido, idPrecoDistancia) "
-                    + "values (?, ?, ?, ?);");
+            stmt = con.prepareStatement(" Insert into Pedido_Cli"
+                    + " (idCliente,iDPedido, idPrecoDistancia) values (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, idCliente);
-            stmt.setInt(2, idCarga);
-            stmt.setInt(3, idPedido);
-            stmt.setInt(4, idPrecoDistancia);
+            stmt.setInt(2, idPedido);
+            stmt.setInt(3, idPrecoDistancia);
+
             stmt.execute();
 
+            rs = stmt.getGeneratedKeys();
+
+            if (rs.next()) {
+                pedidoKey = rs.getInt(1);
+            }
+
             con.commit();
-            System.err.println("pedidocli foi");
+
+            return pedidoKey;
 
         } catch (SQLException e) {
             if (con != null) {
@@ -106,7 +111,7 @@ public class PedidoDao extends Conexao implements Dao {
                 con.close();
             }
         }
-
+        return pedidoKey;
     }
 
     @Override
@@ -128,7 +133,5 @@ public class PedidoDao extends Conexao implements Dao {
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
 
 }
