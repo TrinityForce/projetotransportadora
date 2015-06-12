@@ -17,6 +17,8 @@ import java.awt.event.MouseAdapter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -56,21 +58,46 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     public FormCadastrarCarga() {
         initComponents();
         // preencherTabela();
-        verificarAba();
         preencherCampos();
         preencherComboPreco();
         desabilitarBotao(jBT_AdicionarCarga);
+        verificarAba();
+        verificarAlterarPedido();
     }
 
-    private void verificarAba(){
-        if(FormClientePedido.ativarAba == 2){
-            jTB_Pedido.setEnabledAt(1,true);
-            jTB_Pedido.setEnabledAt(0,false);
+    private void verificarAba() {
+
+        if ((FormClientePedido.ativarAba != null)
+                && (FormClientePedido.ativarAba == 2)) {
+            jTB_Pedido.setEnabledAt(1, true);
+            jTB_Pedido.setEnabledAt(0, false);
             jTB_Pedido.setSelectedIndex(1);
+
+            desabilitarBotao(jBT_Salvar);
+            habilitarBotao(jBT_AdicionarCarga);
+
             preencherTabela();
         }
     }
-    
+
+    //metodo que vai identificar se o pedido vai ser criado ou alterado
+    private void verificarAlterarPedido() {
+        if (FormClientePedido.alterarPedido
+                && FormClientePedido.idPedidoSelecionado != null) {
+            pedido = new Pedido();
+            try {
+                System.err.println("FormClientePedido.idPedidoSelecionado " + FormClientePedido.idPedidoSelecionado);
+                pedido = (Pedido) pedidoDao.buscarPedido(FormClientePedido.idPedidoSelecionado);
+                jTF_Numero.setText(pedido.getNumero());
+            } catch (Exception ex) {
+                Logger.getLogger(FormCadastrarCarga.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            habilitarBotao(jBT_AlterarPedido);
+            desabilitarBotao(jBT_ProximaTela);
+        }
+    }
+
     private void preencherCampos() {
         try {
             clienteDao = new ClienteDao();
@@ -227,7 +254,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         try {
             cargaDao = new CargaDao();
-            final List<Object> listaCargas = cargaDao.listarCargas(FormClientePedido.idPedido_Cli);
+            Integer sexo = FormClientePedido.idPedido_Cli;
+            System.err.println("sexo valor " + sexo);
+            final List<Object> listaCargas = cargaDao.listarCargas(sexo);
 
             if (listaCargas != null && listaCargas.size() > 0) {
                 listaCargas.forEach((Object cargaAtual) -> {
@@ -303,6 +332,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTF_Desconto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jBT_AlterarPedido = new javax.swing.JButton();
         jPN_Carga = new javax.swing.JPanel();
         jLB_Descricao4 = new javax.swing.JLabel();
         jTF_Peso = new javax.swing.JTextField();
@@ -445,6 +475,15 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("Desconto");
         jPN_Pedido.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
+        jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarPedido.setText("Alterar");
+        jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AlterarPedidoActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 210, 120));
 
         jTB_Pedido.addTab("tab1", jPN_Pedido);
 
@@ -684,6 +723,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
+    private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -724,6 +767,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AdicionarCarga;
+    private javax.swing.JButton jBT_AlterarPedido;
     private javax.swing.JButton jBT_ProximaTela;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;

@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -22,15 +24,17 @@ import javax.swing.ListSelectionModel;
 public class FormClientePedido extends javax.swing.JFrame {
 
     private ClienteDao clienteDao;
+        private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    private Cliente clienteSelecionado;
-    public static Integer idCliente, ativarAba, idPedido_Cli;
+    public static Integer idCliente, ativarAba, idPedido_Cli, idPedidoSelecionado;
+    public static Boolean alterarPedido = false;
 
     public FormClientePedido() {
         initComponents();
         preencherTabela();
         desabilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+        desabilitarBotao(jBT_AdicionarCarga);
     }
 
     private void habilitarBotao(JButton bt, JButton bt2, JButton bt3) {
@@ -39,10 +43,18 @@ public class FormClientePedido extends javax.swing.JFrame {
         bt3.setEnabled(true);
     }
 
+    private void habilitarBotao(JButton bt) {
+        bt.setEnabled(true);
+    }
+
     private void desabilitarBotao(JButton bt, JButton bt2, JButton bt3) {
         bt.setEnabled(false);
         bt2.setEnabled(false);
         bt3.setEnabled(false);
+    }
+
+    private void desabilitarBotao(JButton bt) {
+        bt.setEnabled(false);
     }
 
     private void preencherTabelaPedido() {
@@ -87,9 +99,19 @@ public class FormClientePedido extends javax.swing.JFrame {
                     try {
                         List<Object> lista = pedidoDao.listarPedidos(idCliente);
                         pedidoSelecionado = (Pedido) lista.
-                                get(jTableClientes.convertRowIndexToModel(jTableClientes.getSelectedRow()));
-                        idPedido_Cli = pedidoSelecionado.getIdPedido();
+                                get(jTB_Pedidos.convertRowIndexToModel(jTB_Pedidos.getSelectedRow()));
+
+                        idPedido_Cli = pedidoSelecionado.getIdPedido_Cli();
+                        idPedidoSelecionado = pedidoSelecionado.getIdPedido();
+                        System.err.println("pedidocli val " + idPedido_Cli);
+                        if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
+                            habilitarBotao(jBT_AdicionarCarga);
+                        } else {
+                            desabilitarBotao(jBT_AdicionarCarga);
+                        }
+
                         habilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
                     } catch (Exception ex) {
@@ -152,6 +174,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                         clienteSelecionado = (Cliente) lista.
                                 get(jTableClientes.convertRowIndexToModel(jTableClientes.getSelectedRow()));
                         idCliente = clienteSelecionado.getIdCliente();
+                        System.err.println("idCliente " + idCliente);
 
                         habilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
 
@@ -188,7 +211,8 @@ public class FormClientePedido extends javax.swing.JFrame {
         jSP_Pedidos = new javax.swing.JScrollPane();
         jTB_Pedidos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBT_AdicionarCarga = new javax.swing.JButton();
+        jBT_AlterarStatusPedido = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -277,11 +301,23 @@ public class FormClientePedido extends javax.swing.JFrame {
         jSP_Pedidos.setViewportView(jTB_Pedidos);
 
         jButton1.setText("Alterar Pedido");
-
-        jButton2.setText("Adicionar Carga");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jBT_AdicionarCarga.setText("Adicionar Carga");
+        jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AdicionarCargaActionPerformed(evt);
+            }
+        });
+
+        jBT_AlterarStatusPedido.setText("Alterar Status");
+        jBT_AlterarStatusPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AlterarStatusPedidoActionPerformed(evt);
             }
         });
 
@@ -296,18 +332,23 @@ public class FormClientePedido extends javax.swing.JFrame {
                     .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBT_AdicionarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBT_AlterarStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPN_CadastrarPedidoLayout.setVerticalGroup(
             jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPN_CadastrarPedidoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(17, 17, 17)
                 .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
+                        .addComponent(jBT_AlterarStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jBT_AdicionarCarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
                 .addComponent(jSP_Pedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(93, 93, 93))
         );
@@ -359,17 +400,42 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
-        jTB_CliPedido.setEnabledAt(1,true);
-        jTB_CliPedido.setEnabledAt(0,false);
+        jTB_CliPedido.setEnabledAt(1, true);
+        jTB_CliPedido.setEnabledAt(0, false);
         jTB_CliPedido.setSelectedIndex(1);
         preencherTabelaPedido();
     }//GEN-LAST:event_jBT_ListarPedidosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
         ativarAba = 2;
         FormCadastrarCarga formCarga = new FormCadastrarCarga();
         formCarga.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
+
+    private void jBT_AlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusPedidoActionPerformed
+        final String[] statusPedido = { "Em aguardo", "Saiu para entrega", "Entregue"};
+        
+        String input = (String) JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
+        "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null, 
+        statusPedido, 
+        statusPedido[1]);
+        System.err.println("opcao escolhida is %s.\n "+input);
+        
+        if (input != null) {
+            try {
+                pedidoDao.update(pedidoSelecionado.getIdPedido(), input);
+                preencherTabelaPedido();
+            } catch (Exception ex) {
+                Logger.getLogger(FormClientePedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        alterarPedido = true;
+        FormCadastrarCarga formCarga = new FormCadastrarCarga();
+        formCarga.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Windows look and feel */
@@ -398,13 +464,14 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBT_AdicionarCarga;
     private javax.swing.JButton jBT_Alterar;
+    private javax.swing.JButton jBT_AlterarStatusPedido;
     private javax.swing.JButton jBT_CadastrarPedido;
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_ListarPedidos;
     private javax.swing.JButton jBT_Pesquisar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;

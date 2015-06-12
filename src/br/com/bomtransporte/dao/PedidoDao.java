@@ -161,4 +161,49 @@ public class PedidoDao extends Conexao implements Dao {
         close();
         return listaPedidos;
     }
+    
+    public Object buscarPedido (Integer idPedido) throws Exception {
+        Pedido pedido = null;
+        
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement(" Select * From Pedido p" +
+    " join Pedido_Endereco pe on pe.idPedido = p.idPedido" +
+    " join EnderecoCorreios ec on ec.id = pe.idEnderecoCorreios" +
+    " where p.idPedido =?;");
+        stmt.setInt(1, idPedido);
+        rs = stmt.executeQuery();
+        
+        while(rs.next()){
+           pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("P.idPedido"));
+            pedido.setProtocolo(rs.getString("P.protocolo"));
+            pedido.setDataVenda(rs.getString("P.dataVenda"));
+            pedido.setDesconto(rs.getInt("P.desconto"));
+            pedido.setStatusPedido(rs.getString("P.statusPedido"));
+            pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            
+        }
+        
+        close();
+        
+        return pedido;
+    }
+    
+    public void update(Integer idPedido, String statusPedido) throws Exception{
+        
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement("UPDATE Pedido " +
+            " SET statusPedido = ? WHERE idPedido = ?;");
+        stmt.setString(1, statusPedido);
+        stmt.setInt(2, idPedido);
+        
+        stmt.execute();
+        
+        con.close();
+        
+    }
 }
