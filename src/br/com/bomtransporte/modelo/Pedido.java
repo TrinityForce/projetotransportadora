@@ -16,18 +16,17 @@ public class Pedido {
     private Integer idPedido;
     private String protocolo;
     private String dataVenda;
-    private String desconto;
+    private Integer desconto;
     private String statusPedido;
     private String numero;
     private String complemento;
     private Integer idEnderecoCorreios;
+    private Integer idPedido_Cli;
 
     public Pedido() {
     }
 
-    
-    
-    public Pedido(Integer idPedido, String protocolo, String dataVenda, String desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios) {
+    public Pedido(Integer idPedido, String protocolo, String dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli) {
         this.idPedido = idPedido;
         this.protocolo = protocolo;
         this.dataVenda = dataVenda;
@@ -36,7 +35,10 @@ public class Pedido {
         this.numero = numero;
         this.complemento = complemento;
         this.idEnderecoCorreios = idEnderecoCorreios;
+        this.idPedido_Cli = idPedido_Cli;
     }
+
+ 
 
     public Integer getIdPedido() {
         return idPedido;
@@ -62,11 +64,11 @@ public class Pedido {
         this.dataVenda = dataVenda;
     }
 
-    public String getDesconto() {
+    public Integer getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(String desconto) {
+    public void setDesconto(Integer desconto) {
         this.desconto = desconto;
     }
 
@@ -100,6 +102,20 @@ public class Pedido {
 
     public void setIdEnderecoCorreios(Integer idEnderecoCorreios) {
         this.idEnderecoCorreios = idEnderecoCorreios;
+    }
+
+    /**
+     * @return the idPedido_Cli
+     */
+    public Integer getIdPedido_Cli() {
+        return idPedido_Cli;
+    }
+
+    /**
+     * @param idPedido_Cli the idPedido_Cli to set
+     */
+    public void setIdPedido_Cli(Integer idPedido_Cli) {
+        this.idPedido_Cli = idPedido_Cli;
     }
     
     

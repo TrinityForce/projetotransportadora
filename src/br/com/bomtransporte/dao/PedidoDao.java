@@ -12,6 +12,7 @@ import br.com.bomtransporte.modelo.PrecoDistancia;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -126,12 +127,38 @@ public class PedidoDao extends Conexao implements Dao {
 
     @Override
     public List<Object> listar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return null;
     }
 
     @Override
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    public List<Object> listarPedidos(Integer idCliente) throws Exception{
+        List<Object> listaPedidos = new ArrayList<>();
+        
+        inicializarAtributos();
+        
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido where idCliente = ?;");
+        stmt.setInt(1,idCliente);
+        
+        rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("P.idPedido"));
+            pedido.setProtocolo(rs.getString("P.protocolo"));
+            pedido.setDataVenda(rs.getString("P.dataVenda"));
+            pedido.setDesconto(rs.getInt("P.desconto"));
+            pedido.setStatusPedido(rs.getString("P.statusPedido"));
+            pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            listaPedidos.add(pedido);
+        }
+        
+        close();
+        return listaPedidos;
+    }
 }

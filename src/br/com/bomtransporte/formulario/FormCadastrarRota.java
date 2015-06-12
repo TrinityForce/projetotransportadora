@@ -82,12 +82,12 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         BTG_Estados = new javax.swing.ButtonGroup();
         jPN_Cadastrar = new javax.swing.JPanel();
         jFTF_Valor1 = new javax.swing.JFormattedTextField();
-        jCB_Rotas = new javax.swing.JComboBox();
         Origem1 = new javax.swing.JLabel();
         Origem3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         Valor1 = new javax.swing.JLabel();
+        jCB_Rotas = new javax.swing.JComboBox();
         jPN_Alterar = new javax.swing.JPanel();
         jRB_Sudeste = new javax.swing.JRadioButton();
         jRB_Brasil = new javax.swing.JRadioButton();
@@ -112,14 +112,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Cadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPN_Cadastrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPN_Cadastrar.add(jFTF_Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 130, 30));
-
-        jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
-        jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_RotasActionPerformed(evt);
-            }
-        });
-        jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
 
         Origem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Origem1.setText("Rotas cadastradas:");
@@ -154,6 +146,9 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         Valor1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Valor1.setText("Valor:");
         jPN_Cadastrar.add(Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+
+        jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, 40));
 
         getContentPane().add(jPN_Cadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 340, 330));
 

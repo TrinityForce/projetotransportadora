@@ -1,8 +1,10 @@
 package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.ClienteDao;
+import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.modelo.ModeloTabela;
+import br.com.bomtransporte.modelo.Pedido;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -20,8 +22,10 @@ import javax.swing.ListSelectionModel;
 public class FormClientePedido extends javax.swing.JFrame {
 
     private ClienteDao clienteDao;
+    private PedidoDao pedidoDao;
+    private Pedido pedidoSelecionado;
     private Cliente clienteSelecionado;
-    public static Integer idCliente;
+    public static Integer idCliente, ativarAba, idPedido_Cli;
 
     public FormClientePedido() {
         initComponents();
@@ -39,6 +43,66 @@ public class FormClientePedido extends javax.swing.JFrame {
         bt.setEnabled(false);
         bt2.setEnabled(false);
         bt3.setEnabled(false);
+    }
+
+    private void preencherTabelaPedido() {
+
+        ArrayList dados = new ArrayList();
+
+        String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
+
+        try {
+            pedidoDao = new PedidoDao();
+            final List<Object> listaPedido = pedidoDao.listarPedidos(idCliente);
+
+            if (listaPedido != null && listaPedido.size() > 0) {
+                listaPedido.forEach(pedidoAtual -> {
+                    Pedido pedido = (Pedido) pedidoAtual;
+                    dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+                });
+            }
+
+            ModeloTabela modTabela = new ModeloTabela(dados, colunas);
+            jTB_Pedidos.setModel(modTabela);
+            jTB_Pedidos.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jTB_Pedidos.getColumnModel().getColumn(0).setResizable(false);
+            jTB_Pedidos.getColumnModel().getColumn(1).setPreferredWidth(180);
+            jTB_Pedidos.getColumnModel().getColumn(1).setResizable(false);
+            jTB_Pedidos.getColumnModel().getColumn(2).setPreferredWidth(100);
+            jTB_Pedidos.getColumnModel().getColumn(2).setResizable(false);
+            jTB_Pedidos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTB_Pedidos.getColumnModel().getColumn(3).setResizable(false);
+            jTB_Pedidos.getColumnModel().getColumn(4).setPreferredWidth(150);
+            jTB_Pedidos.getColumnModel().getColumn(4).setResizable(false);
+
+            jTB_Pedidos.getTableHeader().setReorderingAllowed(false);
+            jTB_Pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            jTB_Pedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            jTB_Pedidos.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                    try {
+                        List<Object> lista = pedidoDao.listarPedidos(idCliente);
+                        pedidoSelecionado = (Pedido) lista.
+                                get(jTableClientes.convertRowIndexToModel(jTableClientes.getSelectedRow()));
+                        idPedido_Cli = pedidoSelecionado.getIdPedido();
+                        habilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+                    } catch (SQLException sqlex) {
+                        JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(FormClientePedido.this, "Erro genérico1: " + ex.getMessage());
+                    }
+                }
+            });
+
+        } catch (SQLException sqle) {
+            JOptionPane.showMessageDialog(this, "Erro no Banco de Dados: " + sqle.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
+        }
     }
 
     private void preencherTabela() {
@@ -119,8 +183,12 @@ public class FormClientePedido extends javax.swing.JFrame {
         jBT_Alterar = new javax.swing.JButton();
         jBT_Pesquisar = new javax.swing.JButton();
         jTF_Consulta = new javax.swing.JTextField();
-        jBT_AdicionarCarga = new javax.swing.JButton();
+        jBT_ListarPedidos = new javax.swing.JButton();
         jPN_CadastrarPedido = new javax.swing.JPanel();
+        jSP_Pedidos = new javax.swing.JScrollPane();
+        jTB_Pedidos = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -152,7 +220,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_ExcluirActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, 70));
+        jPN_PesquisarCliente.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 150, 70));
 
         jBT_CadastrarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_CadastrarPedido.setText("Cadastrar Pedido");
@@ -161,7 +229,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_CadastrarPedidoActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 130, 70));
+        jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 170, 70));
 
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Alterar.setText("Alterar Cliente");
@@ -170,7 +238,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AlterarActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 140, 70));
+        jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 150, 70));
 
         jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Pesquisar.setText("PESQUISAR");
@@ -184,26 +252,64 @@ public class FormClientePedido extends javax.swing.JFrame {
         jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 340, 60));
 
-        jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AdicionarCarga.setText("Add carga");
-        jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
+        jBT_ListarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_ListarPedidos.setText("Listar Pedidos");
+        jBT_ListarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_AdicionarCargaActionPerformed(evt);
+                jBT_ListarPedidosActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 130, 70));
+        jPN_PesquisarCliente.add(jBT_ListarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 150, 70));
 
         jTB_CliPedido.addTab("Pesquisar Cliente", null, jPN_PesquisarCliente, "Pesquisar cliente e selecionar uma ação.");
+
+        jTB_Pedidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jSP_Pedidos.setViewportView(jTB_Pedidos);
+
+        jButton1.setText("Alterar Pedido");
+
+        jButton2.setText("Adicionar Carga");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPN_CadastrarPedidoLayout = new javax.swing.GroupLayout(jPN_CadastrarPedido);
         jPN_CadastrarPedido.setLayout(jPN_CadastrarPedidoLayout);
         jPN_CadastrarPedidoLayout.setHorizontalGroup(
             jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSP_Pedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                    .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPN_CadastrarPedidoLayout.setVerticalGroup(
             jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 442, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPN_CadastrarPedidoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jSP_Pedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93))
         );
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
@@ -234,11 +340,11 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jBT_CadastrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarPedidoActionPerformed
 //        jTB_CliPedido.setEnabledAt(1, true);
-  //      jTB_CliPedido.setEnabledAt(0, false);
-    //    jTB_CliPedido.setSelectedIndex(1);
-        
+        //      jTB_CliPedido.setEnabledAt(0, false);
+        //    jTB_CliPedido.setSelectedIndex(1);
+
         FormCadastrarCarga formCad = new FormCadastrarCarga();
-       formCad.setVisible(true);
+        formCad.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBT_CadastrarPedidoActionPerformed
 
@@ -252,11 +358,18 @@ public class FormClientePedido extends javax.swing.JFrame {
         desabilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
-    private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
-        FormCrudPedido formCrudPedido = new FormCrudPedido();
-        formCrudPedido.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
+    private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
+        jTB_CliPedido.setEnabledAt(1,true);
+        jTB_CliPedido.setEnabledAt(0,false);
+        jTB_CliPedido.setSelectedIndex(1);
+        preencherTabelaPedido();
+    }//GEN-LAST:event_jBT_ListarPedidosActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ativarAba = 2;
+        FormCadastrarCarga formCarga = new FormCadastrarCarga();
+        formCarga.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Windows look and feel */
@@ -285,16 +398,20 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBT_AdicionarCarga;
     private javax.swing.JButton jBT_Alterar;
     private javax.swing.JButton jBT_CadastrarPedido;
     private javax.swing.JButton jBT_Excluir;
+    private javax.swing.JButton jBT_ListarPedidos;
     private javax.swing.JButton jBT_Pesquisar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
     private javax.swing.JScrollPane jSC_Tabela;
+    private javax.swing.JScrollPane jSP_Pedidos;
     private javax.swing.JTabbedPane jTB_CliPedido;
+    private javax.swing.JTable jTB_Pedidos;
     private javax.swing.JTextField jTF_Consulta;
     private javax.swing.JTable jTableClientes;
     // End of variables declaration//GEN-END:variables

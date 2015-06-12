@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.CargaDao;
@@ -13,20 +8,15 @@ import br.com.bomtransporte.dao.PrecoDistanciaDao;
 import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.modelo.Endereco;
-import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.modelo.PrecoDistancia;
 import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
@@ -51,7 +41,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private Pedido pedido;
     private PrecoDistancia precoDistancia;
 
-
     public void imprimirObjeto(Object obj) throws IllegalArgumentException, IllegalAccessException {
         for (Field field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
@@ -67,11 +56,21 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     public FormCadastrarCarga() {
         initComponents();
         // preencherTabela();
+        verificarAba();
         preencherCampos();
         preencherComboPreco();
         desabilitarBotao(jBT_AdicionarCarga);
     }
 
+    private void verificarAba(){
+        if(FormClientePedido.ativarAba == 2){
+            jTB_Pedido.setEnabledAt(1,true);
+            jTB_Pedido.setEnabledAt(0,false);
+            jTB_Pedido.setSelectedIndex(1);
+            preencherTabela();
+        }
+    }
+    
     private void preencherCampos() {
         try {
             clienteDao = new ClienteDao();
@@ -93,7 +92,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
     }
 
     private void preencherComboPreco() {
@@ -229,7 +227,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         try {
             cargaDao = new CargaDao();
-            final List<Object> listaCargas = cargaDao.listar();
+            final List<Object> listaCargas = cargaDao.listarCargas(FormClientePedido.idPedido_Cli);
 
             if (listaCargas != null && listaCargas.size() > 0) {
                 listaCargas.forEach((Object cargaAtual) -> {
@@ -256,6 +254,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             });
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
+            ex.printStackTrace(System.err);
         }
     }
 
@@ -515,7 +514,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         ));
         jSP_Cargas.setViewportView(jTB_Cargas);
 
-        jPN_Carga.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 700, 240));
+        jPN_Carga.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 700, 240));
 
         jTF_Cpf1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Cpf1.setEnabled(false);
@@ -563,7 +562,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
                 pedido.setComplemento(listCampos.get(2));
                 pedido.setDataVenda(Datas.dataAtual());
-                pedido.setDesconto(listCampos.get(3));
+                pedido.setDesconto(Integer.valueOf(listCampos.get(3)));
                 pedido.setIdEnderecoCorreios(idEndereco);
                 pedido.setNumero(listCampos.get(1));
                 pedido.setProtocolo(Datas.getCurrentDate() + idCliente);
@@ -620,11 +619,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
                 pedido.setIdPedido(pedidoDao.insertGetKey(pedido));
 
-               IdPedidoGlobal =pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
+                IdPedidoGlobal = pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
                         precoDistancia.getIdPrecoDistancia());
-                        
+
                 CargaDao cargaDao = new CargaDao();
-                 carga.setIdPedido(IdPedidoGlobal);
+                carga.setIdPedido(IdPedidoGlobal);
                 carga.setDescricao(listCampos.get(0));
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
@@ -633,7 +632,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
                 JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 Integer opt = JOptionPane.showConfirmDialog(this,
-                        "Deseja adicionar uma nova carga a este pedido?", "Add nova carga",
+                        "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
                         JOptionPane.YES_NO_OPTION);
                 if (opt == JOptionPane.YES_OPTION) {
                     desabilitarBotao(jBT_Salvar);
@@ -641,19 +640,48 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                     habilitarBotao(jBT_AdicionarCarga);
                 } else {
                     dispose();
-                    
+
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
         }
     }//GEN-LAST:event_jBT_SalvarActionPerformed
 
     private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
-        // TODO add your handling code here:
+        List<String> listCampos = new ArrayList<>();
+        listCampos.add(jTF_Descricao.getText());
+        listCampos.add(jTF_Peso.getText());
+        listCampos.add(jTF_Quantidade.getText());
+
+        try {
+            //verifica se todos os valores estao preenchidos
+            if (verificarCampos(listCampos)) {
+                Carga carga = new Carga();
+                cargaDao = new CargaDao();
+                carga.setIdPedido(IdPedidoGlobal);
+                carga.setDescricao(listCampos.get(0));
+                carga.setPeso(Double.valueOf(listCampos.get(1)));
+                carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
+                cargaDao.insertGetKey(carga);
+
+                JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                Integer opt = JOptionPane.showConfirmDialog(this,
+                        "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
+                        JOptionPane.YES_NO_OPTION);
+                if (opt == JOptionPane.YES_OPTION) {
+                    limparCampos();
+                } else {
+                    dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
     /**
