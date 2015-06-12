@@ -27,7 +27,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    public static Integer idCliente, ativarAba, idPedido_Cli;
+    public static Integer idCliente, ativarAba, idPedido_Cli, idPedidoSelecionado;
 
     public FormClientePedido() {
         initComponents();
@@ -101,6 +101,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                                 get(jTB_Pedidos.convertRowIndexToModel(jTB_Pedidos.getSelectedRow()));
 
                         idPedido_Cli = pedidoSelecionado.getIdPedido_Cli();
+                        idPedidoSelecionado = pedidoSelecionado.getIdPedido();
                         System.err.println("pedidocli val " + idPedido_Cli);
                         if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
                             habilitarBotao(jBT_AdicionarCarga);
@@ -431,8 +432,8 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        FormCadastrarCarga formCarga = new FormCadastrarCarga();
-        formCarga.setVisible(true);
+        FormALterarPedido formAltPedido = new FormALterarPedido();
+        formAltPedido.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
