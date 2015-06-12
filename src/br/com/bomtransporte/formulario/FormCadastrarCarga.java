@@ -62,7 +62,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         preencherComboPreco();
         desabilitarBotao(jBT_AdicionarCarga);
         verificarAba();
-        verificarAlterarPedido();
     }
 
     private void verificarAba() {
@@ -77,24 +76,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             habilitarBotao(jBT_AdicionarCarga);
 
             preencherTabela();
-        }
-    }
-
-    //metodo que vai identificar se o pedido vai ser criado ou alterado
-    private void verificarAlterarPedido() {
-        if (FormClientePedido.alterarPedido
-                && FormClientePedido.idPedidoSelecionado != null) {
-            pedido = new Pedido();
-            try {
-                System.err.println("FormClientePedido.idPedidoSelecionado " + FormClientePedido.idPedidoSelecionado);
-                pedido = (Pedido) pedidoDao.buscarPedido(FormClientePedido.idPedidoSelecionado);
-                jTF_Numero.setText(pedido.getNumero());
-            } catch (Exception ex) {
-                Logger.getLogger(FormCadastrarCarga.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            habilitarBotao(jBT_AlterarPedido);
-            desabilitarBotao(jBT_ProximaTela);
         }
     }
 

@@ -24,11 +24,10 @@ import javax.swing.ListSelectionModel;
 public class FormClientePedido extends javax.swing.JFrame {
 
     private ClienteDao clienteDao;
-        private Cliente clienteSelecionado;
+    private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    public static Integer idCliente, ativarAba, idPedido_Cli, idPedidoSelecionado;
-    public static Boolean alterarPedido = false;
+    public static Integer idCliente, ativarAba, idPedido_Cli;
 
     public FormClientePedido() {
         initComponents();
@@ -102,7 +101,6 @@ public class FormClientePedido extends javax.swing.JFrame {
                                 get(jTB_Pedidos.convertRowIndexToModel(jTB_Pedidos.getSelectedRow()));
 
                         idPedido_Cli = pedidoSelecionado.getIdPedido_Cli();
-                        idPedidoSelecionado = pedidoSelecionado.getIdPedido();
                         System.err.println("pedidocli val " + idPedido_Cli);
                         if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
                             habilitarBotao(jBT_AdicionarCarga);
@@ -413,14 +411,14 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
     private void jBT_AlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusPedidoActionPerformed
-        final String[] statusPedido = { "Em aguardo", "Saiu para entrega", "Entregue"};
-        
+        final String[] statusPedido = {"Em aguardo", "Saiu para entrega", "Entregue"};
+
         String input = (String) JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
-        "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null, 
-        statusPedido, 
-        statusPedido[1]);
-        System.err.println("opcao escolhida is %s.\n "+input);
-        
+                "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null,
+                statusPedido,
+                statusPedido[1]);
+        System.err.println("opcao escolhida is %s.\n " + input);
+
         if (input != null) {
             try {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), input);
@@ -432,7 +430,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        alterarPedido = true;
+
         FormCadastrarCarga formCarga = new FormCadastrarCarga();
         formCarga.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
