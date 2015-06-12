@@ -13,6 +13,7 @@ public class Validacao {
      * @param cpf Que será validado
      * @return Se o cpf estiver ok retorna true, senão , retorna false
      */
+    
     public static boolean validarCPF(String cpf) {
         String tempCpf;
         tempCpf = cpf.replace(".", "");
@@ -62,5 +63,4 @@ public class Validacao {
             return false;
         }   
     }
-
 }

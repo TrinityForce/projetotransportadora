@@ -5,6 +5,7 @@ import br.com.bomtransporte.dao.PrecoDistanciaDao;
 import br.com.bomtransporte.modelo.Cidade;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.PrecoDistancia;
+import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
 import javax.swing.JOptionPane;
 
@@ -13,17 +14,18 @@ import javax.swing.JOptionPane;
  * @author JhonattanSouza_
  */
 public class FormCadastrarRota extends javax.swing.JFrame {
+
     public FormCadastrarRota() {
         initComponents();
         preencherComboBoxSudeste();
         preencherComboPreco();
     }
 
-    private String origemDestino(String origem, String destino){
+    private String origemDestino(String origem, String destino) {
         return origem + "/" + destino;
     }
-    
-    private void preencherComboPreco(){
+
+    private void preencherComboPreco() {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
         try {
             jCB_Rotas.removeAllItems();
@@ -36,25 +38,25 @@ public class FormCadastrarRota extends javax.swing.JFrame {
             ex.printStackTrace(System.err);
         }
     }
-    
-    private void preencherComboBoxSudeste(){
+
+    private void preencherComboBoxSudeste() {
         CidadeDao cidadeDao = new CidadeDao();
         try {
             limparComboBox();
             cidadeDao.listarUf().forEach(cid -> {
                 Cidade cidade = (Cidade) cid;
                 String uf = cidade.getUf();
-                if(uf.contains("SP") || uf.contains("RJ") || uf.contains("MG") || uf.contains("ES")){
+                if (uf.contains("SP") || uf.contains("RJ") || uf.contains("MG") || uf.contains("ES")) {
                     jCB_Origem.addItem(cidade.getUf());
                     jCB_Destino.addItem(cidade.getUf());
-                }             
+                }
             });
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void preencherComboBoxBrasil(){
+
+    private void preencherComboBoxBrasil() {
         CidadeDao cidadeDao = new CidadeDao();
         try {
             limparComboBox();
@@ -67,12 +69,12 @@ public class FormCadastrarRota extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    private void limparComboBox(){
+
+    private void limparComboBox() {
         jCB_Origem.removeAllItems();
         jCB_Destino.removeAllItems();
     }
-       
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,6 +99,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jCB_Destino = new javax.swing.JComboBox();
         jBT_Adicionar = new javax.swing.JButton();
         jFTF_Valor = new javax.swing.JFormattedTextField();
+        jLB_Fechar = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,11 +114,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Cadastrar.add(jFTF_Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 130, 30));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
-        jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_RotasActionPerformed(evt);
-            }
-        });
         jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, -1));
 
         Origem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -216,6 +214,18 @@ public class FormCadastrarRota extends javax.swing.JFrame {
 
         getContentPane().add(jPN_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 340, 330));
 
+        jLB_Fechar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLB_Fechar.setForeground(new java.awt.Color(255, 255, 255));
+        jLB_Fechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLB_Fechar.setText("X");
+        jLB_Fechar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLB_Fechar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLB_FecharMouseReleased(evt);
+            }
+        });
+        getContentPane().add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
+
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/rota-bg.png"))); // NOI18N
         jLB_Background.setText("jLabel1");
         jLB_Background.setMaximumSize(new java.awt.Dimension(800, 600));
@@ -228,30 +238,32 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBT_AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarActionPerformed
-        try{
-            String origem = jCB_Origem.getSelectedItem().toString();
-            String destino = jCB_Destino.getSelectedItem().toString();
-            String origemDestino = origemDestino(origem,destino);
-            Double valor = Double.valueOf(jFTF_Valor.getText());
-            PrecoDistancia precoDistancia = new PrecoDistancia();
-            
-            if(valor != null && origemDestino != null){
-               PrecoDistanciaDao pdd = new PrecoDistanciaDao();
-               PrecoDistancia pdv = pdd.verificarSeExiste(origemDestino);               
-               if(pdv == null){
-                   precoDistancia.setAtivado(true);
-                   precoDistancia.setOrigemDestinoUf(origemDestino);
-                   precoDistancia.setValor(valor);
-                   pdd.inserir(precoDistancia);
-                   JOptionPane.showMessageDialog(this, "ROTA CADASTRADA COM SUCESSO!");
-                   preencherComboPreco();
-               }else{
-                   JOptionPane.showMessageDialog(this, "Rota já cadastrada no banco, para alterar o valor vá para lá ->");
-               }
-            }else{
+
+        String origem = jCB_Origem.getSelectedItem().toString();
+        String destino = jCB_Destino.getSelectedItem().toString();
+        String origemDestino = origemDestino(origem, destino);
+        String valor = jFTF_Valor.getText();
+        try {
+            if (valor != null && origemDestino != null) {
+                PrecoDistancia precoDistancia = new PrecoDistancia();
+                PrecoDistanciaDao pdd = new PrecoDistanciaDao();
+                PrecoDistancia pdv = pdd.verificarSeExiste(origemDestino);
+                if (pdv == null) {
+                    precoDistancia.setAtivado(true);
+                    precoDistancia.setOrigemDestinoUf(origemDestino);
+                    precoDistancia.setValor(Double.parseDouble(valor));
+                    pdd.inserir(precoDistancia);
+                    JOptionPane.showMessageDialog(this, "ROTA CADASTRADA COM SUCESSO!");
+                    preencherComboPreco();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Rota já cadastrada no banco, para alterar o valor vá para lá ->");
+                }
+            } else {
                 JOptionPane.showMessageDialog(this, "Campos Necessários Vazios.");
             }
-        }catch(Exception ex){
+        }catch(NumberFormatException nex){
+            JOptionPane.showMessageDialog(this, "CAMPO VALOR VAZIO", "CAMPO VAZIO", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBT_AdicionarActionPerformed
@@ -267,29 +279,32 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String[] idRota;
         idRota = jCB_Rotas.getSelectedItem().toString().split(" ");
-        
+
         PrecoDistancia pcd = new PrecoDistancia();
         pcd.setAtivado(false);
         pcd.setDataDesativado(Datas.dataAtual());
         pcd.setFuncionarioQueDesativou(FuncionarioSingleton.getFuncionario().getNome());
         pcd.setIdPrecoDistancia(Integer.valueOf(idRota[0]));
-        
-        PrecoDistanciaDao pdd = new PrecoDistanciaDao();
-        try {
-            pdd.alterarExcluir(pcd);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+        Integer opt = JOptionPane.showConfirmDialog(this, "TEM CERTEZA DE QUE DESEJA EXCLUIR ESTA ROTA?", "EXCLUIR ROTA?", JOptionPane.YES_NO_OPTION);
+        if (opt == JOptionPane.YES_OPTION) {
+            PrecoDistanciaDao pdd = new PrecoDistanciaDao();
+            try {
+                pdd.alterarExcluir(pcd);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+            }
+            preencherComboPreco();
         }
-        preencherComboPreco();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jCB_RotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_RotasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCB_RotasActionPerformed
+    private void jLB_FecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_FecharMouseReleased
+        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+    }//GEN-LAST:event_jLB_FecharMouseReleased
 
     /**
      * @param args the command line arguments
@@ -312,7 +327,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -339,6 +354,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFTF_Valor;
     private javax.swing.JFormattedTextField jFTF_Valor1;
     private javax.swing.JLabel jLB_Background;
+    private javax.swing.JLabel jLB_Fechar;
     private javax.swing.JPanel jPN_Alterar;
     private javax.swing.JPanel jPN_Cadastrar;
     private javax.swing.JRadioButton jRB_Brasil;

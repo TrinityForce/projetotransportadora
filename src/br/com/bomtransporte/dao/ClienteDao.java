@@ -60,7 +60,7 @@ public class ClienteDao extends Conexao implements Dao {
             stmt.execute();
 
             con.commit();
-
+            close();
         } catch (SQLException e) {
             con.rollback();
         }
@@ -278,6 +278,21 @@ public class ClienteDao extends Conexao implements Dao {
 
     }
 
+    public boolean verificarCPF(String cpf) throws Exception{
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement("SELECT CPF FROM CLIENTE WHERE CPF = ?");
+        stmt.setString(1, cpf);
+        rs = stmt.executeQuery();
+        if(rs != null && rs.next()){
+            return true;
+        }
+        close();
+        return false;
+    }
+    
+    
     public String ConsultarUF(Integer idCliente) throws Exception {
         String uf = null;
 
@@ -296,7 +311,9 @@ public class ClienteDao extends Conexao implements Dao {
         if (rs != null && rs.next()) {
             uf = rs.getString("CC.uf");
         }
-
+        close();
         return uf;
+        
     }
+
 }
