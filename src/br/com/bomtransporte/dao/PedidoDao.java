@@ -169,21 +169,22 @@ public class PedidoDao extends Conexao implements Dao {
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         
-        stmt = con.prepareStatement(" Select * From Pedido p" +
-    " join Pedido_Endereco pe on pe.idPedido = p.idPedido" +
-    " join EnderecoCorreios ec on ec.id = pe.idEnderecoCorreios" +
-    " where p.idPedido =?;");
+        stmt = con.prepareStatement(" Select * From Pedido_Cli pc" +
+        "	join Pedido p on p.idPedido = pc.idPedido" +
+        "	join Pedido_Endereco pe on pe.idPedido = p.idPedido" +
+        "     join EnderecoCorreios ec on ec.id = pe.idEnderecoCorreios " +
+        "     where p.idPedido =?;");
         stmt.setInt(1, idPedido);
         rs = stmt.executeQuery();
         
         while(rs.next()){
            pedido = new Pedido();
-            pedido.setIdPedido(rs.getInt("P.idPedido"));
-            pedido.setProtocolo(rs.getString("P.protocolo"));
-            pedido.setDataVenda(rs.getString("P.dataVenda"));
-            pedido.setDesconto(rs.getInt("P.desconto"));
-            pedido.setStatusPedido(rs.getString("P.statusPedido"));
-            pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            pedido.setIdPedido(rs.getInt("p.idPedido"));
+            pedido.setProtocolo(rs.getString("p.protocolo"));
+            pedido.setDataVenda(rs.getString("p.dataVenda"));
+            pedido.setDesconto(rs.getInt("p.desconto"));
+            pedido.setStatusPedido(rs.getString("p.statusPedido"));
+            pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
             
         }
         

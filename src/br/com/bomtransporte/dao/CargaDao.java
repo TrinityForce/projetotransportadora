@@ -22,7 +22,7 @@ public class CargaDao extends Conexao implements Dao {
             stmt.setString(1, carga.getDescricao());
             stmt.setDouble(2, carga.getPeso());
             stmt.setInt(3, carga.getQuantidade());
-            stmt.setInt(4, carga.getIdPedido());
+            stmt.setInt(4, carga.getIdPedido_Cli());
 
             stmt.execute();
 

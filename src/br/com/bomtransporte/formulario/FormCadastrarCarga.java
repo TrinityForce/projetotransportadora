@@ -687,7 +687,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
                 cargaDao.insertGetKey(carga);
-
+                
+                preencherTabela();
                 JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 Integer opt = JOptionPane.showConfirmDialog(this,
                         "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
