@@ -42,8 +42,10 @@ public class FormALterarPedido extends javax.swing.JFrame {
                 pedido = (Pedido) pedidoDao.buscarPedido(FormClientePedido.idPedidoSelecionado);
 
                 jTF_Numero.setText(pedido.getNumero());
+                System.err.println("FOI"+pedido.getNumero());
             } catch (Exception ex) {
                 Logger.getLogger(FormALterarPedido.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
             }
         }
     }

@@ -643,7 +643,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                         precoDistancia.getIdPrecoDistancia());
 
                 CargaDao cargaDao = new CargaDao();
-                carga.setIdPedido(IdPedidoGlobal);
+                carga.setIdPedido_Cli(IdPedidoGlobal);
                 carga.setDescricao(listCampos.get(0));
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
@@ -667,6 +667,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jBT_SalvarActionPerformed
 

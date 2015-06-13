@@ -173,7 +173,7 @@ public class PedidoDao extends Conexao implements Dao {
         "	join Pedido p on p.idPedido = pc.idPedido" +
         "	join Pedido_Endereco pe on pe.idPedido = p.idPedido" +
         "     join EnderecoCorreios ec on ec.id = pe.idEnderecoCorreios " +
-        "     where p.idPedido =?;");
+        "     where p.idPedido = ?;");
         stmt.setInt(1, idPedido);
         rs = stmt.executeQuery();
         
@@ -184,8 +184,10 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setDataVenda(rs.getString("p.dataVenda"));
             pedido.setDesconto(rs.getInt("p.desconto"));
             pedido.setStatusPedido(rs.getString("p.statusPedido"));
+            pedido.setNumero(rs.getString("pe.numero"));
             pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
             
+            return pedido;
         }
         
         close();
