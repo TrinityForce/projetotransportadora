@@ -20,27 +20,26 @@ import javax.swing.JOptionPane;
  */
 public class FormAlterarCliente extends javax.swing.JFrame {
 
-    private Integer idEndereco,idContato,idPessoa,idCliente;
+    private Integer idEndereco, idContato, idPessoa, idCliente;
 
     /**
      * Creates new form FormCadastrarCliente
      */
     public FormAlterarCliente() {
         initComponents();
+        desabilitarCamposCep();
         preencherCampos();
         jLB_ErroCep.setVisible(false);
+        jTF_Cpf.setEnabled(false);
     }
-    
+
     private void preencherCampos() {
         try {
             ClienteDao clienteDao = new ClienteDao();
-            Cliente cliente = clienteDao.consultarPorId(FormCrudPedido.idCliente);
-
+            Cliente cliente = clienteDao.consultarPorId(FormClientePedido.idCliente);
             if (cliente != null) {
-
                 EnderecoDao enderecoDao = new EnderecoDao();
-                Endereco endereco = enderecoDao.retornarEnderecoPorId(cliente.getIdEndereco());
-
+                Endereco endereco = enderecoDao.retornarEnderecoPorId(cliente.getIdCliente());
                 if (endereco != null) {
                     jTF_Bairro.setText(endereco.getBairro());
                     jTF_Celular.setText(cliente.getCelular());
@@ -189,7 +188,6 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jPN_Background = new javax.swing.JPanel();
-        jBT_Novo = new javax.swing.JButton();
         jBT_Salvar = new javax.swing.JButton();
         jBT_Verificar = new javax.swing.JButton();
         jTF_Nome = new javax.swing.JTextField();
@@ -266,27 +264,15 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jPN_Background.setMinimumSize(new java.awt.Dimension(800, 600));
         jPN_Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jBT_Novo.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Novo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/new-icon.png"))); // NOI18N
-        jBT_Novo.setText("Criar Novo");
-        jBT_Novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_NovoActionPerformed(evt);
-            }
-        });
-        jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, -1, 70));
-
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
-        jBT_Salvar.setText("Salvar");
+        jBT_Salvar.setText("Salvar Alterações");
         jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_SalvarActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 140, 70));
+        jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(509, 480, -1, 70));
 
         jBT_Verificar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Verificar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -405,8 +391,6 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Nome");
         jPN_Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
-
-        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cliente-bg.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(jPN_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
@@ -454,15 +438,14 @@ public class FormAlterarCliente extends javax.swing.JFrame {
                         cliente.setDataCadastro(Datas.dataAtual());
                         cliente.setTelefone2(telefone2);
                         cliente.setCelular(celular);
-                        
-                        if(!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2))) ){
-                            clienteDao.alterar(cliente);
-                            JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " ALTERADO COM SUCESSO!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-                            limparCamposCep();
-                            limparCamposCliente();
-                        }else{
-                            JOptionPane.showMessageDialog(this, "CPF JÁ ESTÁ CADASTRADO NO SISTEMA.", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
-                        }
+                        cliente.setIdPessoa(idPessoa);
+                        cliente.setIdCliente(idCliente);
+                        cliente.setIdContato(idContato);
+
+                        clienteDao.alterar(cliente);
+                        JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " ALTERADO COM SUCESSO!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                        limparCamposCep();
+                        limparCamposCliente();
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
                     }
@@ -476,12 +459,6 @@ public class FormAlterarCliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBT_SalvarActionPerformed
-
-    private void jBT_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_NovoActionPerformed
-        habilitarCampos();
-        habilitarBotao(jBT_Salvar);
-        jTF_Nome.requestFocus();
-    }//GEN-LAST:event_jBT_NovoActionPerformed
 
     private void jBT_VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VerificarActionPerformed
         verificarCep();
@@ -522,7 +499,6 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBT_Novo;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;
     private javax.swing.JLabel jLB_Background;
