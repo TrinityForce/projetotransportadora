@@ -138,4 +138,24 @@ public class CargaDao extends Conexao implements Dao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
+    public Integer getIdPedido_Cli(Integer idPedido) throws SQLException, Exception  {
+        Integer idPedido_Cli = null;
+        
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement("select * from Pedido_Cli pc" +
+        " join Pedido p on p.idPEdido = pc.idPedido" +
+        " where p.idPedido = ?;");
+        stmt.setInt(1, idPedido);
+        rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            
+            idPedido_Cli = rs.getInt("idPedido_Cli");
+            return idPedido_Cli;
+        }
+        return idPedido_Cli;
+    }
 }
