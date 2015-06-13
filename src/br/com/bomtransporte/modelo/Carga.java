@@ -10,17 +10,21 @@ public class Carga {
     private Double peso;
     private Integer quantidade;
     private  Integer idPedido;
+    private Integer idPedido_Cli;
 
     public Carga() {
     }
 
-    public Carga(Integer idCarga, String descricao, Double peso, Integer quantidade, Integer idPedido) {
+    public Carga(Integer idCarga, String descricao, Double peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli) {
         this.idCarga = idCarga;
         this.descricao = descricao;
         this.peso = peso;
         this.quantidade = quantidade;
         this.idPedido = idPedido;
+        this.idPedido_Cli = idPedido_Cli;
     }
+
+
 
 
 
@@ -86,6 +90,14 @@ public class Carga {
 
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
+    }
+
+    public Integer getIdPedido_Cli() {
+        return idPedido_Cli;
+    }
+
+    public void setIdPedido_Cli(Integer idPedido_Cli) {
+        this.idPedido_Cli = idPedido_Cli;
     }
     
     

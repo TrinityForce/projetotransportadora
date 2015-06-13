@@ -22,9 +22,9 @@ import javax.swing.JOptionPane;
  */
 public class FormALterarPedido extends javax.swing.JFrame {
 
-    
-        private String[] idPrecoDistancia;
-        private Integer idEndereco;
+    private String[] idPrecoDistancia;
+    private Integer idEndereco;
+
     /**
      * Creates new form FormALterarPedido
      */
@@ -32,23 +32,21 @@ public class FormALterarPedido extends javax.swing.JFrame {
         initComponents();
         preencherCampos();
     }
-    
-    private void preencherCampos(){
-        if (FormClientePedido.idPedidoSelecionado != null){
+
+    private void preencherCampos() {
+        if (FormClientePedido.idPedidoSelecionado != null) {
             PedidoDao pedidoDao = new PedidoDao();
             Pedido pedido = new Pedido();
-            
+
             try {
-                pedido = (Pedido) pedidoDao.buscarPedido
-                    (FormClientePedido.idPedidoSelecionado);
-                
+                pedido = (Pedido) pedidoDao.buscarPedido(FormClientePedido.idPedidoSelecionado);
+
                 jTF_Numero.setText(pedido.getNumero());
             } catch (Exception ex) {
                 Logger.getLogger(FormALterarPedido.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
 
     private void preencherComboPreco() {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
@@ -156,6 +154,7 @@ public class FormALterarPedido extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Alterar.setIcon(new javax.swing.ImageIcon("D:\\Workspace\\NetBeansProjects\\projetotransportadora\\src\\br\\com\\bomtransporte\\imagem\\icones\\alterar-icon.png")); // NOI18N
         jBT_Alterar.setText("Alterar");
         jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

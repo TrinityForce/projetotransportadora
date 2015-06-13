@@ -241,6 +241,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Salvar.setIcon(new javax.swing.ImageIcon("D:\\Workspace\\NetBeansProjects\\projetotransportadora\\src\\br\\com\\bomtransporte\\imagem\\icones\\salvar-icon.png")); // NOI18N
         jBT_Salvar.setText("Salvar");
         jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
