@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         
         FormLogin formLogin = new FormLogin();
+        //Forçando o tema Windows para todas as telas, para que o tema NIMBUS não volte a aparecer.
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
