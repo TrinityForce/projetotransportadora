@@ -235,7 +235,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         try {
             cargaDao = new CargaDao();
-            Integer sexo = FormClientePedido.idPedido_Cli;
+            Integer sexo = FormClientePedido.idPedido_CliSelecionado;
             System.err.println("sexo valor " + sexo);
             final List<Object> listaCargas = cargaDao.listarCargas(sexo);
 
@@ -681,7 +681,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             if (verificarCampos(listCampos)) {
                 Carga carga = new Carga();
                 cargaDao = new CargaDao();
-                carga.setIdPedido(IdPedidoGlobal);
+
+                carga.setIdPedido_Cli(FormClientePedido.idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
