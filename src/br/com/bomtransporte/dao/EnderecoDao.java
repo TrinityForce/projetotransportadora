@@ -54,7 +54,7 @@ public class EnderecoDao extends Conexao implements Dao {
 //            endereco.setBairro(rs.getString("b.nome"));
         }
 
-        close();
+        con.close();
 
         return endereco;
     }
@@ -114,6 +114,7 @@ public class EnderecoDao extends Conexao implements Dao {
             endereco.setCidade_id(rs.getInt("ec.idCidade"));
             endereco.setNomeCidade(rs.getString("cc.nome"));
             endereco.setUf(rs.getString("cc.uf"));
+            endereco.setLogradouro(rs.getString("ec.logradouro"));
             
             con.close();
             return endereco;

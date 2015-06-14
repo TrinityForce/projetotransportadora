@@ -19,7 +19,6 @@ import java.util.List;
  *
  * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
  */
-
 public class PedidoDao extends Conexao implements Dao {
 
     public Integer insertGetKey(Object obj) throws Exception {
@@ -118,7 +117,25 @@ public class PedidoDao extends Conexao implements Dao {
 
     @Override
     public void alterar(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Pedido pedido = (Pedido) obj;
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("UPDATE pedido_cli pc"
+                + " JOIN Pedido p on p.idPedido = pc.idPedido"
+                + " JOIN Pedido_Endereco pe ON pe.idPedido = p.idPedido"
+                + " SET pc.idPrecoDistancia = ?, p.desconto = ?,"
+                + " p.statusPedido = ?, pe.numero = ?,pe.complemento = ?"
+                + " WHERE p.idPedido = ?; ");
+        stmt.setInt(1, pedido.getIdPrecoDistania());
+        stmt.setInt(2, pedido.getDesconto());
+        stmt.setString(3, pedido.getStatusPedido());
+        stmt.setString(4, pedido.getNumero());
+        stmt.setString(5, pedido.getComplemento());
+        stmt.setInt(6, pedido.getIdPedido());
+        stmt.execute();
+
+        con.close();
     }
 
     @Override
@@ -128,27 +145,27 @@ public class PedidoDao extends Conexao implements Dao {
 
     @Override
     public List<Object> listar() throws Exception {
-       return null;
+        return null;
     }
 
     @Override
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public List<Object> listarPedidos(Integer idCliente) throws Exception{
+
+    public List<Object> listarPedidos(Integer idCliente) throws Exception {
         List<Object> listaPedidos = new ArrayList<>();
-        
+
         inicializarAtributos();
-        
+
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-        
+
         stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido where idCliente = ?;");
-        stmt.setInt(1,idCliente);
-        
+        stmt.setInt(1, idCliente);
+
         rs = stmt.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             Pedido pedido = new Pedido();
             pedido.setIdPedido(rs.getInt("P.idPedido"));
             pedido.setProtocolo(rs.getString("P.protocolo"));
@@ -158,27 +175,27 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
             listaPedidos.add(pedido);
         }
-        
+
         close();
         return listaPedidos;
     }
-    
-    public Object buscarPedido (Integer idPedido) throws Exception {
+
+    public Object buscarPedido(Integer idPedido) throws Exception {
         Pedido pedido = null;
-        
+
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-        
-        stmt = con.prepareStatement(" Select * From Pedido_Cli pc" +
-        "	join Pedido p on p.idPedido = pc.idPedido" +
-        "	join Pedido_Endereco pe on pe.idPedido = p.idPedido" +
-        "     join EnderecoCorreios ec on ec.id = pe.idEnderecoCorreios " +
-        "     where p.idPedido = ?;");
+
+        stmt = con.prepareStatement(" Select * From Pedido_Cli pc"
+                + "	join Pedido p on p.idPedido = pc.idPedido"
+                + "	join Pedido_Endereco pe on pe.idPedido = p.idPedido"
+                + "     join EnderecoCorreios ec on ec.id = pe.idEnderecoCorreios "
+                + "     where p.idPedido = ?;");
         stmt.setInt(1, idPedido);
         rs = stmt.executeQuery();
-        
-        while(rs.next()){
-           pedido = new Pedido();
+
+        while (rs.next()) {
+            pedido = new Pedido();
             pedido.setIdPedido(rs.getInt("p.idPedido"));
             pedido.setProtocolo(rs.getString("p.protocolo"));
             pedido.setDataVenda(rs.getString("p.dataVenda"));
@@ -188,28 +205,28 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
             pedido.setComplemento(rs.getString("pe.complemento"));
             pedido.setIdPrecoDistania(rs.getInt("pc.idPrecoDistancia"));
-            
+
             return pedido;
         }
-        
+
         close();
-        
+
         return pedido;
     }
-    
-    public void update(Integer idPedido, String statusPedido) throws Exception{
-        
+
+    public void update(Integer idPedido, String statusPedido) throws Exception {
+
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-        
-        stmt = con.prepareStatement("UPDATE Pedido " +
-            " SET statusPedido = ? WHERE idPedido = ?;");
+
+        stmt = con.prepareStatement("UPDATE Pedido "
+                + " SET statusPedido = ? WHERE idPedido = ?;");
         stmt.setString(1, statusPedido);
         stmt.setInt(2, idPedido);
-        
+
         stmt.execute();
-        
+
         con.close();
-        
+
     }
 }

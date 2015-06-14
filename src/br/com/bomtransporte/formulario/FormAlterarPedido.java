@@ -56,7 +56,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 endereco = enderecoDao.retornarEnderecoPorIdPedido(idPedidoSelecionado);
                 jTF_Cep.setText(endereco.getCep());
                 jTF_Bairro.setText(endereco.getBairro());
-                jTF_Logradouro.setText(endereco.getLogracompl());
+                jTF_Logradouro.setText(endereco.getLogradouro());
                 jTF_Uf.setText(endereco.getUf());
                 jTF_NomeCidade.setText(endereco.getNomeCidade());
 
@@ -80,7 +80,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
              });*/
             for (PrecoDistancia preco : pdd.listarTodosAtivados()) {
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
-                
+
                 if (preco.getIdPrecoDistancia() == idPrecoDistanciaInteger) {
                     jCB_Rotas.setSelectedIndex(contador);
                 }
@@ -181,6 +181,8 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         jTF_DataVenda = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jLB_ErroCep = new javax.swing.JLabel();
+        jCB_StatusPedido = new javax.swing.JComboBox();
+        jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -271,6 +273,16 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         jLB_ErroCep.setForeground(new java.awt.Color(255, 0, 0));
         jLB_ErroCep.setText("erro");
 
+        jCB_StatusPedido.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_StatusPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_StatusPedidoActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel22.setText("Status pedido");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -333,22 +345,28 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                                     .addGap(23, 23, 23)
                                     .addComponent(jTF_NomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jLabel18)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(jTF_Desconto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(160, 160, 160)
-                                    .addComponent(jLabel19)
-                                    .addGap(9, 9, 9)
-                                    .addComponent(jCB_Rotas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel20)
                                     .addGap(14, 14, 14)
                                     .addComponent(jTF_Protocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(36, 36, 36)
                                     .addComponent(jLabel21)
                                     .addGap(14, 14, 14)
-                                    .addComponent(jTF_DataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jTF_DataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel22)
+                                            .addGap(9, 9, 9)
+                                            .addComponent(jCB_StatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel18)
+                                            .addGap(14, 14, 14)
+                                            .addComponent(jTF_Desconto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(160, 160, 160)
+                                            .addComponent(jLabel19)
+                                            .addGap(9, 9, 9)
+                                            .addComponent(jCB_Rotas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jBT_Alterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
@@ -372,7 +390,11 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
                             .addComponent(jCB_Rotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(49, 49, 49)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(jCB_StatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
                     .addComponent(jTF_Protocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -422,13 +444,32 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         listaCampos.add(jTF_Cep.getText());
         listaCampos.add(jTF_Complemento.getText());
         listaCampos.add(jTF_Numero.getText());
-        
+        listaCampos.add(jTF_Desconto.getText());
+        listaCampos.add(String.valueOf(idPedidoSelecionado));
+
         if (verificarCampos(listaCampos)) {
             if (verificarCep()) {
-                Pedido pedido = new Pedido();
-                
-                pedido.setIdPrecoDistania(Integer.valueOf(String.valueOf(jCB_Rotas.getSelectedItem()).substring(0, 1)));
+                try {
+                    Pedido pedido = new Pedido();
+                    PedidoDao pedidoDao = new PedidoDao();
+                    pedido.setIdPedido(Integer.valueOf(listaCampos.get(4)));
+                    pedido.setComplemento(listaCampos.get(1));
+                    pedido.setNumero(listaCampos.get(2));
+                    pedido.setDesconto(Integer.valueOf(listaCampos.get(3)));
+                    pedido.setIdPrecoDistania(Integer.valueOf(String.valueOf(jCB_Rotas.getSelectedItem()).substring(0, 1)));
+
+                    pedidoDao.alterar(pedido);
+
+                    JOptionPane.showMessageDialog(this, "Pedido alteradocom sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "CEP inválido, por favor corrigir", "CEP INVÁLIDO", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBT_AlterarActionPerformed
 
@@ -448,6 +489,10 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private void jTF_CpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_CpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTF_CpfActionPerformed
+
+    private void jCB_StatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_StatusPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_StatusPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,6 +534,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Alterar;
     private javax.swing.JButton jBT_Verificar;
     private javax.swing.JComboBox jCB_Rotas;
+    private javax.swing.JComboBox jCB_StatusPedido;
     private javax.swing.JLabel jLB_CEP1;
     private javax.swing.JLabel jLB_Descricao10;
     private javax.swing.JLabel jLB_Descricao8;
@@ -504,6 +550,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JTextField jTF_Bairro;
     private javax.swing.JTextField jTF_Cep;
     private javax.swing.JTextField jTF_Complemento;
