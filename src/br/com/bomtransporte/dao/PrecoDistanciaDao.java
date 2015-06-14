@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  *
- * @author JhonattanSouza_
+ * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
  */
 public class PrecoDistanciaDao extends Conexao{
     public void inserir(Object obj) throws Exception {

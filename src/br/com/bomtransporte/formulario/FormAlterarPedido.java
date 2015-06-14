@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,6 +34,19 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         initComponents();
         idPedidoSelecionado = FormClientePedido.idPedidoSelecionado;
         preencherCampos();
+        preencherComboPreco();
+        
+    }
+
+    private void preencherStatusPedido(String statusPedido) {
+        jCB_StatusPedido.removeAllItems();
+
+        jCB_StatusPedido.addItem("Em aguardo");
+        jCB_StatusPedido.addItem("Saiu para entrega");
+        jCB_StatusPedido.addItem("Entregue");
+
+
+        jCB_StatusPedido.setSelectedItem(statusPedido);
 
     }
 
@@ -60,8 +74,8 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jTF_Uf.setText(endereco.getUf());
                 jTF_NomeCidade.setText(endereco.getNomeCidade());
 
-                System.err.println("FOI" + pedido.getNumero());
-                preencherComboPreco();
+                preencherStatusPedido(pedido.getStatusPedido());
+
             } catch (Exception ex) {
                 Logger.getLogger(FormAlterarPedido.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();
@@ -456,6 +470,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                     pedido.setComplemento(listaCampos.get(1));
                     pedido.setNumero(listaCampos.get(2));
                     pedido.setDesconto(Integer.valueOf(listaCampos.get(3)));
+                    pedido.setStatusPedido((String) jCB_StatusPedido.getSelectedItem());
                     pedido.setIdPrecoDistania(Integer.valueOf(String.valueOf(jCB_Rotas.getSelectedItem()).substring(0, 1)));
 
                     pedidoDao.alterar(pedido);
