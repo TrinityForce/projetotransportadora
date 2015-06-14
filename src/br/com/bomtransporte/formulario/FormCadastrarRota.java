@@ -123,7 +123,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/excluir-icon.png"))); // NOI18N
         jButton1.setText("Excluir Rota");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +133,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jButton2.setText("Alterar Valor");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +200,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
 
         jBT_Adicionar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Adicionar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Adicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
         jBT_Adicionar.setText("Adicionar");
         jBT_Adicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,7 +223,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         });
         getContentPane().add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
-        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/rota-bg.png"))); // NOI18N
         jLB_Background.setText("jLabel1");
         jLB_Background.setMaximumSize(new java.awt.Dimension(800, 600));
         jLB_Background.setMinimumSize(new java.awt.Dimension(800, 600));

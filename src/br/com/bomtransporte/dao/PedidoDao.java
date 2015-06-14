@@ -186,6 +186,8 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setStatusPedido(rs.getString("p.statusPedido"));
             pedido.setNumero(rs.getString("pe.numero"));
             pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
+            pedido.setComplemento(rs.getString("pe.complemento"));
+            pedido.setIdPrecoDistania(rs.getInt("pc.idPrecoDistancia"));
             
             return pedido;
         }

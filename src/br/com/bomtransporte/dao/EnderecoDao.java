@@ -86,7 +86,41 @@ public class EnderecoDao extends Conexao implements Dao {
             endereco.setUf(rs.getString("CC.uf"));
         }
 
-        close();
+        con.close();
+        return endereco;
+    }
+    
+    public Endereco retornarEnderecoPorIdPedido (Integer idPedido) throws Exception {
+       Endereco endereco = null;
+       
+       inicializarAtributos();
+       con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+       
+       stmt = con.prepareStatement("select * from pedido_endereco pe" +
+                " join enderecocorreios ec on ec.id = pe.idEnderecoCorreios" +
+                " join cidadecorreios cc on cc.id = ec.idCidade" +
+                " where pe.idPedido = ?;");
+       stmt.setInt(1, idPedido);
+       rs = stmt.executeQuery();
+       
+        while (rs.next()) {
+            if (endereco == null) {
+                endereco = new Endereco();
+            }
+            endereco.setId(rs.getInt("ec.id"));
+            endereco.setLogradouro(rs.getString("ec.logradouro"));
+            endereco.setCep(rs.getString("ec.cep"));
+            endereco.setBairro(rs.getString("ec.bairro"));
+            endereco.setCidade_id(rs.getInt("ec.idCidade"));
+            endereco.setNomeCidade(rs.getString("cc.nome"));
+            endereco.setUf(rs.getString("cc.uf"));
+            
+            con.close();
+            return endereco;
+        }
+
+        con.close();
+        
         return endereco;
     }
 

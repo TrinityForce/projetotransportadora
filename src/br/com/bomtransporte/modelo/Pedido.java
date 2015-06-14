@@ -22,11 +22,12 @@ public class Pedido {
     private String complemento;
     private Integer idEnderecoCorreios;
     private Integer idPedido_Cli;
+    private Integer idPrecoDistania;
 
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido, String protocolo, String dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli) {
+    public Pedido(Integer idPedido, String protocolo, String dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli, Integer idPrecoDistania) {
         this.idPedido = idPedido;
         this.protocolo = protocolo;
         this.dataVenda = dataVenda;
@@ -36,8 +37,10 @@ public class Pedido {
         this.complemento = complemento;
         this.idEnderecoCorreios = idEnderecoCorreios;
         this.idPedido_Cli = idPedido_Cli;
+        this.idPrecoDistania = idPrecoDistania;
     }
 
+    
  
 
     public Integer getIdPedido() {
@@ -116,6 +119,14 @@ public class Pedido {
      */
     public void setIdPedido_Cli(Integer idPedido_Cli) {
         this.idPedido_Cli = idPedido_Cli;
+    }
+
+    public Integer getIdPrecoDistania() {
+        return idPrecoDistania;
+    }
+
+    public void setIdPrecoDistania(Integer idPrecoDistania) {
+        this.idPrecoDistania = idPrecoDistania;
     }
     
     

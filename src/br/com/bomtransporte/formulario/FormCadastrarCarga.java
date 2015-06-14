@@ -33,8 +33,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     private ClienteDao clienteDao;
     private EnderecoDao enderecoDao;
-    private Integer idEndereco, IdPedidoGlobal;
-    private Integer idCliente;
+    private Integer idEndereco, IdPedidoGlobal, idPedido, idCliente, idPedido_CLiSelecionado;
     private String[] idPrecoDistancia;
     private Tela t;
     private CargaDao cargaDao;
@@ -42,6 +41,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private PedidoDao pedidoDao;
     private Pedido pedido;
     private PrecoDistancia precoDistancia;
+    
+    
 
     public void imprimirObjeto(Object obj) throws IllegalArgumentException, IllegalAccessException {
         for (Field field : obj.getClass().getDeclaredFields()) {
@@ -57,6 +58,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
      */
     public FormCadastrarCarga() {
         initComponents();
+        idPedido = FormClientePedido.idPedido_CliSelecionado;
+        idCliente =  FormClientePedido.idCliente;
+        idPedido_CLiSelecionado = FormClientePedido.idPedido_CliSelecionado;
         // preencherTabela();
         preencherCampos();
         preencherComboPreco();
@@ -82,18 +86,16 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private void preencherCampos() {
         try {
             clienteDao = new ClienteDao();
-            Cliente cliente = clienteDao.consultarPorId(FormClientePedido.idCliente);
+            Cliente cliente = clienteDao.consultarPorId(idCliente);
 
             if (cliente != null) {
                 jTF_IdCliente.setText(String.valueOf(cliente.getIdCliente()));
                 jTF_Cpf.setText(cliente.getCpf());
                 jTF_NomeCliente.setText(cliente.getNome());
-
                 jTF_IdCliente1.setText(String.valueOf(cliente.getIdCliente()));
                 jTF_Cpf1.setText(cliente.getCpf());
                 jTF_NomeCliente1.setText(cliente.getNome());
 
-                idCliente = FormClientePedido.idCliente;
             } else {
                 System.out.println("cliente n encontrado");
             }
@@ -235,7 +237,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         try {
             cargaDao = new CargaDao();
-            Integer sexo = FormClientePedido.idPedido_CliSelecionado;
+            Integer sexo = idPedido_CLiSelecionado;
             System.err.println("sexo valor " + sexo);
             final List<Object> listaCargas = cargaDao.listarCargas(sexo);
 
@@ -594,7 +596,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jTB_Pedido.setEnabledAt(1, true);
                 jTB_Pedido.setEnabledAt(0, false);
                 jTB_Pedido.setSelectedIndex(1);
-
+                
             } else {
                 JOptionPane.showMessageDialog(this,
                         "CEP invalido!", "Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -683,7 +685,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 Carga carga = new Carga();
                 cargaDao = new CargaDao();
 
-                carga.setIdPedido_Cli(FormClientePedido.idPedido_CliSelecionado);
+                carga.setIdPedido_Cli(idPedido);
                 carga.setDescricao(listCampos.get(0));
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));

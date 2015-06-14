@@ -11,6 +11,7 @@ import br.com.bomtransporte.dao.PrecoDistanciaDao;
 import br.com.bomtransporte.modelo.Endereco;
 import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.modelo.PrecoDistancia;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,26 +24,44 @@ import javax.swing.JOptionPane;
 public class FormAlterarPedido extends javax.swing.JFrame {
 
     private String[] idPrecoDistancia;
-    private Integer idEndereco;
+    private Integer idEndereco, idPedidoSelecionado, idPrecoDistanciaInteger;
 
     /**
      * Creates new form FormALterarPedido
      */
     public FormAlterarPedido() {
         initComponents();
+        idPedidoSelecionado = FormClientePedido.idPedidoSelecionado;
         preencherCampos();
+
     }
 
     private void preencherCampos() {
         if (FormClientePedido.idPedidoSelecionado != null) {
             PedidoDao pedidoDao = new PedidoDao();
             Pedido pedido = new Pedido();
+            Endereco endereco = new Endereco();
+            EnderecoDao enderecoDao = new EnderecoDao();
 
             try {
-                pedido = (Pedido) pedidoDao.buscarPedido(FormClientePedido.idPedidoSelecionado);
+                pedido = (Pedido) pedidoDao.buscarPedido(idPedidoSelecionado);
 
+                jTF_Complemento.setText(pedido.getComplemento());
+                jTF_DataVenda.setText(pedido.getDataVenda());
+                jTF_Desconto.setText(String.valueOf(pedido.getDesconto()));
+                jTF_Protocolo.setText((pedido.getProtocolo()));
                 jTF_Numero.setText(pedido.getNumero());
-                System.err.println("FOI"+pedido.getNumero());
+                idPrecoDistanciaInteger = pedido.getIdPrecoDistania();
+
+                endereco = enderecoDao.retornarEnderecoPorIdPedido(idPedidoSelecionado);
+                jTF_Cep.setText(endereco.getCep());
+                jTF_Bairro.setText(endereco.getBairro());
+                jTF_Logradouro.setText(endereco.getLogracompl());
+                jTF_Uf.setText(endereco.getUf());
+                jTF_NomeCidade.setText(endereco.getNomeCidade());
+
+                System.err.println("FOI" + pedido.getNumero());
+                preencherComboPreco();
             } catch (Exception ex) {
                 Logger.getLogger(FormAlterarPedido.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();
@@ -52,12 +71,22 @@ public class FormAlterarPedido extends javax.swing.JFrame {
 
     private void preencherComboPreco() {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
+        Integer contador = 0;
         try {
             jCB_Rotas.removeAllItems();
-            pdd.listarTodosAtivados().forEach((PrecoDistancia preco) -> {
-                //PrecoDistancia pd = (PrecoDistancia) preco;
+            /* pdd.listarTodosAtivados().forEach((PrecoDistancia preco) -> {
+             //PrecoDistancia pd = (PrecoDistancia) preco;
+             jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
+             });*/
+            for (PrecoDistancia preco : pdd.listarTodosAtivados()) {
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
-            });
+                
+                if (preco.getIdPrecoDistancia() == idPrecoDistanciaInteger) {
+                    jCB_Rotas.setSelectedIndex(contador);
+                }
+                contador++;
+            }
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.err);
@@ -389,7 +418,18 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBT_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarActionPerformed
-        // TODO add your handling code here:
+        List<String> listaCampos = new ArrayList<>();
+        listaCampos.add(jTF_Cep.getText());
+        listaCampos.add(jTF_Complemento.getText());
+        listaCampos.add(jTF_Numero.getText());
+        
+        if (verificarCampos(listaCampos)) {
+            if (verificarCep()) {
+                Pedido pedido = new Pedido();
+                
+                pedido.setIdPrecoDistania(Integer.valueOf(String.valueOf(jCB_Rotas.getSelectedItem()).substring(0, 1)));
+            }
+        }
     }//GEN-LAST:event_jBT_AlterarActionPerformed
 
     private void jBT_VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VerificarActionPerformed
