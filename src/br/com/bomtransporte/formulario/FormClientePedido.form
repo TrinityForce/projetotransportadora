@@ -192,7 +192,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jSP_Pedidos" pref="675" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton1" min="-2" pref="143" max="-2" attributes="0"/>
+                              <Component id="jBT_AlterarPedido" min="-2" pref="143" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBT_AdicionarCarga" min="-2" pref="141" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -209,7 +209,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" max="32767" attributes="0"/>
+                          <Component id="jBT_AlterarPedido" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jBT_AlterarStatusPedido" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -245,12 +245,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="jBT_AlterarPedido">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alterar Pedido"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBT_AlterarPedidoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jBT_AdicionarCarga">

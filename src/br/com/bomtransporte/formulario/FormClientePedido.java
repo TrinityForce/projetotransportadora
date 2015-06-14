@@ -33,28 +33,29 @@ public class FormClientePedido extends javax.swing.JFrame {
     public FormClientePedido() {
         initComponents();
         preencherTabela();
-        desabilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
-        desabilitarBotao(jBT_AdicionarCarga);
+        verificarAba();
     }
 
-    private void habilitarBotao(JButton bt, JButton bt2, JButton bt3) {
-        bt.setEnabled(true);
-        bt2.setEnabled(true);
-        bt3.setEnabled(true);
+    private void desabilitarBotoes(JButton... bt) {
+        for (JButton bt1 : bt) {
+            bt1.setEnabled(false);
+        }
     }
 
-    private void habilitarBotao(JButton bt) {
-        bt.setEnabled(true);
+    private void habilitarBotoes(JButton... bt) {
+        for (JButton bt1 : bt) {
+            bt1.setEnabled(true);
+        }
     }
 
-    private void desabilitarBotao(JButton bt, JButton bt2, JButton bt3) {
-        bt.setEnabled(false);
-        bt2.setEnabled(false);
-        bt3.setEnabled(false);
-    }
+    private void verificarAba() {
 
-    private void desabilitarBotao(JButton bt) {
-        bt.setEnabled(false);
+        jTB_CliPedido.setEnabledAt(0, true);
+        jTB_CliPedido.setEnabledAt(1, false);
+        jTB_CliPedido.setSelectedIndex(0);
+
+        desabilitarBotoes(jBT_ListarPedidos);
+
     }
 
     private void preencherTabelaPedido() {
@@ -62,7 +63,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         ArrayList dados = new ArrayList();
 
         String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
-
+        desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
         try {
             pedidoDao = new PedidoDao();
             final List<Object> listaPedido = pedidoDao.listarPedidos(idCliente);
@@ -103,14 +104,21 @@ public class FormClientePedido extends javax.swing.JFrame {
 
                         idPedido_CliSelecionado = pedidoSelecionado.getIdPedido_Cli();
                         idPedidoSelecionado = pedidoSelecionado.getIdPedido();
-                        System.err.println("pedidocli val " + idPedido_CliSelecionado);
-                        if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
-                            habilitarBotao(jBT_AdicionarCarga);
-                        } else {
-                            desabilitarBotao(jBT_AdicionarCarga);
-                        }
 
-                        habilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+                        if ((idPedidoSelecionado != null) && (idPedido_CliSelecionado) != null) {
+
+                            habilitarBotoes(jBT_AlterarPedido, jBT_AlterarStatusPedido);
+
+                            if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
+                                habilitarBotoes(jBT_AdicionarCarga);
+
+                            } else {
+                                desabilitarBotoes(jBT_AdicionarCarga);
+                            }
+                        } else {
+                            desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
+
+                        }
 
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
@@ -118,6 +126,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro genérico1: " + ex.getMessage());
                     }
                 }
+
             });
 
         } catch (SQLException sqle) {
@@ -136,7 +145,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         try {
             clienteDao = new ClienteDao();
             final List<Object> listaCliente = clienteDao.consultarCliente(jTF_Consulta.getText());
-
+            desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_AdicionarCarga);
             //Verifica se a lista está preenchida
             if (listaCliente != null && listaCliente.size() > 0) {
                 //Percorre a lista
@@ -176,7 +185,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                         idCliente = clienteSelecionado.getIdCliente();
                         System.err.println("idCliente " + idCliente);
 
-                        habilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+                        habilitarBotoes(jBT_ListarPedidos, jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
 
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
@@ -210,7 +219,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         jPN_CadastrarPedido = new javax.swing.JPanel();
         jSP_Pedidos = new javax.swing.JScrollPane();
         jTB_Pedidos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBT_AlterarPedido = new javax.swing.JButton();
         jBT_AdicionarCarga = new javax.swing.JButton();
         jBT_AlterarStatusPedido = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
@@ -300,10 +309,10 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSP_Pedidos.setViewportView(jTB_Pedidos);
 
-        jButton1.setText("Alterar Pedido");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBT_AlterarPedido.setText("Alterar Pedido");
+        jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBT_AlterarPedidoActionPerformed(evt);
             }
         });
 
@@ -330,7 +339,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSP_Pedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                     .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBT_AlterarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBT_AdicionarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -343,7 +352,7 @@ public class FormClientePedido extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPN_CadastrarPedidoLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBT_AlterarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
                         .addComponent(jBT_AlterarStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -396,14 +405,20 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
         preencherTabela();
-        desabilitarBotao(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+        desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
-        jTB_CliPedido.setEnabledAt(1, true);
-        jTB_CliPedido.setEnabledAt(0, false);
-        jTB_CliPedido.setSelectedIndex(1);
-        preencherTabelaPedido();
+        if (idCliente != null) {
+            jTB_CliPedido.setEnabledAt(1, true);
+            jTB_CliPedido.setEnabledAt(0, false);
+            jTB_CliPedido.setSelectedIndex(1);
+            preencherTabelaPedido();
+
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Selecione um cliente!", "Erro", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jBT_ListarPedidosActionPerformed
 
     private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
@@ -431,11 +446,11 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
 
         FormAlterarPedido formAltPedido = new FormAlterarPedido();
         formAltPedido.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Windows look and feel */
@@ -466,12 +481,12 @@ public class FormClientePedido extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AdicionarCarga;
     private javax.swing.JButton jBT_Alterar;
+    private javax.swing.JButton jBT_AlterarPedido;
     private javax.swing.JButton jBT_AlterarStatusPedido;
     private javax.swing.JButton jBT_CadastrarPedido;
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_ListarPedidos;
     private javax.swing.JButton jBT_Pesquisar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
