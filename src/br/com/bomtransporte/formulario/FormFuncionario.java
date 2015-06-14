@@ -52,7 +52,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jBT_Cliente.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Cliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/icones/cliente-icon.png"))); // NOI18N
+        jBT_Cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/cliente-icon.png"))); // NOI18N
         jBT_Cliente.setText("Cadastro de Clientes");
         jBT_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,7 +63,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jBT_Pedido1.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Pedido1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Pedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/icones/caminhao-icon.png"))); // NOI18N
+        jBT_Pedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/transito-icon.png"))); // NOI18N
         jBT_Pedido1.setText("Administrar Pedidos");
         jBT_Pedido1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +74,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jBT_AlterarSenha.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AlterarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/icones/senha-icon.png"))); // NOI18N
+        jBT_AlterarSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/senha-icon.png"))); // NOI18N
         jBT_AlterarSenha.setText("Alterar Senha");
         jBT_AlterarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +85,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jBT_Pedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Pedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Pedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/icones/pesquisar-icon.png"))); // NOI18N
+        jBT_Pedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/pesquisar-icon.png"))); // NOI18N
         jBT_Pedido.setText("<html>Pesquisar Clientes/<br/>Cadastrar Pedidos</html>");
         jBT_Pedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +96,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jBT_Sair.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Sair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jBT_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/icones/sair-icon.png"))); // NOI18N
+        jBT_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/sair-icon.png"))); // NOI18N
         jBT_Sair.setText("Sair do Sistema");
         jBT_Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +107,7 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jBT_Logout.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Logout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jBT_Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/icones/logout-icon.png"))); // NOI18N
+        jBT_Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/logout-icon.png"))); // NOI18N
         jBT_Logout.setText("Logout");
         jBT_Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,7 +116,7 @@ public class FormFuncionario extends javax.swing.JFrame {
         });
         getContentPane().add(jBT_Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 130, -1));
 
-        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projetobt/imagem/menu-principal-background.png"))); // NOI18N
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/menu-principal-background.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();

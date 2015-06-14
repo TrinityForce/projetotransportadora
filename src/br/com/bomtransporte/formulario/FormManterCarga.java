@@ -149,7 +149,6 @@ public class FormManterCarga extends javax.swing.JFrame {
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
         setUndecorated(true);
         setResizable(false);
@@ -186,7 +185,6 @@ public class FormManterCarga extends javax.swing.JFrame {
         jPN_Background.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 250, 30));
 
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_Alterar.setText("Alterar");
         jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,7 +194,6 @@ public class FormManterCarga extends javax.swing.JFrame {
         jPN_Background.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 150, 90));
 
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_Salvar.setText("Salvar");
         jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,7 +203,6 @@ public class FormManterCarga extends javax.swing.JFrame {
         jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 150, 90));
 
         jBT_Novo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/new-icon.png"))); // NOI18N
         jBT_Novo.setText("Novo");
         jBT_Novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,7 +212,6 @@ public class FormManterCarga extends javax.swing.JFrame {
         jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 80, 150, 90));
 
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/excluir-icon.png"))); // NOI18N
         jBT_Excluir.setText("Excluir");
         jBT_Excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,15 +240,13 @@ public class FormManterCarga extends javax.swing.JFrame {
         jLB_Fechar.setForeground(new java.awt.Color(255, 255, 255));
         jLB_Fechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLB_Fechar.setText("X");
-        jLB_Fechar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLB_Fechar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLB_Fechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLB_FecharMouseReleased(evt);
             }
         });
         jPN_Background.add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
-
-        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cargas-bg.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         getContentPane().add(jPN_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));

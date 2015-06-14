@@ -66,7 +66,7 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/icones/cliente-icon.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/cliente-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cadastro de Clientes"/>
       </Properties>
@@ -88,7 +88,7 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/icones/caminhao-icon.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/transito-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Administrar Pedidos"/>
       </Properties>
@@ -110,7 +110,7 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/icones/senha-icon.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/senha-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Alterar Senha"/>
       </Properties>
@@ -132,7 +132,7 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/icones/pesquisar-icon.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/pesquisar-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&lt;html&gt;Pesquisar Clientes/&lt;br/&gt;Cadastrar Pedidos&lt;/html&gt;"/>
       </Properties>
@@ -154,7 +154,7 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/icones/sair-icon.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/sair-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Sair do Sistema"/>
       </Properties>
@@ -176,7 +176,7 @@
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/icones/logout-icon.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/logout-icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Logout"/>
       </Properties>
@@ -192,7 +192,7 @@
     <Component class="javax.swing.JLabel" name="jLB_Background">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/br/com/projetobt/imagem/menu-principal-background.png"/>
+          <Image iconType="3" name="/br/com/bomtransporte/imagem/menu-principal-background.png"/>
         </Property>
       </Properties>
       <Constraints>

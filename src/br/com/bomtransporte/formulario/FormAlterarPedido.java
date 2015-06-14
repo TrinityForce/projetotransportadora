@@ -159,19 +159,15 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private void initComponents() {
 
         jBT_Alterar = new javax.swing.JButton();
+        jBT_Verificar = new javax.swing.JButton();
+        jCB_Rotas = new javax.swing.JComboBox();
+        jCB_StatusPedido = new javax.swing.JComboBox();
         jTF_Complemento = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         jTF_Numero = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jTF_Logradouro = new javax.swing.JTextField();
         jTF_Bairro = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jTF_NomeCidade = new javax.swing.JTextField();
         jTF_Uf = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jBT_Verificar = new javax.swing.JButton();
         jTF_Cep = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter cep= new javax.swing.text.MaskFormatter("#####-###"); 
@@ -179,74 +175,50 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
-        jLB_CEP1 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jTF_Desconto = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jCB_Rotas = new javax.swing.JComboBox();
         jTF_NomeCliente = new javax.swing.JTextField();
-        jLB_Descricao8 = new javax.swing.JLabel();
         jTF_Cpf = new javax.swing.JTextField();
-        jLB_Descricao9 = new javax.swing.JLabel();
         jTF_IdCliente = new javax.swing.JTextField();
-        jLB_Descricao10 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jTF_Protocolo = new javax.swing.JTextField();
         jTF_DataVenda = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLB_CEP1 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLB_Descricao8 = new javax.swing.JLabel();
+        jLB_Descricao9 = new javax.swing.JLabel();
+        jLB_Descricao10 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLB_ErroCep = new javax.swing.JLabel();
-        jCB_StatusPedido = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
+        jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Alterar.setText("Alterar");
+        jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
+        jBT_Alterar.setText("Salvar Alterações");
         jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AlterarActionPerformed(evt);
             }
         });
+        getContentPane().add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 470, 220, 80));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel11.setText("Complemento");
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel12.setText("Número");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Logradouro");
-
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setText("Bairro");
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel16.setText("Cidade");
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel17.setText("UF");
-
-        jBT_Verificar.setText("Verificar");
+        jBT_Verificar.setText("Verificar CEP");
         jBT_Verificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_VerificarActionPerformed(evt);
             }
         });
-
-        jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTF_CepActionPerformed(evt);
-            }
-        });
-
-        jLB_CEP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_CEP1.setText("CEP");
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel18.setText("Desconto");
-
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel19.setText("Destino");
+        getContentPane().add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 100, 30));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
@@ -254,12 +226,33 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jCB_RotasActionPerformed(evt);
             }
         });
+        getContentPane().add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 170, -1));
+
+        jCB_StatusPedido.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_StatusPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_StatusPedidoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jCB_StatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 170, -1));
+        getContentPane().add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 330, 30));
+        getContentPane().add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 80, 30));
+        getContentPane().add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 490, 30));
+        getContentPane().add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 180, 30));
+        getContentPane().add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 470, 180, 30));
+        getContentPane().add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 470, 50, 30));
+
+        jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_CepActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 180, 30));
+        getContentPane().add(jTF_Desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 180, 30));
 
         jTF_NomeCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_NomeCliente.setEnabled(false);
-
-        jLB_Descricao8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao8.setText("Nome Cliente");
+        getContentPane().add(jTF_NomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, 260, 30));
 
         jTF_Cpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Cpf.setEnabled(false);
@@ -268,187 +261,81 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jTF_CpfActionPerformed(evt);
             }
         });
-
-        jLB_Descricao9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao9.setText("CPF");
+        getContentPane().add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 140, 30));
 
         jTF_IdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_IdCliente.setEnabled(false);
+        getContentPane().add(jTF_IdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 50, 30));
+        getContentPane().add(jTF_Protocolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, 180, 30));
+        getContentPane().add(jTF_DataVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 170, 30));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel11.setText("Complemento");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, -1, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel12.setText("Número");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Logradouro");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel15.setText("Bairro");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel16.setText("Cidade");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, -1, -1));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel17.setText("UF");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 470, -1, -1));
+
+        jLB_CEP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_CEP1.setText("CEP");
+        getContentPane().add(jLB_CEP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel18.setText("Desconto");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel19.setText("Destino");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
+
+        jLB_Descricao8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao8.setText("Nome Cliente");
+        getContentPane().add(jLB_Descricao8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, -1, -1));
+
+        jLB_Descricao9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao9.setText("CPF");
+        getContentPane().add(jLB_Descricao9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
         jLB_Descricao10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao10.setText("ID");
+        getContentPane().add(jLB_Descricao10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel20.setText("Protocolo");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel21.setText("Data venda");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
 
+        jLB_ErroCep.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLB_ErroCep.setForeground(new java.awt.Color(255, 0, 0));
-        jLB_ErroCep.setText("erro");
-
-        jCB_StatusPedido.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
-        jCB_StatusPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_StatusPedidoActionPerformed(evt);
-            }
-        });
+        jLB_ErroCep.setText("ERROR PLACEHOLDER");
+        getContentPane().add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel22.setText("Status pedido");
+        jLabel22.setText("Status");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel15)
-                                .addGap(14, 14, 14)
-                                .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(130, 130, 130)
-                                .addComponent(jLabel16)
-                                .addGap(5, 5, 5)
-                                .addComponent(jTF_NomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(6, 6, 6)
-                                .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addGap(35, 35, 35)
-                                .addComponent(jTF_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel11)
-                                .addGap(6, 6, 6)
-                                .addComponent(jTF_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLB_CEP1)
-                                .addGap(40, 40, 40)
-                                .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBT_Verificar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(50, 50, 50)
-                                        .addComponent(jLabel17))
-                                    .addComponent(jLB_ErroCep))
-                                .addGap(19, 19, 19)
-                                .addComponent(jTF_Uf, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 11, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLB_Descricao10)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(jTF_IdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(jLB_Descricao9)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jTF_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(jLB_Descricao8)
-                                    .addGap(23, 23, 23)
-                                    .addComponent(jTF_NomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel20)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(jTF_Protocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(36, 36, 36)
-                                    .addComponent(jLabel21)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(jTF_DataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel22)
-                                            .addGap(9, 9, 9)
-                                            .addComponent(jCB_StatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel18)
-                                            .addGap(14, 14, 14)
-                                            .addComponent(jTF_Desconto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(160, 160, 160)
-                                            .addComponent(jLabel19)
-                                            .addGap(9, 9, 9)
-                                            .addComponent(jCB_Rotas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(jBT_Alterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 11, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 95, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLB_Descricao10)
-                    .addComponent(jTF_IdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLB_Descricao9)
-                    .addComponent(jTF_Cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLB_Descricao8)
-                    .addComponent(jTF_NomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18)
-                    .addComponent(jTF_Desconto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(jCB_Rotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(jCB_StatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(jTF_Protocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21)
-                    .addComponent(jTF_DataVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLB_CEP1)
-                            .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17)
-                            .addComponent(jTF_Uf, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jTF_NomeCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBT_Verificar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLB_ErroCep)))
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jTF_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTF_Complemento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(jBT_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterarpedido-bg.png"))); // NOI18N
+        getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -550,6 +437,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Verificar;
     private javax.swing.JComboBox jCB_Rotas;
     private javax.swing.JComboBox jCB_StatusPedido;
+    private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_CEP1;
     private javax.swing.JLabel jLB_Descricao10;
     private javax.swing.JLabel jLB_Descricao8;

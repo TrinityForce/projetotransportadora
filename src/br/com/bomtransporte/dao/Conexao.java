@@ -31,8 +31,8 @@ public class Conexao {
      */
     protected void open() throws SQLException, Exception {
         String url = "jdbc:mysql://localhost:3306/dbTransportadora";
-        String usuario = "gus";
-        String senha = "123";
+        String usuario = "root";
+        String senha = "";
 
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(url, usuario, senha);

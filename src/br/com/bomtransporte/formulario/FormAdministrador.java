@@ -82,7 +82,7 @@ public class FormAdministrador extends javax.swing.JFrame {
                 jBT_SairActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_Sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 490, 180, -1));
+        getContentPane().add(jBT_Sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 480, 180, -1));
 
         jBT_Logout.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Logout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -93,11 +93,11 @@ public class FormAdministrador extends javax.swing.JFrame {
                 jBT_LogoutActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 130, -1));
+        getContentPane().add(jBT_Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, -1));
 
         jBT_Pedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Pedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Pedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/caminhao-icon.png"))); // NOI18N
+        jBT_Pedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/transito-icon.png"))); // NOI18N
         jBT_Pedido.setText("Administrar Pedidos");
         jBT_Pedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

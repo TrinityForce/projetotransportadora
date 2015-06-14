@@ -8,9 +8,11 @@ import br.com.bomtransporte.dao.PrecoDistanciaDao;
 import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.modelo.Endereco;
+import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.modelo.PrecoDistancia;
+import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
@@ -281,11 +283,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jTB_Pedido = new javax.swing.JTabbedPane();
         jPN_Pedido = new javax.swing.JPanel();
-        jLB_Fechar = new javax.swing.JLabel();
         jBT_ProximaTela = new javax.swing.JButton();
-        jLB_Descricao1 = new javax.swing.JLabel();
+        jBT_Verificar = new javax.swing.JButton();
+        jBT_AlterarPedido = new javax.swing.JButton();
+        jCB_Rotas = new javax.swing.JComboBox();
         jTF_NomeCliente = new javax.swing.JTextField();
-        jLB_CEP = new javax.swing.JLabel();
         jTF_Cep = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter cep= new javax.swing.text.MaskFormatter("#####-###"); 
@@ -293,51 +295,125 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
-        jLabel1 = new javax.swing.JLabel();
         jTF_Logradouro = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jTF_Bairro = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         jTF_Uf = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
         jTF_Numero = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
         jTF_Complemento = new javax.swing.JTextField();
-        jLB_ErroCep = new javax.swing.JLabel();
-        jBT_Verificar = new javax.swing.JButton();
-        jLB_Descricao2 = new javax.swing.JLabel();
         jTF_Cpf = new javax.swing.JTextField();
-        jLB_Descricao3 = new javax.swing.JLabel();
         jTF_IdCliente = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
         jTF_NomeCidade = new javax.swing.JTextField();
-        jCB_Rotas = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
         jTF_Desconto = new javax.swing.JTextField();
+        jLB_Fechar = new javax.swing.JLabel();
+        jLB_Descricao1 = new javax.swing.JLabel();
+        jLB_CEP = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLB_ErroCep = new javax.swing.JLabel();
+        jLB_Descricao2 = new javax.swing.JLabel();
+        jLB_Descricao3 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jBT_AlterarPedido = new javax.swing.JButton();
         jPN_Carga = new javax.swing.JPanel();
-        jLB_Descricao4 = new javax.swing.JLabel();
-        jTF_Peso = new javax.swing.JTextField();
-        jLB_Quantidade1 = new javax.swing.JLabel();
-        jTF_Descricao = new javax.swing.JTextField();
-        jLB_Peso1 = new javax.swing.JLabel();
-        jTF_Quantidade = new javax.swing.JTextField();
-        jLB_Descricao5 = new javax.swing.JLabel();
-        jTF_IdCliente1 = new javax.swing.JTextField();
-        jLB_Descricao6 = new javax.swing.JLabel();
-        jLB_Descricao7 = new javax.swing.JLabel();
-        jTF_NomeCliente1 = new javax.swing.JTextField();
-        jBT_Salvar = new javax.swing.JButton();
         jSP_Cargas = new javax.swing.JScrollPane();
         jTB_Cargas = new javax.swing.JTable();
-        jTF_Cpf1 = new javax.swing.JTextField();
+        jBT_Salvar = new javax.swing.JButton();
         jBT_AdicionarCarga = new javax.swing.JButton();
+        jTF_Peso = new javax.swing.JTextField();
+        jTF_Descricao = new javax.swing.JTextField();
+        jTF_Quantidade = new javax.swing.JTextField();
+        jTF_IdCliente1 = new javax.swing.JTextField();
+        jTF_NomeCliente1 = new javax.swing.JTextField();
+        jTF_Cpf1 = new javax.swing.JTextField();
+        jLB_Descricao4 = new javax.swing.JLabel();
+        jLB_Quantidade1 = new javax.swing.JLabel();
+        jLB_Peso1 = new javax.swing.JLabel();
+        jLB_Descricao5 = new javax.swing.JLabel();
+        jLB_Descricao6 = new javax.swing.JLabel();
+        jLB_Descricao7 = new javax.swing.JLabel();
+        jLB_Fechar4 = new javax.swing.JLabel();
+        jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jTB_Pedido.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        jPN_Pedido.setPreferredSize(new java.awt.Dimension(800, 600));
         jPN_Pedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jBT_ProximaTela.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_ProximaTela.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_ProximaTela.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
+        jBT_ProximaTela.setText("Finalizar ");
+        jBT_ProximaTela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_ProximaTelaActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jBT_ProximaTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 170, 70));
+
+        jBT_Verificar.setText("Verificar");
+        jBT_Verificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_VerificarActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 80, 30));
+
+        jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
+        jBT_AlterarPedido.setText("Alterar");
+        jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AlterarPedidoActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, 150, 70));
+
+        jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_RotasActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 170, -1));
+
+        jTF_NomeCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_NomeCliente.setEnabled(false);
+        jPN_Pedido.add(jTF_NomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 290, 30));
+
+        jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_CepActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 210, 30));
+        jPN_Pedido.add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 320, 30));
+        jPN_Pedido.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 200, 30));
+        jPN_Pedido.add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 130, 30));
+        jPN_Pedido.add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 80, 30));
+        jPN_Pedido.add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, 330, 30));
+
+        jTF_Cpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_Cpf.setEnabled(false);
+        jTF_Cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_CpfActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 180, 30));
+
+        jTF_IdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_IdCliente.setEnabled(false);
+        jPN_Pedido.add(jTF_IdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 50, 30));
+        jPN_Pedido.add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 180, 30));
+        jPN_Pedido.add(jTF_Desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 180, 30));
 
         jLB_Fechar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLB_Fechar.setForeground(new java.awt.Color(255, 255, 255));
@@ -351,177 +427,62 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Pedido.add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 40, 40));
 
-        jBT_ProximaTela.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_ProximaTela.setText("Finalizar ");
-        jBT_ProximaTela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_ProximaTelaActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jBT_ProximaTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 210, 120));
-
         jLB_Descricao1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao1.setText("Nome Cliente");
-        jPN_Pedido.add(jLB_Descricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
-
-        jTF_NomeCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTF_NomeCliente.setEnabled(false);
-        jPN_Pedido.add(jTF_NomeCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 250, 30));
+        jPN_Pedido.add(jLB_Descricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         jLB_CEP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_CEP.setText("CEP");
-        jPN_Pedido.add(jLB_CEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
-
-        jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTF_CepActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 210, 30));
+        jPN_Pedido.add(jLB_CEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Logradouro");
-        jPN_Pedido.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
-        jPN_Pedido.add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 570, 30));
+        jPN_Pedido.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Bairro");
-        jPN_Pedido.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
-        jPN_Pedido.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 200, 30));
+        jPN_Pedido.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Destino");
-        jPN_Pedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, -1, -1));
-        jPN_Pedido.add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 100, 30));
+        jPN_Pedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Número");
-        jPN_Pedido.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
-        jPN_Pedido.add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 80, 30));
+        jPN_Pedido.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Complemento");
-        jPN_Pedido.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, -1, -1));
-        jPN_Pedido.add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, 330, 30));
+        jPN_Pedido.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
 
+        jLB_ErroCep.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLB_ErroCep.setForeground(new java.awt.Color(255, 0, 0));
-        jLB_ErroCep.setText("erro");
-        jPN_Pedido.add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 130, 20));
-
-        jBT_Verificar.setText("Verificar");
-        jBT_Verificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_VerificarActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 80, 30));
+        jLB_ErroCep.setText("ERROR PLACEHOLDER");
+        jPN_Pedido.add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 160, 20));
 
         jLB_Descricao2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao2.setText("CPF");
-        jPN_Pedido.add(jLB_Descricao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
-
-        jTF_Cpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTF_Cpf.setEnabled(false);
-        jTF_Cpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTF_CpfActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 250, 30));
+        jPN_Pedido.add(jLB_Descricao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         jLB_Descricao3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao3.setText("ID");
-        jPN_Pedido.add(jLB_Descricao3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
-
-        jTF_IdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTF_IdCliente.setEnabled(false);
-        jPN_Pedido.add(jTF_IdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 50, 30));
+        jPN_Pedido.add(jLB_Descricao3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Cidade");
-        jPN_Pedido.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, -1, -1));
-        jPN_Pedido.add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 180, 30));
-
-        jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
-        jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_RotasActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 170, -1));
+        jPN_Pedido.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("UF");
-        jPN_Pedido.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, -1, -1));
-        jPN_Pedido.add(jTF_Desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 180, 30));
+        jPN_Pedido.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel14.setText("Desconto");
-        jPN_Pedido.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        jPN_Pedido.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
-        jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AlterarPedido.setText("Alterar");
-        jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_AlterarPedidoActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 210, 120));
-
-        jTB_Pedido.addTab("tab1", jPN_Pedido);
+        jTB_Pedido.addTab("Cadastrar Pedido", jPN_Pedido);
 
         jPN_Carga.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao4.setText("Descricao");
-        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
-
-        jTF_Peso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 250, 30));
-
-        jLB_Quantidade1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Quantidade1.setText("Quantidade");
-        jPN_Carga.add(jLB_Quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, -1));
-
-        jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 250, 30));
-
-        jLB_Peso1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Peso1.setText("Peso");
-        jPN_Carga.add(jLB_Peso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
-
-        jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTF_Quantidade.setText("1");
-        jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 36, 30));
-
-        jLB_Descricao5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao5.setText("ID");
-        jPN_Carga.add(jLB_Descricao5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
-
-        jTF_IdCliente1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTF_IdCliente1.setEnabled(false);
-        jPN_Carga.add(jTF_IdCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 50, 30));
-
-        jLB_Descricao6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao6.setText("CPF");
-        jPN_Carga.add(jLB_Descricao6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
-
-        jLB_Descricao7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao7.setText("Nome Cliente");
-        jPN_Carga.add(jLB_Descricao7, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
-
-        jTF_NomeCliente1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTF_NomeCliente1.setEnabled(false);
-        jPN_Carga.add(jTF_NomeCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 250, 30));
-
-        jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Salvar.setText("Finalizar ");
-        jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_SalvarActionPerformed(evt);
-            }
-        });
-        jPN_Carga.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 120, 70));
 
         jTB_Cargas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -536,7 +497,47 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         ));
         jSP_Cargas.setViewportView(jTB_Cargas);
 
-        jPN_Carga.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 700, 240));
+        jPN_Carga.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 660, 180));
+
+        jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
+        jBT_Salvar.setText("Finalizar ");
+        jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_SalvarActionPerformed(evt);
+            }
+        });
+        jPN_Carga.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 170, 70));
+
+        jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AdicionarCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
+        jBT_AdicionarCarga.setText("<html>Adicionar<br/>Carga</html>");
+        jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AdicionarCargaActionPerformed(evt);
+            }
+        });
+        jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 70));
+
+        jTF_Peso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 250, 30));
+
+        jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 250, 30));
+
+        jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_Quantidade.setText("1");
+        jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 36, 30));
+
+        jTF_IdCliente1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_IdCliente1.setEnabled(false);
+        jPN_Carga.add(jTF_IdCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 50, 30));
+
+        jTF_NomeCliente1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_NomeCliente1.setEnabled(false);
+        jPN_Carga.add(jTF_NomeCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 320, 30));
 
         jTF_Cpf1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Cpf1.setEnabled(false);
@@ -545,20 +546,50 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jTF_Cpf1ActionPerformed(evt);
             }
         });
-        jPN_Carga.add(jTF_Cpf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 250, 30));
+        jPN_Carga.add(jTF_Cpf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 160, 30));
 
-        jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AdicionarCarga.setText("Adicionar Carga");
-        jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_AdicionarCargaActionPerformed(evt);
+        jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao4.setText("Descricao");
+        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        jLB_Quantidade1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Quantidade1.setText("Quantidade");
+        jPN_Carga.add(jLB_Quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+
+        jLB_Peso1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Peso1.setText("Peso");
+        jPN_Carga.add(jLB_Peso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        jLB_Descricao5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao5.setText("ID");
+        jPN_Carga.add(jLB_Descricao5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jLB_Descricao6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao6.setText("CPF");
+        jPN_Carga.add(jLB_Descricao6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+
+        jLB_Descricao7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao7.setText("Nome Cliente");
+        jPN_Carga.add(jLB_Descricao7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        jTB_Pedido.addTab("Cadastrar Carga", jPN_Carga);
+
+        getContentPane().add(jTB_Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 700, 510));
+
+        jLB_Fechar4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLB_Fechar4.setForeground(new java.awt.Color(255, 255, 255));
+        jLB_Fechar4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLB_Fechar4.setText("X");
+        jLB_Fechar4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLB_Fechar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLB_Fechar4MouseReleased(evt);
             }
         });
-        jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 210, 170, 70));
+        getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
-        jTB_Pedido.addTab("tab2", jPN_Carga);
-
-        getContentPane().add(jTB_Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 990, 590));
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
+        getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -714,6 +745,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
 
+    private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
+        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+    }//GEN-LAST:event_jLB_Fechar4MouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -759,6 +794,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;
     private javax.swing.JComboBox jCB_Rotas;
+    private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_CEP;
     private javax.swing.JLabel jLB_Descricao1;
     private javax.swing.JLabel jLB_Descricao2;
@@ -769,6 +805,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Descricao7;
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
+    private javax.swing.JLabel jLB_Fechar1;
+    private javax.swing.JLabel jLB_Fechar2;
+    private javax.swing.JLabel jLB_Fechar3;
+    private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JLabel jLB_Peso1;
     private javax.swing.JLabel jLB_Quantidade1;
     private javax.swing.JLabel jLabel1;

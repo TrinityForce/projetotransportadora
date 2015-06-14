@@ -244,57 +244,67 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSC_Tabela.setViewportView(jTableClientes);
 
-        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 171, 670, 260));
+        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 670, 260));
 
+        jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/excluir-icon.png"))); // NOI18N
         jBT_Excluir.setText("Excluir Cliente");
         jBT_Excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_ExcluirActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 150, 70));
+        jPN_PesquisarCliente.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 200, 70));
 
+        jBT_CadastrarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_CadastrarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_CadastrarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/new-icon.png"))); // NOI18N
         jBT_CadastrarPedido.setText("Cadastrar Pedido");
         jBT_CadastrarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_CadastrarPedidoActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 170, 70));
+        jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 230, 70));
 
+        jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_Alterar.setText("Alterar Cliente");
         jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AlterarActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 150, 70));
+        jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 200, 70));
 
         jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Pesquisar.setText("PESQUISAR");
+        jBT_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/Search-icon.png"))); // NOI18N
         jBT_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_PesquisarActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 200, 60));
+        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 70, 70));
 
         jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 340, 60));
+        jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 340, 70));
 
+        jBT_ListarPedidos.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ListarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_ListarPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/listar-icon.png"))); // NOI18N
         jBT_ListarPedidos.setText("Listar Pedidos");
         jBT_ListarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_ListarPedidosActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_ListarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 150, 70));
+        jPN_PesquisarCliente.add(jBT_ListarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 200, 70));
 
         jTB_CliPedido.addTab("Pesquisar Cliente", null, jPN_PesquisarCliente, "Pesquisar cliente e selecionar uma ação.");
+
+        jPN_CadastrarPedido.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTB_Pedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -309,63 +319,47 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSP_Pedidos.setViewportView(jTB_Pedidos);
 
+        jPN_CadastrarPedido.add(jSP_Pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 675, 229));
+
+        jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_AlterarPedido.setText("Alterar Pedido");
         jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AlterarPedidoActionPerformed(evt);
             }
         });
+        jPN_CadastrarPedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 200, 80));
 
+        jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AdicionarCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
         jBT_AdicionarCarga.setText("Adicionar Carga");
         jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AdicionarCargaActionPerformed(evt);
             }
         });
+        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 220, 80));
 
+        jBT_AlterarStatusPedido.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AlterarStatusPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarStatusPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar2-icon.png"))); // NOI18N
         jBT_AlterarStatusPedido.setText("Alterar Status");
         jBT_AlterarStatusPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AlterarStatusPedidoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPN_CadastrarPedidoLayout = new javax.swing.GroupLayout(jPN_CadastrarPedido);
-        jPN_CadastrarPedido.setLayout(jPN_CadastrarPedidoLayout);
-        jPN_CadastrarPedidoLayout.setHorizontalGroup(
-            jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSP_Pedidos, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-                    .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
-                        .addComponent(jBT_AlterarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBT_AdicionarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBT_AlterarStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPN_CadastrarPedidoLayout.setVerticalGroup(
-            jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPN_CadastrarPedidoLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPN_CadastrarPedidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBT_AlterarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPN_CadastrarPedidoLayout.createSequentialGroup()
-                        .addComponent(jBT_AlterarStatusPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jBT_AdicionarCarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24)
-                .addComponent(jSP_Pedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93))
-        );
+        jPN_CadastrarPedido.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 220, 80));
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 
-        getContentPane().add(jTB_CliPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 700, 470));
-        getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, -1));
+        getContentPane().add(jTB_CliPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 700, 510));
+
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
+        getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
         setLocationRelativeTo(null);

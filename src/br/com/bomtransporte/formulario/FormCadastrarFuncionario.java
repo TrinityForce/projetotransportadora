@@ -215,6 +215,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
 
         jPN_Background.add(jSP_TabelaFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 690, 170));
 
+        jBT_Novo.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Novo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/new-icon.png"))); // NOI18N
         jBT_Novo.setText("Novo");
@@ -225,6 +226,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, 150, 90));
 
+        jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/excluir-icon.png"))); // NOI18N
         jBT_Excluir.setText("Excluir");
@@ -235,6 +237,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 150, 90));
 
+        jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_Salvar.setText("Salvar");
@@ -245,6 +248,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 150, 90));
 
+        jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_Alterar.setText("Alterar");
