@@ -390,8 +390,8 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_CadastrarPedidoActionPerformed
 
     private void jBT_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarActionPerformed
-//        FormAlterarCliente frmAlterar = new FormAlterarCliente();
-//        frmAlterar.setVisible(true);
+        FormAlterarCliente frmAlterar = new FormAlterarCliente();
+        frmAlterar.setVisible(true);
     }//GEN-LAST:event_jBT_AlterarActionPerformed
 
     private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
@@ -433,7 +433,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        FormALterarPedido formAltPedido = new FormALterarPedido();
+        FormAlterarPedido formAltPedido = new FormAlterarPedido();
         formAltPedido.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

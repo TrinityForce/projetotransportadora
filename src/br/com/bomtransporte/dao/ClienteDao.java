@@ -61,8 +61,10 @@ public class ClienteDao extends Conexao implements Dao {
 
             con.commit();
             close();
-        } catch (SQLException e) {
+        } catch (SQLException sqlex) {
             con.rollback();
+        }finally{
+            close();
         }
     }
 
@@ -71,44 +73,46 @@ public class ClienteDao extends Conexao implements Dao {
 
         Cliente cliente = (Cliente) obj;
 
-        inicializarAtributos();
+        try {
+            inicializarAtributos();
+            con.setAutoCommit(false);
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-
-        //alterar nome
-        stmt = con.prepareStatement("update pessoa set nome = ? where idPessoa = ?;");
-        stmt.setString(1, cliente.getNome());
-        stmt.setInt(2, cliente.getIdPessoa());
-        stmt.execute();
+            //alterar nome
+            stmt = con.prepareStatement("update pessoa set nome = ? where idPessoa = ?;");
+            stmt.setString(1, cliente.getNome());
+            stmt.setInt(2, cliente.getIdPessoa());
+            stmt.execute();
 
         // alterar cpf
-        stmt = con.prepareStatement("Update Cliente set cpf = ? where idPessoa = ?;");
-        stmt.setString(1, cliente.getCpf());
-        stmt.setInt(2, cliente.getIdPessoa());
-        stmt.execute();
-
-        // alterar telefone
-        stmt = con.prepareStatement("Update Pessoa p inner join cliente c on p.idPessoa = c.idPessoa inner join contato co on  co.idContato = c.idContato set telefone = ? where c.idPessoa = ?;");
-        stmt.setString(1, cliente.getTelefone());
-        stmt.setInt(2, cliente.getIdPessoa());
-        stmt.execute();
+            //stmt = con.prepareStatement("Update Cliente set cpf = ? where idPessoa = ?;");
+            //stmt.setString(1, cliente.getCpf());
+            //stmt.setInt(2, cliente.getIdPessoa());
+            //stmt.execute();
+            // alterar telefone
+            stmt = con.prepareStatement("Update Pessoa p inner join cliente c on p.idPessoa = c.idPessoa inner join contato co on  co.idContato = c.idContato set telefone = ?, telefone2 = ?, celular = ? where c.idPessoa = ?;");
+            stmt.setString(1, cliente.getTelefone());
+            stmt.setString(2, cliente.getTelefone2());
+            stmt.setString(3, cliente.getCelular());
+            stmt.setInt(4, cliente.getIdPessoa());
+            stmt.execute();
 
 //        // alterar endereco
 //        stmt = con.prepareStatement("update cliente_endereco set enderecos_id = ? where idCliente = ?;");
 //        stmt.setInt(1, cliente.getIdEndereco());
 //        stmt.setInt(2, cliente.getIdCliente());
 //        stmt.execute();
-        // alterar numeroCasa
-        stmt = con.prepareStatement("UPDATE cliente_endereco set numeroCasa = ? where idCliente = ?;");
-        stmt.setString(1, cliente.getNumeroCasa());
-        stmt.setInt(2, cliente.getIdCliente());
-        stmt.execute();
+            // alterar numeroCasa
+            stmt = con.prepareStatement("UPDATE clienteendereco set numeroCasa = ? where idCliente = ?;");
+            stmt.setString(1, cliente.getNumeroCasa());
+            stmt.setInt(2, cliente.getIdCliente());
+            stmt.execute();
 
-        // alterar Complemento
-        stmt = con.prepareStatement("update cliente_endereco set complemento = ? where idCliente = ?;");
-        stmt.setString(1, cliente.getComplemento());
-        stmt.setInt(2, cliente.getIdCliente());
-        stmt.execute();
+            // alterar Complemento
+            stmt = con.prepareStatement("update clienteendereco set complemento = ? where idCliente = ?;");
+            stmt.setString(1, cliente.getComplemento());
+            stmt.setInt(2, cliente.getIdCliente());
+            stmt.execute();
 //
 //        // alterar celular
 //        stmt = con.prepareStatement("update contato set celular = ? where idCliente = ?;");
@@ -122,7 +126,13 @@ public class ClienteDao extends Conexao implements Dao {
 //        stmt.setInt(2, cliente.getIdCliente());
 //        stmt.execute();
 
-        close();
+            close();
+        } catch (SQLException sqlex) {
+            con.rollback();
+            System.out.println(sqlex.getMessage());
+        } finally {
+            con.close();
+        }
     }
 
     @Override
@@ -278,21 +288,20 @@ public class ClienteDao extends Conexao implements Dao {
 
     }
 
-    public boolean verificarCPF(String cpf) throws Exception{
+    public boolean verificarCPF(String cpf) throws Exception {
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-        
+
         stmt = con.prepareStatement("SELECT CPF FROM CLIENTE WHERE CPF = ?");
         stmt.setString(1, cpf);
         rs = stmt.executeQuery();
-        if(rs != null && rs.next()){
+        if (rs != null && rs.next()) {
             return true;
         }
         close();
         return false;
     }
-    
-    
+
     public String ConsultarUF(Integer idCliente) throws Exception {
         String uf = null;
 
@@ -313,7 +322,7 @@ public class ClienteDao extends Conexao implements Dao {
         }
         close();
         return uf;
-        
+
     }
 
 }
