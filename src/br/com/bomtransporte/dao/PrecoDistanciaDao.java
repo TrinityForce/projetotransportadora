@@ -89,4 +89,25 @@ public class PrecoDistanciaDao extends Conexao{
         close();
         return listaPreco;
     }
+    
+    public PrecoDistancia retornarPrecoDistancia() throws Exception{
+        PrecoDistancia precoDistancia = null;
+        
+        inicializarAtributos();
+        
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement("Select idPrecoDistancia, origemDestinoUf, valor from PrecoDistancia where ativado = true;");
+        rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            precoDistancia = new PrecoDistancia();
+            precoDistancia.setIdPrecoDistancia(rs.getInt("idPrecoDistancia"));
+            precoDistancia.setValor(rs.getDouble("valor"));
+            precoDistancia.setOrigemDestinoUf(rs.getString("origemDestinoUf"));
+        }
+        close();
+        return precoDistancia;
+    }
+    
 }

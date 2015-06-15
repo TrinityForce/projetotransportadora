@@ -124,9 +124,9 @@ public class FormFuncionario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBT_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ClienteActionPerformed
-//        FormCadastrarCliente formCliente = new FormCadastrarCliente();
-//        formCliente.setVisible(true);
-//        dispose();
+        FormCadastrarCliente formCliente = new FormCadastrarCliente();
+        formCliente.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_ClienteActionPerformed
 
     private void jBT_Pedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_Pedido1ActionPerformed
@@ -140,9 +140,9 @@ public class FormFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarSenhaActionPerformed
 
     private void jBT_PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PedidoActionPerformed
-//        FormConsultarCliente formConsulta = new FormConsultarCliente();
-//        formConsulta.setVisible(true);
-//        dispose();
+        FormClientePedido formCli = new FormClientePedido();
+        formCli.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_PedidoActionPerformed
 
     private void jBT_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SairActionPerformed

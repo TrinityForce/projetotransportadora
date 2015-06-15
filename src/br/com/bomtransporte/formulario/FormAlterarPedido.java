@@ -120,7 +120,6 @@ public class FormAlterarPedido extends javax.swing.JFrame {
              });*/
             for (PrecoDistancia preco : pdd.listarTodosAtivados()) {
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
-
                 if (preco.getIdPrecoDistancia() == idPrecoDistanciaInteger) {
                     jCB_Rotas.setSelectedIndex(contador);
                 }

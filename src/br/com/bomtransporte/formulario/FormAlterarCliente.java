@@ -447,8 +447,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
 
                         clienteDao.alterar(cliente);
                         JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " ALTERADO COM SUCESSO!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-                        limparCamposCep();
-                        limparCamposCliente();
+                        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
                     }

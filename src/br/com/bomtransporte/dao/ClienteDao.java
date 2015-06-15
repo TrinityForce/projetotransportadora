@@ -63,7 +63,7 @@ public class ClienteDao extends Conexao implements Dao {
             close();
         } catch (SQLException sqlex) {
             con.rollback();
-        }finally{
+        } finally {
             close();
         }
     }
@@ -78,54 +78,26 @@ public class ClienteDao extends Conexao implements Dao {
             con.setAutoCommit(false);
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            //alterar nome
-            stmt = con.prepareStatement("update pessoa set nome = ? where idPessoa = ?;");
+            stmt = con.prepareStatement("UPDATE PESSOA SET NOME = ? WHERE IDPESSOA = ? ;");
             stmt.setString(1, cliente.getNome());
             stmt.setInt(2, cliente.getIdPessoa());
             stmt.execute();
 
-        // alterar cpf
-            //stmt = con.prepareStatement("Update Cliente set cpf = ? where idPessoa = ?;");
-            //stmt.setString(1, cliente.getCpf());
-            //stmt.setInt(2, cliente.getIdPessoa());
-            //stmt.execute();
-            // alterar telefone
-            stmt = con.prepareStatement("Update Pessoa p inner join cliente c on p.idPessoa = c.idPessoa inner join contato co on  co.idContato = c.idContato set telefone = ?, telefone2 = ?, celular = ? where c.idPessoa = ?;");
+            stmt = con.prepareStatement("UPDATE CONTATO SET TELEFONE = ?, TELEFONE2 = ?, CELULAR = ? WHERE IDCONTATO = ? ;");
             stmt.setString(1, cliente.getTelefone());
             stmt.setString(2, cliente.getTelefone2());
             stmt.setString(3, cliente.getCelular());
-            stmt.setInt(4, cliente.getIdPessoa());
+            stmt.setInt(4, cliente.getIdContato());
             stmt.execute();
-
-//        // alterar endereco
-//        stmt = con.prepareStatement("update cliente_endereco set enderecos_id = ? where idCliente = ?;");
-//        stmt.setInt(1, cliente.getIdEndereco());
-//        stmt.setInt(2, cliente.getIdCliente());
-//        stmt.execute();
-            // alterar numeroCasa
-            stmt = con.prepareStatement("UPDATE clienteendereco set numeroCasa = ? where idCliente = ?;");
-            stmt.setString(1, cliente.getNumeroCasa());
-            stmt.setInt(2, cliente.getIdCliente());
+            
+            stmt = con.prepareStatement("UPDATE CLIENTEENDERECO SET IDENDERECOCORREIOS = ?, NUMEROCASA = ?, COMPLEMENTO = ? WHERE IDCLIENTE = ?;");
+            stmt.setInt(1, cliente.getIdEndereco());
+            stmt.setString(2, cliente.getNumeroCasa());
+            stmt.setString(3, cliente.getComplemento());
+            stmt.setInt(4, cliente.getIdCliente());
             stmt.execute();
-
-            // alterar Complemento
-            stmt = con.prepareStatement("update clienteendereco set complemento = ? where idCliente = ?;");
-            stmt.setString(1, cliente.getComplemento());
-            stmt.setInt(2, cliente.getIdCliente());
-            stmt.execute();
-//
-//        // alterar celular
-//        stmt = con.prepareStatement("update contato set celular = ? where idCliente = ?;");
-//        stmt.setString(1, cliente.getCelular());
-//        stmt.setInt(2, cliente.getIdCliente());
-//        stmt.execute();
-//
-//        // alterar telefone2
-//        stmt = con.prepareStatement("update cliente set telefone2 = ? where idCliente = ?;");
-//        stmt.setString(1, cliente.getTelefone2());
-//        stmt.setInt(2, cliente.getIdCliente());
-//        stmt.execute();
-
+            
+            con.commit();
             close();
         } catch (SQLException sqlex) {
             con.rollback();
@@ -137,7 +109,7 @@ public class ClienteDao extends Conexao implements Dao {
 
     @Override
     public void excluir(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
