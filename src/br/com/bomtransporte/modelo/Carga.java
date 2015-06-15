@@ -5,26 +5,29 @@ package br.com.bomtransporte.modelo;
  * @author JhonattanSouza_
  */
 public class Carga {
+
     private Integer idCarga;
     private String descricao;
-    private Double peso;
+    private String peso;
     private Integer quantidade;
-    private  Integer idPedido;
+    private Integer idPedido;
     private Integer idPedido_Cli;
+    private Integer idPrecoPeso;
+    private Double valor;
 
     public Carga() {
     }
 
-    public Carga(Integer idCarga, String descricao, Double peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli) {
+    public Carga(Integer idCarga, String descricao, String peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli, Integer idPrecoPeso, Double valor) {
         this.idCarga = idCarga;
         this.descricao = descricao;
         this.peso = peso;
         this.quantidade = quantidade;
         this.idPedido = idPedido;
         this.idPedido_Cli = idPedido_Cli;
+        this.idPrecoPeso = idPrecoPeso;
+        this.valor = valor;
     }
-
-
 
 
 
@@ -59,14 +62,14 @@ public class Carga {
     /**
      * @return the peso
      */
-    public Double getPeso() {
+    public String getPeso() {
         return peso;
     }
 
     /**
      * @param peso the peso to set
      */
-    public void setPeso(Double peso) {
+    public void setPeso(String peso) {
         this.peso = peso;
     }
 
@@ -99,6 +102,21 @@ public class Carga {
     public void setIdPedido_Cli(Integer idPedido_Cli) {
         this.idPedido_Cli = idPedido_Cli;
     }
-    
-    
+
+    public Integer getIdPrecoPeso() {
+        return idPrecoPeso;
+    }
+
+    public void setIdPrecoPeso(Integer idPrecoPeso) {
+        this.idPrecoPeso = idPrecoPeso;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
 }

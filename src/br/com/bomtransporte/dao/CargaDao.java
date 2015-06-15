@@ -18,9 +18,9 @@ public class CargaDao extends Conexao implements Dao {
 
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            stmt = con.prepareStatement("INSERT INTO CARGA(descricao,peso,quantidade, idPedido_Cli) VALUES(?,?,?, ?)", Statement.RETURN_GENERATED_KEYS);
+            stmt = con.prepareStatement("INSERT INTO CARGA(descricao,idprecoPeso,quantidade, idPedido_Cli) VALUES(?,?,?, ?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, carga.getDescricao());
-            stmt.setDouble(2, carga.getPeso());
+            stmt.setInt(2, carga.getIdPrecoPeso());
             stmt.setInt(3, carga.getQuantidade());
             stmt.setInt(4, carga.getIdPedido_Cli());
 
@@ -59,7 +59,7 @@ public class CargaDao extends Conexao implements Dao {
 
         stmt = con.prepareStatement("UPDATE CARGA SET descricao = ? , peso = ?, quantidade = ? where idCarga = ?");
         stmt.setString(1, carga.getDescricao());
-        stmt.setDouble(2, carga.getPeso());
+        stmt.setInt(2, carga.getIdPrecoPeso());
         stmt.setInt(3, carga.getQuantidade());
         stmt.setInt(4, carga.getIdCarga());
 
@@ -92,7 +92,7 @@ public class CargaDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("SELECT * FROM CARGA");
+        stmt = con.prepareStatement("SELECT * FROM CARGA c join PrecoPeso pp On pp.idPrecoPeso = c.idPrecoPeso");
 
         rs = stmt.executeQuery();
 
@@ -100,7 +100,8 @@ public class CargaDao extends Conexao implements Dao {
             Carga carga = new Carga();
             carga.setIdCarga(rs.getInt("idCarga"));
             carga.setDescricao(rs.getString("descricao"));
-            carga.setPeso(rs.getDouble("peso"));
+            carga.setPeso(rs.getString("pp.peso"));
+            carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
             carga.setQuantidade(rs.getInt("quantidade"));
 
             listaCargas.add(carga);
@@ -111,12 +112,13 @@ public class CargaDao extends Conexao implements Dao {
 
     public List<Object> listarCargas(Integer idPedido_cli) throws Exception {
         List<Object> listaCargas = new ArrayList<>();
-
         inicializarAtributos();
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("SELECT * FROM CARGA WHERE idPedido_cli = ?");
+        stmt = con.prepareStatement("SELECT * FROM CARGA c"
+                + " join PrecoPeso pp On pp.idPrecoPeso = c.idPrecoPeso"
+                + " WHERE c.idPedido_Cli = ?;");
         stmt.setInt(1, idPedido_cli);
         rs = stmt.executeQuery();
 
@@ -124,11 +126,13 @@ public class CargaDao extends Conexao implements Dao {
             Carga carga = new Carga();
             carga.setIdCarga(rs.getInt("idCarga"));
             carga.setDescricao(rs.getString("descricao"));
-            carga.setPeso(rs.getDouble("peso"));
             carga.setQuantidade(rs.getInt("quantidade"));
-
+            carga.setIdPrecoPeso(rs.getInt("idPrecoPeso"));
+            carga.setPeso(rs.getString("pp.peso"));
+            carga.setValor(rs.getDouble("pp.valor"));
             listaCargas.add(carga);
         }
+
         con.close();
         return listaCargas;
     }
@@ -138,5 +142,4 @@ public class CargaDao extends Conexao implements Dao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
 }

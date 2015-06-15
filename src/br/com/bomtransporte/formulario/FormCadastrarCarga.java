@@ -6,6 +6,7 @@ import br.com.bomtransporte.dao.ClienteDao;
 import br.com.bomtransporte.dao.EnderecoDao;
 import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.dao.PrecoDistanciaDao;
+import br.com.bomtransporte.dao.PrecoPesoDao;
 import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.modelo.Endereco;
@@ -13,6 +14,7 @@ import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.modelo.PrecoDistancia;
+import br.com.bomtransporte.modelo.PrecoPeso;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
@@ -64,6 +66,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         idPedido_CliSelecionado = FormClientePedido.idPedido_CliSelecionado;
         preencherCampos();
         preencherComboPreco();
+        preencherComboPeso();
         desabilitarBotao(jBT_AdicionarCarga);
         verificarAba();
         jLB_ErroCep.setVisible(false);
@@ -106,6 +109,24 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
+    
+    
+    private void preencherComboPeso() {
+        PrecoPesoDao pesoDao = new PrecoPesoDao();
+        try {
+            jCB_Peso.removeAllItems();
+            pesoDao.listarTodosAtivados().forEach((PrecoPeso peso) -> {
+                String str =peso.getIdPrecoPeso() + " - " + peso.getPeso() + "Kg  -R$" + peso.getValor();
+                jCB_Peso.addItem(str.replace("/", " ate "));
+                //PrecoDistancia pd = (PrecoDistancia) preco;
+               // jCB_Peso.addItem(peso.getIdPrecoPeso() + " " + peso.getPeso() + "Kg  -R$" + peso.getValor());
+            });
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace(System.err);
+        }
+    }
+    
 
     private void preencherComboPreco() {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
@@ -160,14 +181,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     private void limparCampos() {
         jTF_Descricao.setText("");
-        jTF_Peso.setText("");
         jTF_NomeCliente.setText("");
         jTF_Quantidade.setText("1");
     }
 
     private void habilitarCampos() {
         jTF_Descricao.setEnabled(true);
-        jTF_Peso.setEnabled(true);
         jTF_NomeCliente.setEnabled(true);
         jTF_Quantidade.setEnabled(true);
         jTF_Bairro.setEnabled(true);
@@ -189,7 +208,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     private void desabilitarCampos() {
         jTF_Descricao.setEnabled(false);
-        jTF_Peso.setEnabled(false);
         jTF_NomeCliente.setEnabled(false);
         jTF_Quantidade.setEnabled(false);
         jTF_Bairro.setEnabled(false);
@@ -341,6 +359,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Descricao5 = new javax.swing.JLabel();
         jLB_Descricao6 = new javax.swing.JLabel();
         jLB_Descricao7 = new javax.swing.JLabel();
+        jCB_Peso = new javax.swing.JComboBox();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -356,7 +375,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_ProximaTela.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ProximaTela.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_ProximaTela.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_ProximaTela.setText("Finalizar ");
         jBT_ProximaTela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +395,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AlterarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_AlterarPedido.setText("Alterar");
         jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,7 +528,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_Salvar.setText("Finalizar ");
         jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -522,7 +538,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AdicionarCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
         jBT_AdicionarCarga.setText("<html>Adicionar<br/>Carga</html>");
         jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -532,7 +547,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 70));
 
         jTF_Peso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 30));
+        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 140, 30));
 
         jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 250, 30));
@@ -582,6 +597,14 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Descricao7.setText("Nome Cliente");
         jPN_Carga.add(jLB_Descricao7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
+        jCB_Peso.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_Peso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_PesoActionPerformed(evt);
+            }
+        });
+        jPN_Carga.add(jCB_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 250, -1));
+
         jTB_Pedido.addTab("Cadastrar Carga", jPN_Carga);
 
         getContentPane().add(jTB_Pedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 700, 510));
@@ -590,15 +613,13 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Fechar4.setForeground(new java.awt.Color(255, 255, 255));
         jLB_Fechar4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLB_Fechar4.setText("X");
-        jLB_Fechar4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLB_Fechar4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLB_Fechar4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLB_Fechar4MouseReleased(evt);
             }
         });
         getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
-
-        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
@@ -672,7 +693,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private void jBT_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SalvarActionPerformed
         List<String> listCampos = new ArrayList<>();
         listCampos.add(jTF_Descricao.getText());
-        listCampos.add(jTF_Peso.getText());
         listCampos.add(jTF_Quantidade.getText());
 
         try {
@@ -686,11 +706,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 CargaDao cargaDao = new CargaDao();
                 carga.setIdPedido_Cli(idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
-                carga.setPeso(Double.valueOf(listCampos.get(1)));
-                carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
-
+                carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
+                carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
+                
                 cargaDao.insertGetKey(carga);
-
+                preencherTabela();
+                
                 JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 Integer opt = JOptionPane.showConfirmDialog(this,
                         "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
@@ -714,7 +735,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
         List<String> listCampos = new ArrayList<>();
         listCampos.add(jTF_Descricao.getText());
-        listCampos.add(jTF_Peso.getText());
         listCampos.add(jTF_Quantidade.getText());
 
         try {
@@ -725,8 +745,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
                 carga.setIdPedido_Cli(idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
-                carga.setPeso(Double.valueOf(listCampos.get(1)));
-                carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
+                carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
+                System.err.println("idprecopeso "+carga.getIdPrecoPeso());
+                carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
                 cargaDao.insertGetKey(carga);
 
                 preencherTabela();
@@ -755,6 +776,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
         FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
+
+    private void jCB_PesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_PesoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_PesoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -800,6 +825,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JButton jBT_ProximaTela;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;
+    private javax.swing.JComboBox jCB_Peso;
     private javax.swing.JComboBox jCB_Rotas;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_CEP;
