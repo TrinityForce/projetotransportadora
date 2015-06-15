@@ -232,6 +232,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
 
         jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_Alterar.setText("Salvar Alterações");
         jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -380,6 +381,8 @@ public class FormAlterarPedido extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
+
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterarpedido-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();

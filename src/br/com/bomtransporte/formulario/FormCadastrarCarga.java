@@ -375,6 +375,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_ProximaTela.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ProximaTela.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_ProximaTela.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_ProximaTela.setText("Finalizar ");
         jBT_ProximaTela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,6 +396,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar2-icon.png"))); // NOI18N
         jBT_AlterarPedido.setText("Alterar");
         jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -528,6 +530,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
         jBT_Salvar.setText("Finalizar ");
         jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,6 +541,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AdicionarCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
         jBT_AdicionarCarga.setText("<html>Adicionar<br/>Carga</html>");
         jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -620,6 +624,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
+
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();

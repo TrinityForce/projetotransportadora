@@ -60,28 +60,25 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         desabilitarBotoes(jBT_ListarPedidos);
     }
-    
-    private void preencherTotal () {
+
+    private void preencherTotal() {
         if (idPedido_CliSelecionado != null) {
             try {
                 CargaDao cargaDao = new CargaDao();
                 Double valorTotal = 0.0;
-               
-                
-                 final List<Object> listaCarga = cargaDao.listarCargas(idPedido_CliSelecionado);
-                 System.out.println("dentro do try");
-                 for (Object carga : listaCarga) {
-                    Carga cargaAtual = (Carga)carga;
-                    valorTotal += cargaAtual.getValor() ;
-                     System.out.println("FOI PORRA"+cargaAtual.getValor());
+
+                final List<Object> listaCarga = cargaDao.listarCargas(idPedido_CliSelecionado);
+                System.out.println("dentro do try");
+                for (Object carga : listaCarga) {
+                    Carga cargaAtual = (Carga) carga;
+                    valorTotal += cargaAtual.getValor();
                 }
-                    
                 jTF_Total.setText(String.valueOf(valorTotal));
             } catch (Exception ex) {
-                Logger.getLogger(FormClientePedido.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage());
             }
         } else {
-            System.err.println("FUDEO TUDO");
+            JOptionPane.showMessageDialog(this, "Pedido Nulo.");
         }
     }
 
@@ -131,7 +128,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
                         idPedido_CliSelecionado = pedidoSelecionado.getIdPedido_Cli();
                         idPedidoSelecionado = pedidoSelecionado.getIdPedido();
-                        preencherTotal ();
+                        preencherTotal();
                         if ((idPedidoSelecionado != null) && (idPedido_CliSelecionado) != null) {
 
                             habilitarBotoes(jBT_AlterarPedido, jBT_AlterarStatusPedido);
@@ -140,7 +137,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                                 habilitarBotoes(jBT_AdicionarCarga);
 
                             } else {
-                                desabilitarBotoes(jBT_AdicionarCarga,jBT_AlterarPedido);
+                                desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido);
                             }
                         } else {
                             desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
@@ -279,6 +276,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/excluir-icon.png"))); // NOI18N
         jBT_Excluir.setText("Excluir Cliente");
         jBT_Excluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +287,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_CadastrarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_CadastrarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_CadastrarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/new-icon.png"))); // NOI18N
         jBT_CadastrarPedido.setText("Cadastrar Pedido");
         jBT_CadastrarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -299,6 +298,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_Alterar.setText("Alterar Cliente");
         jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,6 +309,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_Pesquisar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/Search-icon.png"))); // NOI18N
         jBT_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_PesquisarActionPerformed(evt);
@@ -321,6 +322,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_ListarPedidos.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ListarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_ListarPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/listar-icon.png"))); // NOI18N
         jBT_ListarPedidos.setText("Listar Pedidos");
         jBT_ListarPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -410,6 +412,8 @@ public class FormClientePedido extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
+
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
