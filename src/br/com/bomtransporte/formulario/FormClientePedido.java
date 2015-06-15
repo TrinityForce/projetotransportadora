@@ -112,7 +112,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                                 habilitarBotoes(jBT_AdicionarCarga);
 
                             } else {
-                                desabilitarBotoes(jBT_AdicionarCarga);
+                                desabilitarBotoes(jBT_AdicionarCarga,jBT_AlterarPedido);
                             }
                         } else {
                             desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
@@ -245,7 +245,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSC_Tabela.setViewportView(jTableClientes);
 
-        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 670, 260));
+        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 670, 260));
 
         jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -280,6 +280,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
         jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 200, 70));
 
+        jBT_Pesquisar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/Search-icon.png"))); // NOI18N
         jBT_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -287,10 +288,10 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_PesquisarActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 70, 70));
+        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 70, 70));
 
-        jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 340, 70));
+        jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 370, 70));
 
         jBT_ListarPedidos.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ListarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -342,7 +343,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AdicionarCargaActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 220, 80));
+        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 230, 80));
 
         jBT_AlterarStatusPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarStatusPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -467,7 +468,6 @@ public class FormClientePedido extends javax.swing.JFrame {
     private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
         FormAlterarPedido formAltPedido = new FormAlterarPedido();
         formAltPedido.setVisible(true);
-        dispose();
     }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
 
     private void jBT_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VoltarActionPerformed
