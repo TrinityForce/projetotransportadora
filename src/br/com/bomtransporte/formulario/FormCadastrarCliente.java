@@ -134,6 +134,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                 String campo = it.next();
                 if (campo == null || campo.trim().length() == 0) {
                     vazio = false;
+                    return vazio;
                 }
             }
         } else {

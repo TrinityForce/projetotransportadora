@@ -1,6 +1,7 @@
 package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.CargaDao;
+import br.com.bomtransporte.util.JTFSomenteNumeros;
 import br.com.bomtransporte.dao.ClienteDao;
 import br.com.bomtransporte.dao.EnderecoDao;
 import br.com.bomtransporte.dao.PedidoDao;
@@ -18,13 +19,13 @@ import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -35,7 +36,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     private ClienteDao clienteDao;
     private EnderecoDao enderecoDao;
-    private Integer idEndereco, IdPedidoGlobal, idPedido, idCliente, idPedido_CLiSelecionado;
+    private Integer idEndereco, idPedido, idCliente, idPedido_CliSelecionado;
     private String[] idPrecoDistancia;
     private Tela t;
     private CargaDao cargaDao;
@@ -43,8 +44,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private PedidoDao pedidoDao;
     private Pedido pedido;
     private PrecoDistancia precoDistancia;
-    
-    
 
     public void imprimirObjeto(Object obj) throws IllegalArgumentException, IllegalAccessException {
         for (Field field : obj.getClass().getDeclaredFields()) {
@@ -61,13 +60,15 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     public FormCadastrarCarga() {
         initComponents();
         idPedido = FormClientePedido.idPedido_CliSelecionado;
-        idCliente =  FormClientePedido.idCliente;
-        idPedido_CLiSelecionado = FormClientePedido.idPedido_CliSelecionado;
-        // preencherTabela();
+        idCliente = FormClientePedido.idCliente;
+        idPedido_CliSelecionado = FormClientePedido.idPedido_CliSelecionado;
         preencherCampos();
         preencherComboPreco();
         desabilitarBotao(jBT_AdicionarCarga);
         verificarAba();
+        jLB_ErroCep.setVisible(false);
+        desabilitarCampos(jTF_Bairro, jTF_NomeCidade, jTF_Logradouro, jTF_Uf);
+        jTB_Pedido.setEnabledAt(1, false);
     }
 
     private void verificarAba() {
@@ -140,21 +141,21 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         return rb1.isSelected() == true || rb2.isSelected() == true;
     }
 
+    //verifica se todos os campos da lista estao preenchidos e retorna true
     private boolean verificarCampos(List<String> list) {
-        boolean tudoPreenchido = false;
-
-        if (list != null) {
-            tudoPreenchido = true;
-            for (String item : list) {
-                if (item == null) {
-                    tudoPreenchido = false;
-                    System.err.println("Endereco vazio");
-                    break;
+        Boolean vazio = true;
+        if (list != null && !list.isEmpty()) {
+            for (Iterator<String> it = list.iterator(); it.hasNext();) {
+                String campo = it.next();
+                if (campo == null || campo.trim().length() == 0) {
+                    vazio = false;
+                    return vazio;
                 }
             }
+        } else {
+            vazio = false;
         }
-        System.out.println("verificarCampoEndereco OK" + tudoPreenchido);
-        return tudoPreenchido;
+        return vazio;
     }
 
     private void limparCampos() {
@@ -201,11 +202,16 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     }
 
+    private void desabilitarCampos(JTextField... jTF) {
+        for (JTextField jTF1 : jTF) {
+            jTF1.setEnabled(false);
+        }
+    }
+
     private void limparCamposCep() {
         jTF_Bairro.setText("");
         jTF_Logradouro.setText("");
         jTF_Uf.setText("");
-
     }
 
     private boolean verificarCep() {
@@ -222,7 +228,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 idEndereco = endereco.getId();
                 return true;
             } else {
-                jLB_ErroCep.setText("CEP não encontrado.");
+                jLB_ErroCep.setText("CEP Não Encontrado.");
                 jLB_ErroCep.setVisible(true);
                 limparCamposCep();
                 return false;
@@ -239,9 +245,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         try {
             cargaDao = new CargaDao();
-            Integer sexo = idPedido_CLiSelecionado;
-            System.err.println("sexo valor " + sexo);
-            final List<Object> listaCargas = cargaDao.listarCargas(sexo);
+            final List<Object> listaCargas = cargaDao.listarCargas(idPedido_CliSelecionado);
 
             if (listaCargas != null && listaCargas.size() > 0) {
                 listaCargas.forEach((Object cargaAtual) -> {
@@ -304,6 +308,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jTF_IdCliente = new javax.swing.JTextField();
         jTF_NomeCidade = new javax.swing.JTextField();
         jTF_Desconto = new javax.swing.JTextField();
+        jTF_Desconto = new JTFSomenteNumeros();
         jLB_Fechar = new javax.swing.JLabel();
         jLB_Descricao1 = new javax.swing.JLabel();
         jLB_CEP = new javax.swing.JLabel();
@@ -324,6 +329,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jBT_Salvar = new javax.swing.JButton();
         jBT_AdicionarCarga = new javax.swing.JButton();
         jTF_Peso = new javax.swing.JTextField();
+        jTF_Peso = new JTFSomenteNumeros();
         jTF_Descricao = new javax.swing.JTextField();
         jTF_Quantidade = new javax.swing.JTextField();
         jTF_IdCliente1 = new javax.swing.JTextField();
@@ -339,6 +345,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTB_Pedido.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -357,13 +365,15 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Pedido.add(jBT_ProximaTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 170, 70));
 
-        jBT_Verificar.setText("Verificar");
+        jBT_Verificar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Verificar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jBT_Verificar.setText("Verificar CEP");
         jBT_Verificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_VerificarActionPerformed(evt);
             }
         });
-        jPN_Pedido.add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 80, 30));
+        jPN_Pedido.add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 120, 30));
 
         jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -522,14 +532,14 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 70));
 
         jTF_Peso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 250, 30));
+        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 140, 30));
 
         jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 250, 30));
 
         jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Quantidade.setText("1");
-        jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 36, 30));
+        jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 36, 30));
 
         jTF_IdCliente1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_IdCliente1.setEnabled(false);
@@ -554,11 +564,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jLB_Quantidade1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Quantidade1.setText("Quantidade");
-        jPN_Carga.add(jLB_Quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        jPN_Carga.add(jLB_Quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
         jLB_Peso1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Peso1.setText("Peso");
-        jPN_Carga.add(jLB_Peso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPN_Carga.add(jLB_Peso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jLB_Descricao5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao5.setText("ID");
@@ -592,6 +602,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLB_FecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_FecharMouseReleased
@@ -599,12 +610,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }//GEN-LAST:event_jLB_FecharMouseReleased
 
     private void jBT_ProximaTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ProximaTelaActionPerformed
-        List<String> listCampos = new ArrayList<String>();
+        List<String> listCampos = new ArrayList<>();
         listCampos.add(jTF_Cep.getText());
         listCampos.add(jTF_Numero.getText());
-        listCampos.add(jTF_Complemento.getText());
-        listCampos.add(jTF_Desconto.getText());
-
         if (verificarCampos(listCampos) && (idCliente != null)
                 && (idEndereco != null)) {
 
@@ -613,9 +621,13 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 pedidoDao = new PedidoDao();
                 pedido = new Pedido();
 
-                pedido.setComplemento(listCampos.get(2));
+                pedido.setComplemento(jTF_Complemento.getText());
                 pedido.setDataVenda(Datas.dataAtual());
-                pedido.setDesconto(Integer.valueOf(listCampos.get(3)));
+
+                if (jTF_Desconto.getText() != null && jTF_Desconto.getText().trim().length() > 0) {
+                    pedido.setDesconto(Integer.valueOf(jTF_Desconto.getText()));
+                }
+
                 pedido.setIdEnderecoCorreios(idEndereco);
                 pedido.setNumero(listCampos.get(1));
                 pedido.setProtocolo(Datas.getCurrentDate() + idCliente);
@@ -627,7 +639,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jTB_Pedido.setEnabledAt(1, true);
                 jTB_Pedido.setEnabledAt(0, false);
                 jTB_Pedido.setSelectedIndex(1);
-                
             } else {
                 JOptionPane.showMessageDialog(this,
                         "CEP invalido!", "Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -651,7 +662,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }//GEN-LAST:event_jTF_CpfActionPerformed
 
     private void jCB_RotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_RotasActionPerformed
-
         idPrecoDistancia = jCB_Rotas.getSelectedItem().toString().split(" ");
     }//GEN-LAST:event_jCB_RotasActionPerformed
 
@@ -660,7 +670,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }//GEN-LAST:event_jTF_Cpf1ActionPerformed
 
     private void jBT_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SalvarActionPerformed
-        List<String> listCampos = new ArrayList<String>();
+        List<String> listCampos = new ArrayList<>();
         listCampos.add(jTF_Descricao.getText());
         listCampos.add(jTF_Peso.getText());
         listCampos.add(jTF_Quantidade.getText());
@@ -671,12 +681,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 Carga carga = new Carga();
 
                 pedido.setIdPedido(pedidoDao.insertGetKey(pedido));
-
-                IdPedidoGlobal = pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
+                idPedido_CliSelecionado = pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
                         precoDistancia.getIdPrecoDistancia());
-
                 CargaDao cargaDao = new CargaDao();
-                carga.setIdPedido_Cli(IdPedidoGlobal);
+                carga.setIdPedido_Cli(idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
@@ -692,15 +700,14 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                     limparCampos();
                     habilitarBotao(jBT_AdicionarCarga);
                 } else {
-                    dispose();
-
+                    FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
+            ex.printStackTrace(System.err);
         }
     }//GEN-LAST:event_jBT_SalvarActionPerformed
 
@@ -716,12 +723,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 Carga carga = new Carga();
                 cargaDao = new CargaDao();
 
-                carga.setIdPedido_Cli(idPedido);
+                carga.setIdPedido_Cli(idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
                 carga.setPeso(Double.valueOf(listCampos.get(1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(2)));
                 cargaDao.insertGetKey(carga);
-                
+
                 preencherTabela();
                 JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 Integer opt = JOptionPane.showConfirmDialog(this,
@@ -730,7 +737,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 if (opt == JOptionPane.YES_OPTION) {
                     limparCampos();
                 } else {
-                    dispose();
+                    FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
@@ -805,9 +812,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Descricao7;
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
-    private javax.swing.JLabel jLB_Fechar1;
-    private javax.swing.JLabel jLB_Fechar2;
-    private javax.swing.JLabel jLB_Fechar3;
     private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JLabel jLB_Peso1;
     private javax.swing.JLabel jLB_Quantidade1;

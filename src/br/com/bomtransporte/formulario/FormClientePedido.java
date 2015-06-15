@@ -3,15 +3,15 @@ package br.com.bomtransporte.formulario;
 import br.com.bomtransporte.dao.ClienteDao;
 import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.modelo.Cliente;
+import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
+import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -55,7 +55,6 @@ public class FormClientePedido extends javax.swing.JFrame {
         jTB_CliPedido.setSelectedIndex(0);
 
         desabilitarBotoes(jBT_ListarPedidos);
-
     }
 
     private void preencherTabelaPedido() {
@@ -222,6 +221,8 @@ public class FormClientePedido extends javax.swing.JFrame {
         jBT_AlterarPedido = new javax.swing.JButton();
         jBT_AdicionarCarga = new javax.swing.JButton();
         jBT_AlterarStatusPedido = new javax.swing.JButton();
+        jBT_Voltar = new javax.swing.JButton();
+        jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -286,10 +287,10 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_PesquisarActionPerformed(evt);
             }
         });
-        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 120, 70, 70));
+        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 70, 70));
 
         jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 340, 70));
+        jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 340, 70));
 
         jBT_ListarPedidos.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ListarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -319,7 +320,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSP_Pedidos.setViewportView(jTB_Pedidos);
 
-        jPN_CadastrarPedido.add(jSP_Pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 675, 229));
+        jPN_CadastrarPedido.add(jSP_Pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 675, 229));
 
         jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -330,7 +331,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AlterarPedidoActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 200, 80));
+        jPN_CadastrarPedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 200, 80));
 
         jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -341,7 +342,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AdicionarCargaActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 220, 80));
+        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 220, 80));
 
         jBT_AlterarStatusPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarStatusPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -352,11 +353,34 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AlterarStatusPedidoActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 220, 80));
+        jPN_CadastrarPedido.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 220, 80));
+
+        jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/retornar-icon.png"))); // NOI18N
+        jBT_Voltar.setText("Voltar");
+        jBT_Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_VoltarActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, -1, 60));
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 
         getContentPane().add(jTB_CliPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 700, 510));
+
+        jLB_Fechar4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLB_Fechar4.setForeground(new java.awt.Color(255, 255, 255));
+        jLB_Fechar4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLB_Fechar4.setText("X");
+        jLB_Fechar4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLB_Fechar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLB_Fechar4MouseReleased(evt);
+            }
+        });
+        getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -364,7 +388,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-//jhonatan n sabe usar git
+
     private void jBT_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ExcluirActionPerformed
         try {
             Integer opt = JOptionPane.showConfirmDialog(this, "Tem certeza de que deseja EXCLUIR este cliente do sistema? \nEsta alteração não poderá ser revertida.", "EXCLUIR?", JOptionPane.YES_NO_OPTION);
@@ -399,7 +423,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
         preencherTabela();
-        desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
+        desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_ListarPedidos);
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
@@ -435,16 +459,28 @@ public class FormClientePedido extends javax.swing.JFrame {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), input);
                 preencherTabelaPedido();
             } catch (Exception ex) {
-                Logger.getLogger(FormClientePedido.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         }
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
 
     private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
-
         FormAlterarPedido formAltPedido = new FormAlterarPedido();
         formAltPedido.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
+
+    private void jBT_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VoltarActionPerformed
+        jTB_CliPedido.setEnabledAt(0, true);
+        jTB_CliPedido.setEnabledAt(1, false);
+        jTB_CliPedido.setSelectedIndex(0);
+        preencherTabela();
+        desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_ListarPedidos);
+    }//GEN-LAST:event_jBT_VoltarActionPerformed
+
+    private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
+        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+    }//GEN-LAST:event_jLB_Fechar4MouseReleased
 
     public static void main(String args[]) {
         /* Set the Windows look and feel */
@@ -481,7 +517,9 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_ListarPedidos;
     private javax.swing.JButton jBT_Pesquisar;
+    private javax.swing.JButton jBT_Voltar;
     private javax.swing.JLabel jLB_Background;
+    private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
     private javax.swing.JScrollPane jSC_Tabela;

@@ -178,13 +178,13 @@ public class FormAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_LogoutActionPerformed
 
     private void jBT_PesqClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesqClienteActionPerformed
-       FormCrudPedido formCliente = new FormCrudPedido();
+        FormClientePedido formCliente = new FormClientePedido();
         formCliente.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBT_PesqClienteActionPerformed
 
     private void jBT_PedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PedidoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jBT_PedidoActionPerformed
 
     /**
@@ -208,7 +208,7 @@ public class FormAdministrador extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 
