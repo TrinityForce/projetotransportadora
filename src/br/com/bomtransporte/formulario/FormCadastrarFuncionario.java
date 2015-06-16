@@ -24,7 +24,7 @@ import javax.swing.ListSelectionModel;
  * @author JhonattanSouza_
  */
 public class FormCadastrarFuncionario extends javax.swing.JFrame {
-
+    
     private FuncionarioDao funcionarioDao;
     private Funcionario funcionarioSelecionado;
     private Integer idUsuario, idPessoa, idFuncionario;
@@ -37,19 +37,21 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         desabilitarCampos();
         preencherTabela();
     }
-
+    
     private boolean verificarRadio(JRadioButton rb1, JRadioButton rb2) {
         return rb1.isSelected() == true || rb2.isSelected() == true;
     }
-
+    
     private void limparCampos() {
         jTF_Cargo.setText("");
+        jTF_Nome.setText("");
         jTF_Login.setText("");
         jTF_Email.setText("");
         jPS_Senha.setText("");
+        
         BG_Perfil.clearSelection();
     }
-
+    
     private void habilitarCampos() {
         jTF_Nome.setEnabled(true);
         jTF_Cargo.setEnabled(true);
@@ -59,15 +61,15 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jRB_Administrador.setEnabled(true);
         jRB_Funcionario.setEnabled(true);
     }
-
+    
     private void habilitarBotao(JButton bt) {
         bt.setEnabled(true);
     }
-
+    
     private void desabilitarBotao(JButton bt) {
         bt.setEnabled(false);
     }
-
+    
     private void desabilitarCampos() {
         jTF_Cargo.setEnabled(false);
         jTF_Login.setEnabled(false);
@@ -80,16 +82,16 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jBT_Excluir.setEnabled(false);
         jTF_Nome.setEnabled(false);
     }
-
+    
     private void preencherTabela() {
-
+        
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"ID", "NOME", "CARGO", "DATA CADASTRO", "E-MAIL", "LOGIN"};
-
+        
         try {
             funcionarioDao = new FuncionarioDao();
             final List<Object> listaFuncionario = funcionarioDao.listar();
-
+            
             if (listaFuncionario != null && listaFuncionario.size() > 0) {
                 listaFuncionario.forEach((Object funcionarioAtual) -> {
                     Funcionario funcionario = (Funcionario) funcionarioAtual;
@@ -98,7 +100,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                         funcionario.getUsuario().getLogin()});
                 });
             }
-
+            
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTableFuncionario.setModel(modTabela);
             jTableFuncionario.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -116,18 +118,18 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             jTableFuncionario.getTableHeader().setReorderingAllowed(false);
             jTableFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTableFuncionario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+            
             jTableFuncionario.addMouseListener(new MouseAdapter() {
-
+                
                 @Override
                 public void mouseClicked(MouseEvent e) {
-
+                    
                     try {
-
+                        
                         List<Object> lista = funcionarioDao.listar();
                         funcionarioSelecionado = (Funcionario) lista.
                                 get(jTableFuncionario.convertRowIndexToModel(jTableFuncionario.getSelectedRow()));
-
+                        
                         jTF_Nome.setText(String.valueOf(funcionarioSelecionado.getNome()));
                         jTF_Cargo.setText(funcionarioSelecionado.getCargo());
                         jTF_Email.setText(funcionarioSelecionado.getUsuario().getEmail());
@@ -142,7 +144,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                         if (idPerfil == 2) {
                             jRB_Funcionario.setSelected(true);
                         }
-
+                        
                         habilitarCampos();
                         habilitarBotao(jBT_Alterar);
                         habilitarBotao(jBT_Excluir);
@@ -353,10 +355,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 ValidarEmail ve = new ValidarEmail();
                 if (ve.validar(email)) {
                     idPerfil = (jRB_Administrador.isSelected()) ? 1 : 2;
-
+                    
                     Funcionario funcionario = new Funcionario();
                     Usuario usuario = new Usuario();
-
+                    
                     funcionario.setUsuario(usuario);
                     funcionario.setNome(nome);
                     funcionario.setDataCadastro(dataCadastro);
@@ -366,13 +368,13 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                     funcionario.getUsuario().setIdPerfil(idPerfil);
                     funcionario.setCargo(cargo);
                     funcionario.getUsuario().setEmail(email);
-
+                    
                     funcionarioDao.inserir(funcionario);
-
+                    
                     desabilitarCampos();
                     limparCampos();
                     preencherTabela();
-
+                    
                     JOptionPane.showMessageDialog(this, "Funcionário incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "E-mail inválido, por favor corrigir", "E-MAIL INVÁLIDO", JOptionPane.ERROR_MESSAGE);
@@ -391,16 +393,16 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         String login = jTF_Login.getText();
         String email = jTF_Email.getText();
         Integer idPerfil;
-
+        
         try {
             if (Tela.verificarCampos(jPN_Background) && verificarRadio(jRB_Administrador, jRB_Funcionario)) {
                 ValidarEmail ve = new ValidarEmail();
                 if (ve.validar(email)) {
                     idPerfil = (jRB_Administrador.isSelected()) ? 1 : 2;
-
+                    
                     Funcionario funcionario = new Funcionario();
                     Usuario usuario = new Usuario();
-
+                    
                     funcionario.setUsuario(usuario);
                     funcionario.getUsuario().setIdUsuario(idUsuario);
                     funcionario.setIdPessoa(idPessoa);
@@ -410,13 +412,13 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                     funcionario.getUsuario().setIdPerfil(idPerfil);
                     funcionario.setCargo(cargo);
                     funcionario.getUsuario().setEmail(email);
-
+                    
                     funcionarioDao.alterar(funcionario);
-
+                    
                     desabilitarCampos();
                     limparCampos();
                     preencherTabela();
-
+                    
                     JOptionPane.showMessageDialog(this, "Funcionário alterado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "E-mail inválido, por favor corrigir", "E-MAIL INVÁLIDO", JOptionPane.ERROR_MESSAGE);
@@ -435,9 +437,9 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             if (opt == JOptionPane.YES_OPTION) {
                 Funcionario funcionario = new Funcionario();
                 funcionario.setIdFuncionario(idFuncionario);
-
+                
                 funcionarioDao.excluir(funcionario);
-
+                
                 desabilitarCampos();
                 limparCampos();
                 preencherTabela();

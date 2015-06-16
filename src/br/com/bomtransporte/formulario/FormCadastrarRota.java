@@ -81,12 +81,9 @@ public class FormCadastrarRota extends javax.swing.JFrame {
 
         BTG_Estados = new javax.swing.ButtonGroup();
         jPN_Cadastrar = new javax.swing.JPanel();
-        jFTF_Valor1 = new javax.swing.JFormattedTextField();
         Origem1 = new javax.swing.JLabel();
         Origem3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        Valor1 = new javax.swing.JLabel();
         jCB_Rotas = new javax.swing.JComboBox();
         jPN_Alterar = new javax.swing.JPanel();
         jRB_Sudeste = new javax.swing.JRadioButton();
@@ -111,7 +108,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Cadastrar.setBackground(new java.awt.Color(22, 160, 133));
         jPN_Cadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPN_Cadastrar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPN_Cadastrar.add(jFTF_Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 130, 30));
 
         Origem1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Origem1.setText("Rotas cadastradas:");
@@ -130,22 +126,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPN_Cadastrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 190, 70));
-
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
-        jButton2.setText("Alterar Valor");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPN_Cadastrar.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 190, 70));
-
-        Valor1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Valor1.setText("Valor:");
-        jPN_Cadastrar.add(Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        jPN_Cadastrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 190, 70));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, 40));
@@ -227,9 +208,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         getContentPane().add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/rota-bg.png"))); // NOI18N
-        jLB_Background.setMaximumSize(new java.awt.Dimension(800, 600));
-        jLB_Background.setMinimumSize(new java.awt.Dimension(800, 600));
-        jLB_Background.setPreferredSize(new java.awt.Dimension(800, 600));
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
@@ -297,10 +275,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void jLB_FecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_FecharMouseReleased
         FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
     }//GEN-LAST:event_jLB_FecharMouseReleased
@@ -343,15 +317,12 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     private javax.swing.JLabel Origem2;
     private javax.swing.JLabel Origem3;
     private javax.swing.JLabel Valor;
-    private javax.swing.JLabel Valor1;
     private javax.swing.JButton jBT_Adicionar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jCB_Destino;
     private javax.swing.JComboBox jCB_Origem;
     private javax.swing.JComboBox jCB_Rotas;
     private javax.swing.JFormattedTextField jFTF_Valor;
-    private javax.swing.JFormattedTextField jFTF_Valor1;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Fechar;
     private javax.swing.JPanel jPN_Alterar;

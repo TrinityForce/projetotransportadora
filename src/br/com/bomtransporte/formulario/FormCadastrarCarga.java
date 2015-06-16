@@ -346,8 +346,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jTB_Cargas = new javax.swing.JTable();
         jBT_Salvar = new javax.swing.JButton();
         jBT_AdicionarCarga = new javax.swing.JButton();
-        jTF_Peso = new javax.swing.JTextField();
-        jTF_Peso = new JTFSomenteNumeros();
         jTF_Descricao = new javax.swing.JTextField();
         jTF_Quantidade = new javax.swing.JTextField();
         jTF_IdCliente1 = new javax.swing.JTextField();
@@ -550,11 +548,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 70));
 
-        jTF_Peso.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 140, 30));
-
         jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 250, 30));
+        jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 320, 30));
 
         jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Quantidade.setText("1");
@@ -607,7 +602,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jCB_PesoActionPerformed(evt);
             }
         });
-        jPN_Carga.add(jCB_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 250, -1));
+        jPN_Carga.add(jCB_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 320, -1));
 
         jTB_Pedido.addTab("Cadastrar Carga", jPN_Carga);
 
@@ -874,7 +869,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_NomeCliente;
     private javax.swing.JTextField jTF_NomeCliente1;
     private javax.swing.JTextField jTF_Numero;
-    private javax.swing.JTextField jTF_Peso;
     private javax.swing.JTextField jTF_Quantidade;
     private javax.swing.JTextField jTF_Uf;
     // End of variables declaration//GEN-END:variables

@@ -352,6 +352,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar2-icon.png"))); // NOI18N
         jBT_AlterarPedido.setText("Alterar Pedido");
         jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,6 +363,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AdicionarCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
         jBT_AdicionarCarga.setText("Adicionar Carga");
         jBT_AdicionarCarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,6 +374,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_AlterarStatusPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarStatusPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarStatusPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
         jBT_AlterarStatusPedido.setText("Alterar Status");
         jBT_AlterarStatusPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -382,6 +385,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/retornar-icon.png"))); // NOI18N
         jBT_Voltar.setText("Voltar");
         jBT_Voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
