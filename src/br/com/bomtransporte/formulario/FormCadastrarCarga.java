@@ -341,6 +341,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jLB_Obrigatorio7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPN_Carga = new javax.swing.JPanel();
         jSP_Cargas = new javax.swing.JScrollPane();
         jTB_Cargas = new javax.swing.JTable();
@@ -409,7 +411,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jCB_RotasActionPerformed(evt);
             }
         });
-        jPN_Pedido.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, 170, -1));
+        jPN_Pedido.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 170, -1));
 
         jTF_NomeCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_NomeCliente.setEnabled(false);
@@ -459,7 +461,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jLB_Descricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         jLB_CEP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_CEP.setText("CEP");
+        jLB_CEP.setText("CEP *");
         jPN_Pedido.add(jLB_CEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -471,11 +473,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("Destino");
-        jPN_Pedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, -1, -1));
+        jLabel7.setText("Destino *");
+        jPN_Pedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("Número");
+        jLabel10.setText("Número *");
         jPN_Pedido.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -504,8 +506,15 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Desconto");
+        jLabel14.setText("Desconto *");
         jPN_Pedido.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        jLB_Obrigatorio7.setForeground(new java.awt.Color(153, 0, 0));
+        jLB_Obrigatorio7.setText("* - Campos Obrigatórios");
+        jPN_Pedido.add(jLB_Obrigatorio7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 180, -1));
+
+        jLabel2.setText("* - Campos Obrigatórios");
+        jPN_Pedido.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jTB_Pedido.addTab("Cadastrar Pedido", jPN_Pedido);
 
@@ -653,7 +662,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 pedido.setIdEnderecoCorreios(idEndereco);
                 pedido.setNumero(listCampos.get(1));
                 pedido.setProtocolo(Datas.getCurrentDate() + idCliente);
-                pedido.setStatusPedido("Em aguardo");
+                pedido.setStatusPedido("Aguardando");
 
                 precoDistancia = new PrecoDistancia();
                 precoDistancia.setIdPrecoDistancia(Integer.valueOf(idPrecoDistancia[0]));
@@ -840,12 +849,14 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
     private javax.swing.JLabel jLB_Fechar4;
+    private javax.swing.JLabel jLB_Obrigatorio7;
     private javax.swing.JLabel jLB_Peso1;
     private javax.swing.JLabel jLB_Quantidade1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

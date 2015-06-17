@@ -33,6 +33,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Pedido pedidoSelecionado;
     public static Integer idCliente, ativarAba, idPedido_CliSelecionado,
             idPedidoSelecionado;
+    private String statusPedidoSelecionado;
 
     public FormClientePedido() {
         initComponents();
@@ -128,6 +129,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
                         idPedido_CliSelecionado = pedidoSelecionado.getIdPedido_Cli();
                         idPedidoSelecionado = pedidoSelecionado.getIdPedido();
+                        statusPedidoSelecionado = pedidoSelecionado.getStatusPedido();
                         preencherTotal();
                         if ((idPedidoSelecionado != null) && (idPedido_CliSelecionado) != null) {
 
@@ -481,17 +483,40 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
     private void jBT_AlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusPedidoActionPerformed
-        final String[] statusPedido = {"Em aguardo", "Saiu para entrega", "Entregue"};
+       if (statusPedidoSelecionado == null || statusPedidoSelecionado.trim().length() == 0) {
+           JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o pedido!\n O status do pedido esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
+           return;
+       }
+        List<String> optionList = new ArrayList<String>();
 
-        String input = (String) JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
+        optionList.add("Saiu para entrega");
+        optionList.add("Entregue");
+        optionList.add("Extraviado");
+        
+        if (statusPedidoSelecionado.equals("Em aguardo") || statusPedidoSelecionado.equals("Aguardando")) {
+            optionList.remove(1);
+        } else if(statusPedidoSelecionado.equals("Saiu para entrega")) {
+            optionList.remove(0);
+        } else if (statusPedidoSelecionado.equals("Extraviado")) {
+            optionList.remove(2);
+        } else {
+             JOptionPane.showMessageDialog(this, "Esse pedido ja foi entregado!", "Pedido entregue", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Object[] options = optionList.toArray();
+
+        Object value = JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
                 "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null,
-                statusPedido,
-                statusPedido[1]);
-        System.err.println("opcao escolhida is %s.\n " + input);
+                options,
+                options[0]);
+        int index = optionList.indexOf(value);
 
-        if (input != null) {
+        System.err.println("opcao escolhida is %s.\n " + optionList.get(index));
+
+        if ( optionList.get(index) != null) {
             try {
-                pedidoDao.update(pedidoSelecionado.getIdPedido(), input);
+                pedidoDao.update(pedidoSelecionado.getIdPedido(), optionList.get(index));
                 preencherTabelaPedido();
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

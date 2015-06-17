@@ -198,17 +198,13 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
-        jLB_Obrigatorio4 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLB_Obrigatorio1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLB_Fechar = new javax.swing.JLabel();
         jLB_Obrigatorio3 = new javax.swing.JLabel();
-        jLB_Obrigatorio = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLB_ErroCep = new javax.swing.JLabel();
         jLB_Obrigatorio6 = new javax.swing.JLabel();
-        jLB_Obrigatorio2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -286,15 +282,9 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jTF_Telefone2.setName("jTF_Telefone2"); // NOI18N
         jPN_Background.add(jTF_Telefone2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 210, 30));
 
-        jLB_Obrigatorio4.setText("*");
-        jPN_Background.add(jLB_Obrigatorio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
-
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel13.setText("Cidade");
         jPN_Background.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, -1, -1));
-
-        jLB_Obrigatorio1.setText("*");
-        jPN_Background.add(jLB_Obrigatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Celular");
@@ -315,9 +305,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jLB_Obrigatorio3.setText("*");
         jPN_Background.add(jLB_Obrigatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 450, -1, -1));
 
-        jLB_Obrigatorio.setText("*");
-        jPN_Background.add(jLB_Obrigatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, -1, -1));
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Telefone 2");
         jPN_Background.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
@@ -329,17 +316,14 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
 
         jLB_Obrigatorio6.setForeground(new java.awt.Color(153, 0, 0));
         jLB_Obrigatorio6.setText("* - Campos Obrigatórios");
-        jPN_Background.add(jLB_Obrigatorio6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 180, -1));
-
-        jLB_Obrigatorio2.setText("*");
-        jPN_Background.add(jLB_Obrigatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, -1, -1));
+        jPN_Background.add(jLB_Obrigatorio6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 180, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Complemento");
         jPN_Background.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("Número");
+        jLabel10.setText("Número *");
         jPN_Background.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -355,19 +339,19 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jPN_Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("CEP");
+        jLabel5.setText("CEP *");
         jPN_Background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Telefone");
+        jLabel4.setText("Telefone *");
         jPN_Background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("CPF");
+        jLabel3.setText("CPF *");
         jPN_Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nome");
+        jLabel2.setText("Nome *");
         jPN_Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cliente-bg.png"))); // NOI18N
@@ -491,11 +475,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
-    private javax.swing.JLabel jLB_Obrigatorio;
-    private javax.swing.JLabel jLB_Obrigatorio1;
-    private javax.swing.JLabel jLB_Obrigatorio2;
     private javax.swing.JLabel jLB_Obrigatorio3;
-    private javax.swing.JLabel jLB_Obrigatorio4;
     private javax.swing.JLabel jLB_Obrigatorio6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

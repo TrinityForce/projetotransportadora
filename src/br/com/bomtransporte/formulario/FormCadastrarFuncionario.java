@@ -186,6 +186,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jTF_Cargo = new javax.swing.JTextField();
         jTF_Nome = new javax.swing.JTextField();
         jLB_Fechar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLB_Texto6 = new javax.swing.JLabel();
         jLB_Texto5 = new javax.swing.JLabel();
         jLB_Texto4 = new javax.swing.JLabel();
@@ -226,7 +227,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_NovoActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, 150, 90));
+        jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 150, 90));
 
         jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -237,7 +238,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_ExcluirActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 150, 90));
+        jPN_Background.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 150, 90));
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -248,7 +249,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_SalvarActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 150, 90));
+        jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 150, 90));
 
         jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -259,36 +260,41 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_AlterarActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 150, 90));
+        jPN_Background.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 150, 90));
 
         BG_Perfil.add(jRB_Administrador);
         jRB_Administrador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Administrador.setText("Administrador");
-        jPN_Background.add(jRB_Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
+        jPN_Background.add(jRB_Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, -1, -1));
 
         BG_Perfil.add(jRB_Funcionario);
         jRB_Funcionario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Funcionario.setText("Funcionário");
-        jPN_Background.add(jRB_Funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
-        jPN_Background.add(jPS_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 250, 30));
+        jPN_Background.add(jRB_Funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, -1, -1));
+        jPN_Background.add(jPS_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 250, 30));
 
         jTF_Email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 250, 30));
+        jTF_Email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_EmailActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jTF_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 250, 30));
 
         jTF_Login.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 250, 30));
+        jPN_Background.add(jTF_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 250, 30));
 
         jTF_Cargo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 250, 30));
+        jPN_Background.add(jTF_Cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 250, 30));
 
         jTF_Nome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 250, 30));
+        jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 250, 30));
 
         jLB_Fechar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLB_Fechar.setForeground(new java.awt.Color(255, 255, 255));
         jLB_Fechar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLB_Fechar.setText("X");
-        jLB_Fechar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLB_Fechar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLB_Fechar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLB_FecharMouseReleased(evt);
@@ -296,29 +302,32 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
+        jLabel1.setText("Todos os campos sao obrigatórios");
+        jPN_Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+
         jLB_Texto6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto6.setText("E-mail");
-        jPN_Background.add(jLB_Texto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, -1, -1));
+        jPN_Background.add(jLB_Texto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         jLB_Texto5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto5.setText("Perfil");
-        jPN_Background.add(jLB_Texto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+        jPN_Background.add(jLB_Texto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
 
         jLB_Texto4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto4.setText("Senha");
-        jPN_Background.add(jLB_Texto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
+        jPN_Background.add(jLB_Texto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, -1, -1));
 
         jLB_Texto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto.setText("Nome");
-        jPN_Background.add(jLB_Texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
+        jPN_Background.add(jLB_Texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         jLB_Texto1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Texto1.setText("Cargo");
-        jPN_Background.add(jLB_Texto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
+        jLB_Texto1.setText("Cargo ");
+        jPN_Background.add(jLB_Texto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         jLB_Texto2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto2.setText("Login");
-        jPN_Background.add(jLB_Texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        jPN_Background.add(jLB_Texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cadastrar-funcionario-bg.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -450,6 +459,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_ExcluirActionPerformed
 
+    private void jTF_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_EmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTF_EmailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -491,6 +504,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Texto4;
     private javax.swing.JLabel jLB_Texto5;
     private javax.swing.JLabel jLB_Texto6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPN_Background;
     private javax.swing.JPasswordField jPS_Senha;
     private javax.swing.JRadioButton jRB_Administrador;
