@@ -89,14 +89,14 @@ public class ClienteDao extends Conexao implements Dao {
             stmt.setString(3, cliente.getCelular());
             stmt.setInt(4, cliente.getIdContato());
             stmt.execute();
-            
+
             stmt = con.prepareStatement("UPDATE CLIENTEENDERECO SET IDENDERECOCORREIOS = ?, NUMEROCASA = ?, COMPLEMENTO = ? WHERE IDCLIENTE = ?;");
             stmt.setInt(1, cliente.getIdEndereco());
             stmt.setString(2, cliente.getNumeroCasa());
             stmt.setString(3, cliente.getComplemento());
             stmt.setInt(4, cliente.getIdCliente());
             stmt.execute();
-            
+
             con.commit();
             close();
         } catch (SQLException sqlex) {
@@ -109,7 +109,7 @@ public class ClienteDao extends Conexao implements Dao {
 
     @Override
     public void excluir(Object obj) throws Exception {
-        
+
     }
 
     @Override
@@ -152,7 +152,7 @@ public class ClienteDao extends Conexao implements Dao {
 
         // testando e funcionou
         // System.out.println("Cpf: "+rs.getString("cpf")+"\n Data Cadastro: "+rs.getString("dataCadastro"));
-        close();
+        con.close();
 
         return cliente;
 
@@ -200,7 +200,52 @@ public class ClienteDao extends Conexao implements Dao {
             listaCliente.add(c);
 
         }
-        close();
+        con.close();
+        return listaCliente;
+
+    }
+
+    public List<Object> consultarClientePeloCpf(String query) throws SQLException, Exception {
+
+        List<Object> listaCliente = new ArrayList<>();
+
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("select * from pessoa p  "
+                + " inner join cliente c on p.idPessoa = c.idPessoa "
+                + " inner join contato co on c.idContato = co.idContato  "
+                + " inner join ClienteEndereco ce on c.idCliente = ce.idCliente"
+                + " inner join EnderecoCorreios e on e.id = ce.idEnderecoCorreios"
+                + " where  c.cpf like ?;");
+
+        query += "%";
+
+        stmt.setString(1, query);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+
+            Cliente c = new Cliente();
+
+            c.setCpf(rs.getString("c.cpf"));
+            c.setDataCadastro(rs.getString("p.dataCadastro"));
+            c.setNome(rs.getString("p.nome"));
+            c.setNumeroCasa(rs.getString("ce.numeroCasa"));
+            c.setComplemento(rs.getString("ce.complemento"));
+            c.setIdCliente(rs.getInt("c.idCliente"));
+            c.setIdEndereco(rs.getInt("e.id"));
+            c.setTelefone(rs.getString("co.telefone"));
+            c.setTelefone2(rs.getString("co.telefone2"));
+            c.setCelular(rs.getString("co.celular"));
+            c.setIdPessoa(rs.getInt("p.idPessoa"));
+            c.setIdContato(rs.getInt("co.idContato"));
+
+            listaCliente.add(c);
+
+        }
+        con.close();
         return listaCliente;
 
     }
@@ -234,7 +279,7 @@ public class ClienteDao extends Conexao implements Dao {
             cliente.setIdContato(rs.getInt("co.idContato"));
         }
 
-        close();
+        con.close();
         return cliente;
     }
 
@@ -255,7 +300,7 @@ public class ClienteDao extends Conexao implements Dao {
             }
         }
 
-        close();
+        con.close();
         return idCliente;
 
     }
@@ -270,7 +315,7 @@ public class ClienteDao extends Conexao implements Dao {
         if (rs != null && rs.next()) {
             return true;
         }
-        close();
+        con.close();
         return false;
     }
 
@@ -292,7 +337,7 @@ public class ClienteDao extends Conexao implements Dao {
         if (rs != null && rs.next()) {
             uf = rs.getString("CC.uf");
         }
-        close();
+        con.close();
         return uf;
 
     }

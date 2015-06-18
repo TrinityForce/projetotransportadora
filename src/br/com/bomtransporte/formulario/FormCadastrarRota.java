@@ -194,6 +194,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Alterar.add(jBT_Adicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 170, 60));
         jPN_Alterar.add(jFTF_Valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 130, 30));
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("* - Campos Obrigatórios");
         jPN_Alterar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
 

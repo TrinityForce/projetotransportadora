@@ -62,6 +62,10 @@ public class FormClientePedido extends javax.swing.JFrame {
         desabilitarBotoes(jBT_ListarPedidos);
     }
 
+    public static boolean isNumeric(String string) {
+        return string.matches("^[-+]?\\d+(\\.\\d+)?$");
+    }
+
     private void preencherTotal() {
         if (idPedido_CliSelecionado != null) {
             try {
@@ -167,10 +171,15 @@ public class FormClientePedido extends javax.swing.JFrame {
         ArrayList dados = new ArrayList();
 
         String[] colunas = new String[]{"ID", "NOME", "DATA CADASTRO", "CPF", "TELEFONE"};
-
+        final List<Object> listaCliente;
         try {
             clienteDao = new ClienteDao();
-            final List<Object> listaCliente = clienteDao.consultarCliente(jTF_Consulta.getText());
+            if (isNumeric(jTF_Consulta.getText())) {
+                listaCliente = clienteDao.consultarClientePeloCpf(jTF_Consulta.getText());
+            } else {
+                listaCliente = clienteDao.consultarCliente(jTF_Consulta.getText());
+            }
+
             desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_AdicionarCarga);
             //Verifica se a lista está preenchida
             if (listaCliente != null && listaCliente.size() > 0) {
@@ -238,10 +247,11 @@ public class FormClientePedido extends javax.swing.JFrame {
         jTableClientes = new javax.swing.JTable();
         jBT_Excluir = new javax.swing.JButton();
         jBT_CadastrarPedido = new javax.swing.JButton();
-        jBT_Alterar = new javax.swing.JButton();
         jBT_Pesquisar = new javax.swing.JButton();
+        jBT_Alterar = new javax.swing.JButton();
         jTF_Consulta = new javax.swing.JTextField();
         jBT_ListarPedidos = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPN_CadastrarPedido = new javax.swing.JPanel();
         jSP_Pedidos = new javax.swing.JScrollPane();
         jTB_Pedidos = new javax.swing.JTable();
@@ -298,6 +308,16 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
         jPN_PesquisarCliente.add(jBT_CadastrarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 230, 70));
 
+        jBT_Pesquisar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/Search-icon.png"))); // NOI18N
+        jBT_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_PesquisarActionPerformed(evt);
+            }
+        });
+        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 70, 70));
+
         jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
@@ -308,16 +328,6 @@ public class FormClientePedido extends javax.swing.JFrame {
             }
         });
         jPN_PesquisarCliente.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 200, 70));
-
-        jBT_Pesquisar.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Pesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/Search-icon.png"))); // NOI18N
-        jBT_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_PesquisarActionPerformed(evt);
-            }
-        });
-        jPN_PesquisarCliente.add(jBT_Pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 70, 70));
 
         jTF_Consulta.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jPN_PesquisarCliente.add(jTF_Consulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 370, 70));
@@ -332,6 +342,10 @@ public class FormClientePedido extends javax.swing.JFrame {
             }
         });
         jPN_PesquisarCliente.add(jBT_ListarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 200, 70));
+
+        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel1.setText("Pesquisar pelo nome ou CPF");
+        jPN_PesquisarCliente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jTB_CliPedido.addTab("Pesquisar Cliente", null, jPN_PesquisarCliente, "Pesquisar cliente e selecionar uma ação.");
 
@@ -459,6 +473,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarActionPerformed
 
     private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
+
         preencherTabela();
         desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_ListarPedidos);
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
@@ -483,24 +498,24 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
     private void jBT_AlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusPedidoActionPerformed
-       if (statusPedidoSelecionado == null || statusPedidoSelecionado.trim().length() == 0) {
-           JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o pedido!\n O status do pedido esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
-           return;
-       }
+        if (statusPedidoSelecionado == null || statusPedidoSelecionado.trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o pedido!\n O status do pedido esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         List<String> optionList = new ArrayList<String>();
 
         optionList.add("Saiu para entrega");
         optionList.add("Entregue");
         optionList.add("Extraviado");
-        
+
         if (statusPedidoSelecionado.equals("Em aguardo") || statusPedidoSelecionado.equals("Aguardando")) {
             optionList.remove(1);
-        } else if(statusPedidoSelecionado.equals("Saiu para entrega")) {
+        } else if (statusPedidoSelecionado.equals("Saiu para entrega")) {
             optionList.remove(0);
         } else if (statusPedidoSelecionado.equals("Extraviado")) {
             optionList.remove(2);
         } else {
-             JOptionPane.showMessageDialog(this, "Esse pedido ja foi entregado!", "Pedido entregue", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Esse pedido ja foi entregado!", "Pedido entregue", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -514,7 +529,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         System.err.println("opcao escolhida is %s.\n " + optionList.get(index));
 
-        if ( optionList.get(index) != null) {
+        if (optionList.get(index) != null) {
             try {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), optionList.get(index));
                 preencherTabelaPedido();
@@ -580,6 +595,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Descricao4;
     private javax.swing.JLabel jLB_Fechar4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
     private javax.swing.JScrollPane jSC_Tabela;

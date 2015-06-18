@@ -302,6 +302,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setText("Todos os campos sao obrigatórios");
         jPN_Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
 

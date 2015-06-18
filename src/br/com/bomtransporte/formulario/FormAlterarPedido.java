@@ -305,6 +305,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         });
         getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 180, 30));
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
         jLabel1.setText("* - Campos Obrigatórios");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
         getContentPane().add(jTF_Desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, 30));

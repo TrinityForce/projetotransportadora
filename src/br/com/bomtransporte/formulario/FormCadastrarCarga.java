@@ -513,6 +513,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Obrigatorio7.setText("* - Campos Obrigatórios");
         jPN_Pedido.add(jLB_Obrigatorio7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 180, -1));
 
+        jLabel2.setForeground(new java.awt.Color(255, 0, 51));
         jLabel2.setText("* - Campos Obrigatórios");
         jPN_Pedido.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 

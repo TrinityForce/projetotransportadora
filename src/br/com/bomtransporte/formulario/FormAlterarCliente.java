@@ -333,7 +333,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jLB_ErroCep.setText("ERROR_PLACEHOLDER");
         jPN_Background.add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 160, 20));
 
-        jLB_Obrigatorio6.setForeground(new java.awt.Color(153, 0, 0));
+        jLB_Obrigatorio6.setForeground(new java.awt.Color(255, 0, 51));
         jLB_Obrigatorio6.setText("* - Campos Obrigatórios");
         jPN_Background.add(jLB_Obrigatorio6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 180, -1));
 
