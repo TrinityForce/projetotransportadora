@@ -20,7 +20,10 @@ import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
 import java.lang.reflect.Field;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
@@ -109,24 +112,22 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
-    
+
     private void preencherComboPeso() {
         PrecoPesoDao pesoDao = new PrecoPesoDao();
         try {
             jCB_Peso.removeAllItems();
             pesoDao.listarTodosAtivados().forEach((PrecoPeso peso) -> {
-                String str =peso.getIdPrecoPeso() + " - " + peso.getPeso() + "Kg  -R$" + peso.getValor();
+                String str = peso.getIdPrecoPeso() + " - " + peso.getPeso() + "Kg  -R$" + peso.getValor();
                 jCB_Peso.addItem(str.replace("/", " ate "));
                 //PrecoDistancia pd = (PrecoDistancia) preco;
-               // jCB_Peso.addItem(peso.getIdPrecoPeso() + " " + peso.getPeso() + "Kg  -R$" + peso.getValor());
+                // jCB_Peso.addItem(peso.getIdPrecoPeso() + " " + peso.getPeso() + "Kg  -R$" + peso.getValor());
             });
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.err);
         }
     }
-    
 
     private void preencherComboPreco() {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
@@ -654,7 +655,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 pedido = new Pedido();
 
                 pedido.setComplemento(jTF_Complemento.getText());
-                pedido.setDataVenda(Datas.dataAtual());
+
+                pedido.setDataVenda(Calendar.getInstance().getTime());
 
                 if (jTF_Desconto.getText() != null && jTF_Desconto.getText().trim().length() > 0) {
                     pedido.setDesconto(Integer.valueOf(jTF_Desconto.getText()));
@@ -719,10 +721,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 carga.setDescricao(listCampos.get(0));
                 carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
                 carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
-                
+
                 cargaDao.insertGetKey(carga);
                 preencherTabela();
-                
+
                 JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 Integer opt = JOptionPane.showConfirmDialog(this,
                         "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
@@ -757,7 +759,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 carga.setIdPedido_Cli(idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
                 carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
-                System.err.println("idprecopeso "+carga.getIdPrecoPeso());
+                System.err.println("idprecopeso " + carga.getIdPrecoPeso());
                 carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
                 cargaDao.insertGetKey(carga);
 

@@ -12,6 +12,10 @@ import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,7 +30,7 @@ import javax.swing.ListSelectionModel;
  * @author JhonattanSouza_
  */
 public class FormClientePedido extends javax.swing.JFrame {
-
+    
     private ClienteDao clienteDao;
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
@@ -34,44 +38,47 @@ public class FormClientePedido extends javax.swing.JFrame {
     public static Integer idCliente, ativarAba, idPedido_CliSelecionado,
             idPedidoSelecionado;
     private String statusPedidoSelecionado;
-
+    
     public FormClientePedido() {
         initComponents();
         preencherTabela();
         verificarAba();
     }
-
+    
     private void desabilitarBotoes(JButton... bt) {
         for (JButton bt1 : bt) {
             bt1.setEnabled(false);
         }
     }
-
+    
     private void habilitarBotoes(JButton... bt) {
         for (JButton bt1 : bt) {
             bt1.setEnabled(true);
         }
     }
 
+    //habilita a primeira aba do jpanel
     private void verificarAba() {
-
+        
         jTB_CliPedido.setEnabledAt(0, true);
         jTB_CliPedido.setEnabledAt(1, false);
         jTB_CliPedido.setSelectedIndex(0);
-
+        
         desabilitarBotoes(jBT_ListarPedidos);
     }
 
+    //verifica se a string so contem numeros e retorna true
     public static boolean isNumeric(String string) {
         return string.matches("^[-+]?\\d+(\\.\\d+)?$");
     }
 
+    //preenche o valor total do pedido
     private void preencherTotal() {
         if (idPedido_CliSelecionado != null) {
             try {
                 CargaDao cargaDao = new CargaDao();
                 Double valorTotal = 0.0;
-
+                
                 final List<Object> listaCarga = cargaDao.listarCargas(idPedido_CliSelecionado);
                 System.out.println("dentro do try");
                 for (Object carga : listaCarga) {
@@ -87,23 +94,46 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
     }
 
+    //preenche jcombox data
+    private void preencheData() {
+        String[] mths = (new DateFormatSymbols()).getMonths();
+        
+        LocalDate today = LocalDate.now();
+        LocalDate inicio = LocalDate.of(2010, Month.JANUARY, 1);
+        Period p = Period.between(inicio, today);
+        Integer anos = inicio.getYear();
+        
+        for (int i = 0; i < p.getYears(); i++) {
+            jCB_AnoInicial.addItem(anos);
+            jCB_AnoFinal.addItem(anos);
+            anos++;
+        }
+        
+        for (String mth : mths) {
+            jCB_DataInicial.addItem(mth);
+            jCB_DataFinal.addItem(mth);
+        }
+        
+    }
+
+    //preenche a tabela pedido
     private void preencherTabelaPedido() {
-
+        
         ArrayList dados = new ArrayList();
-
+        
         String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
         desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
         try {
             pedidoDao = new PedidoDao();
             final List<Object> listaPedido = pedidoDao.listarPedidos(idCliente);
-
+            
             if (listaPedido != null && listaPedido.size() > 0) {
                 listaPedido.forEach(pedidoAtual -> {
                     Pedido pedido = (Pedido) pedidoAtual;
                     dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
                 });
             }
-
+            
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTB_Pedidos.setModel(modTabela);
             jTB_Pedidos.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -116,49 +146,49 @@ public class FormClientePedido extends javax.swing.JFrame {
             jTB_Pedidos.getColumnModel().getColumn(3).setResizable(false);
             jTB_Pedidos.getColumnModel().getColumn(4).setPreferredWidth(150);
             jTB_Pedidos.getColumnModel().getColumn(4).setResizable(false);
-
+            
             jTB_Pedidos.getTableHeader().setReorderingAllowed(false);
             jTB_Pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTB_Pedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+            
             jTB_Pedidos.addMouseListener(new MouseAdapter() {
-
+                
                 @Override
                 public void mouseClicked(MouseEvent e) {
-
+                    
                     try {
                         List<Object> lista = pedidoDao.listarPedidos(idCliente);
                         pedidoSelecionado = (Pedido) lista.
                                 get(jTB_Pedidos.convertRowIndexToModel(jTB_Pedidos.getSelectedRow()));
-
+                        
                         idPedido_CliSelecionado = pedidoSelecionado.getIdPedido_Cli();
                         idPedidoSelecionado = pedidoSelecionado.getIdPedido();
                         statusPedidoSelecionado = pedidoSelecionado.getStatusPedido();
                         preencherTotal();
                         if ((idPedidoSelecionado != null) && (idPedido_CliSelecionado) != null) {
-
+                            
                             habilitarBotoes(jBT_AlterarPedido, jBT_AlterarStatusPedido);
-
+                            
                             if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
                                 habilitarBotoes(jBT_AdicionarCarga);
-
+                                
                             } else {
                                 desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido);
                             }
                         } else {
                             desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
-
+                            
                         }
-
+                        
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro genérico1: " + ex.getMessage());
                     }
                 }
-
+                
             });
-
+            
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(this, "Erro no Banco de Dados: " + sqle.getMessage());
         } catch (Exception e) {
@@ -166,10 +196,11 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
     }
 
+    //preenche a tabela cliente
     private void preencherTabela() {
-
+        
         ArrayList dados = new ArrayList();
-
+        
         String[] colunas = new String[]{"ID", "NOME", "DATA CADASTRO", "CPF", "TELEFONE"};
         final List<Object> listaCliente;
         try {
@@ -179,7 +210,7 @@ public class FormClientePedido extends javax.swing.JFrame {
             } else {
                 listaCliente = clienteDao.consultarCliente(jTF_Consulta.getText());
             }
-
+            
             desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_AdicionarCarga);
             //Verifica se a lista está preenchida
             if (listaCliente != null && listaCliente.size() > 0) {
@@ -189,7 +220,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                     dados.add(new Object[]{cliente.getIdCliente(), cliente.getNome(), cliente.getDataCadastro(), cliente.getCpf(), cliente.getTelefone()});
                 });
             }
-
+            
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTableClientes.setModel(modTabela);
             jTableClientes.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -202,26 +233,26 @@ public class FormClientePedido extends javax.swing.JFrame {
             jTableClientes.getColumnModel().getColumn(3).setResizable(false);
             jTableClientes.getColumnModel().getColumn(4).setPreferredWidth(150);
             jTableClientes.getColumnModel().getColumn(4).setResizable(false);
-
+            
             jTableClientes.getTableHeader().setReorderingAllowed(false);
             jTableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTableClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+            
             jTableClientes.addMouseListener(new MouseAdapter() {
-
+                
                 @Override
                 public void mouseClicked(MouseEvent e) {
-
+                    
                     try {
-
+                        
                         List<Object> lista = clienteDao.listar();
                         clienteSelecionado = (Cliente) lista.
                                 get(jTableClientes.convertRowIndexToModel(jTableClientes.getSelectedRow()));
                         idCliente = clienteSelecionado.getIdCliente();
                         System.err.println("idCliente " + idCliente);
-
+                        
                         habilitarBotoes(jBT_ListarPedidos, jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
-
+                        
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
                     } catch (Exception ex) {
@@ -229,14 +260,14 @@ public class FormClientePedido extends javax.swing.JFrame {
                     }
                 }
             });
-
+            
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(this, "Erro no Banco de Dados: " + sqle.getMessage());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,6 +292,11 @@ public class FormClientePedido extends javax.swing.JFrame {
         jBT_Voltar = new javax.swing.JButton();
         jLB_Descricao4 = new javax.swing.JLabel();
         jTF_Total = new javax.swing.JTextField();
+        jBT_PesquisarPedidoPelaData = new javax.swing.JButton();
+        jCB_DataFinal = new javax.swing.JComboBox();
+        jCB_DataInicial = new javax.swing.JComboBox();
+        jCB_AnoInicial = new javax.swing.JComboBox();
+        jCB_AnoFinal = new javax.swing.JComboBox();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -364,7 +400,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSP_Pedidos.setViewportView(jTB_Pedidos);
 
-        jPN_CadastrarPedido.add(jSP_Pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 675, 229));
+        jPN_CadastrarPedido.add(jSP_Pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 675, 170));
 
         jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -375,7 +411,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AlterarPedidoActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 200, 80));
+        jPN_CadastrarPedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 200, 80));
 
         jBT_AdicionarCarga.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarCarga.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -386,7 +422,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AdicionarCargaActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 230, 80));
+        jPN_CadastrarPedido.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 230, 80));
 
         jBT_AlterarStatusPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarStatusPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -397,7 +433,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_AlterarStatusPedidoActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 220, 80));
+        jPN_CadastrarPedido.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 220, 80));
 
         jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -416,6 +452,48 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jTF_Total.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPN_CadastrarPedido.add(jTF_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 160, 30));
+
+        jBT_PesquisarPedidoPelaData.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_PesquisarPedidoPelaData.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_PesquisarPedidoPelaData.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/Search-icon.png"))); // NOI18N
+        jBT_PesquisarPedidoPelaData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_PesquisarPedidoPelaDataActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jBT_PesquisarPedidoPelaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 70, 70));
+
+        jCB_DataFinal.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_DataFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_DataFinalActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jCB_DataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 120, -1));
+
+        jCB_DataInicial.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_DataInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_DataInicialActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jCB_DataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 120, -1));
+
+        jCB_AnoInicial.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_AnoInicial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_AnoInicialActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jCB_AnoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 90, -1));
+
+        jCB_AnoFinal.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_AnoFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_AnoFinalActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jCB_AnoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 90, -1));
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 
@@ -446,9 +524,9 @@ public class FormClientePedido extends javax.swing.JFrame {
             if (opt == JOptionPane.YES_OPTION) {
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(idCliente);
-
+                
                 clienteDao.excluir(cliente);
-
+                
                 preencherTabela();
                 JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -473,18 +551,21 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarActionPerformed
 
     private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
-
+        //preenche a tabela cliente
         preencherTabela();
         desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_ListarPedidos);
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
+        //habilita a segunda aba
         if (idCliente != null) {
+            
             jTB_CliPedido.setEnabledAt(1, true);
             jTB_CliPedido.setEnabledAt(0, false);
             jTB_CliPedido.setSelectedIndex(1);
             preencherTabelaPedido();
-
+            preencheData();
+            
         } else {
             JOptionPane.showMessageDialog(this,
                     "Selecione um cliente!", "Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -492,22 +573,27 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_ListarPedidosActionPerformed
 
     private void jBT_AdicionarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarCargaActionPerformed
+        //identifia qual a aba da tela deve ser aberta
         ativarAba = 2;
+        //chama a tela FormCadastrarCarga
         FormCadastrarCarga formCarga = new FormCadastrarCarga();
         formCarga.setVisible(true);
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
     private void jBT_AlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusPedidoActionPerformed
+        //verifica se o statusPedidoSelecionado e nulo
         if (statusPedidoSelecionado == null || statusPedidoSelecionado.trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o pedido!\n O status do pedido esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        //cria uma list com os status do pedido
         List<String> optionList = new ArrayList<String>();
-
+        
         optionList.add("Saiu para entrega");
         optionList.add("Entregue");
         optionList.add("Extraviado");
 
+        //mostra somente as opcoes necessarias de acordo com a regra de negocio
         if (statusPedidoSelecionado.equals("Em aguardo") || statusPedidoSelecionado.equals("Aguardando")) {
             optionList.remove(1);
         } else if (statusPedidoSelecionado.equals("Saiu para entrega")) {
@@ -518,23 +604,22 @@ public class FormClientePedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Esse pedido ja foi entregado!", "Pedido entregue", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
+        
         Object[] options = optionList.toArray();
-
+        //pega o status que o usuario selecionou
         Object value = JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
                 "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null,
                 options,
                 options[0]);
         int index = optionList.indexOf(value);
 
-        System.err.println("opcao escolhida is %s.\n " + optionList.get(index));
-
+        //atualiza o status no banco
         if (optionList.get(index) != null) {
             try {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), optionList.get(index));
                 preencherTabelaPedido();
             } catch (Exception ex) {
-                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco", "Erro", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
@@ -556,6 +641,26 @@ public class FormClientePedido extends javax.swing.JFrame {
         FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
 
+    private void jBT_PesquisarPedidoPelaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarPedidoPelaDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBT_PesquisarPedidoPelaDataActionPerformed
+
+    private void jCB_DataFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_DataFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_DataFinalActionPerformed
+
+    private void jCB_DataInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_DataInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_DataInicialActionPerformed
+
+    private void jCB_AnoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoInicialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_AnoInicialActionPerformed
+
+    private void jCB_AnoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_AnoFinalActionPerformed
+    
     public static void main(String args[]) {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -591,7 +696,12 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_ListarPedidos;
     private javax.swing.JButton jBT_Pesquisar;
+    private javax.swing.JButton jBT_PesquisarPedidoPelaData;
     private javax.swing.JButton jBT_Voltar;
+    private javax.swing.JComboBox jCB_AnoFinal;
+    private javax.swing.JComboBox jCB_AnoInicial;
+    private javax.swing.JComboBox jCB_DataFinal;
+    private javax.swing.JComboBox jCB_DataInicial;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Descricao4;
     private javax.swing.JLabel jLB_Fechar4;

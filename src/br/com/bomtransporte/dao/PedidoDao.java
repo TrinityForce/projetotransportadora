@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class PedidoDao extends Conexao implements Dao {
                     + " (protocolo, dataVenda, statusPedido)"
                     + " values (?, ?, ? );", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, pedido.getProtocolo());
-            stmt.setString(2, pedido.getDataVenda());
+            stmt.setDate(2, new java.sql.Date(pedido.getDataVenda().getTime()));
             stmt.setString(3, pedido.getStatusPedido());
             stmt.execute();
 
@@ -169,7 +170,7 @@ public class PedidoDao extends Conexao implements Dao {
             Pedido pedido = new Pedido();
             pedido.setIdPedido(rs.getInt("P.idPedido"));
             pedido.setProtocolo(rs.getString("P.protocolo"));
-            pedido.setDataVenda(rs.getString("P.dataVenda"));
+            pedido.setDataVenda(rs.getDate("P.dataVenda"));
             pedido.setDesconto(rs.getInt("P.desconto"));
             pedido.setStatusPedido(rs.getString("P.statusPedido"));
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
@@ -198,7 +199,40 @@ public class PedidoDao extends Conexao implements Dao {
             pedido = new Pedido();
             pedido.setIdPedido(rs.getInt("p.idPedido"));
             pedido.setProtocolo(rs.getString("p.protocolo"));
-            pedido.setDataVenda(rs.getString("p.dataVenda"));
+            pedido.setDataVenda(rs.getDate("p.dataVenda"));
+            pedido.setDesconto(rs.getInt("p.desconto"));
+            pedido.setStatusPedido(rs.getString("p.statusPedido"));
+            pedido.setNumero(rs.getString("pe.numero"));
+            pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
+            pedido.setComplemento(rs.getString("pe.complemento"));
+            pedido.setIdPrecoDistania(rs.getInt("pc.idPrecoDistancia"));
+
+            return pedido;
+        }
+
+        close();
+
+        return pedido;
+    }
+
+    public Object buscarPedidoPelaData(Integer idPedido, Date dataInicial, Date dataFinal) throws Exception {
+        Pedido pedido = null;
+
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement(" SELECT * FROM Pedido p"
+                + "  inner join Pedido_Cli  pc on p.idPedido = pc.idPedido"
+                + "  where pc.idCliente =?"
+                + "  and p.dataVenda between ? and ?;");
+        stmt.setInt(1, idPedido);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("p.idPedido"));
+            pedido.setProtocolo(rs.getString("p.protocolo"));
+            pedido.setDataVenda(rs.getDate("p.dataVenda"));
             pedido.setDesconto(rs.getInt("p.desconto"));
             pedido.setStatusPedido(rs.getString("p.statusPedido"));
             pedido.setNumero(rs.getString("pe.numero"));

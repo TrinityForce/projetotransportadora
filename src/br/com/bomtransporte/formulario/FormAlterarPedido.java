@@ -105,7 +105,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 pedido = (Pedido) pedidoDao.buscarPedido(idPedidoSelecionado);
 
                 jTF_Complemento.setText(pedido.getComplemento());
-                jTF_DataVenda.setText(pedido.getDataVenda());
+                jTF_DataVenda.setText(String.valueOf(pedido.getDataVenda()));
                 jTF_Desconto.setText(String.valueOf(pedido.getDesconto()));
                 jTF_Protocolo.setText((pedido.getProtocolo()));
                 jTF_Numero.setText(pedido.getNumero());

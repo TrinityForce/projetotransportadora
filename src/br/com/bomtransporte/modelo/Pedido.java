@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.bomtransporte.modelo;
 
+import java.util.Date;
+
 /**
- * 
+ *
  * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
  */
 public class Pedido {
-    
-    
+
     private Integer idPedido;
     private String protocolo;
-    private String dataVenda;
+    private Date dataVenda;
     private Integer desconto;
     private String statusPedido;
     private String numero;
@@ -27,7 +27,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido, String protocolo, String dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli, Integer idPrecoDistania) {
+    public Pedido(Integer idPedido, String protocolo, Date dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli, Integer idPrecoDistania) {
         this.idPedido = idPedido;
         this.protocolo = protocolo;
         this.dataVenda = dataVenda;
@@ -39,9 +39,6 @@ public class Pedido {
         this.idPedido_Cli = idPedido_Cli;
         this.idPrecoDistania = idPrecoDistania;
     }
-
-    
- 
 
     public Integer getIdPedido() {
         return idPedido;
@@ -57,14 +54,6 @@ public class Pedido {
 
     public void setProtocolo(String protocolo) {
         this.protocolo = protocolo;
-    }
-
-    public String getDataVenda() {
-        return dataVenda;
-    }
-
-    public void setDataVenda(String dataVenda) {
-        this.dataVenda = dataVenda;
     }
 
     public Integer getDesconto() {
@@ -128,10 +117,13 @@ public class Pedido {
     public void setIdPrecoDistania(Integer idPrecoDistania) {
         this.idPrecoDistania = idPrecoDistania;
     }
-    
-    
-    
-    
-    
+
+    public Date getDataVenda() {
+        return dataVenda;
+    }
+
+    public void setDataVenda(Date dataVenda) {
+        this.dataVenda = dataVenda;
+    }
 
 }
