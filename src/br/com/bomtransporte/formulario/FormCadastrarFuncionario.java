@@ -93,12 +93,12 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             final List<Object> listaFuncionario = funcionarioDao.listar();
             
             if (listaFuncionario != null && listaFuncionario.size() > 0) {
-                listaFuncionario.forEach((Object funcionarioAtual) -> {
+                for(Object funcionarioAtual : listaFuncionario) {
                     Funcionario funcionario = (Funcionario) funcionarioAtual;
                     dados.add(new Object[]{funcionario.getIdFuncionario(), funcionario.getNome(),
                         funcionario.getCargo(), funcionario.getDataCadastro(), funcionario.getUsuario().getEmail(),
                         funcionario.getUsuario().getLogin()});
-                });
+                }
             }
             
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
@@ -486,8 +486,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FormCadastrarFuncionario().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormCadastrarFuncionario().setVisible(true);
+            }
         });
     }
 
