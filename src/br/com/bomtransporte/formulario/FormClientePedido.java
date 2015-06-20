@@ -128,10 +128,10 @@ public class FormClientePedido extends javax.swing.JFrame {
             final List<Object> listaPedido = pedidoDao.listarPedidos(idCliente);
             
             if (listaPedido != null && listaPedido.size() > 0) {
-                listaPedido.forEach(pedidoAtual -> {
+                for(Object pedidoAtual : listaPedido){
                     Pedido pedido = (Pedido) pedidoAtual;
                     dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
-                });
+                }
             }
             
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
@@ -215,10 +215,10 @@ public class FormClientePedido extends javax.swing.JFrame {
             //Verifica se a lista está preenchida
             if (listaCliente != null && listaCliente.size() > 0) {
                 //Percorre a lista
-                listaCliente.forEach(clienteAtual -> {
+                for(Object clienteAtual : listaCliente) {
                     Cliente cliente = (Cliente) clienteAtual;
                     dados.add(new Object[]{cliente.getIdCliente(), cliente.getNome(), cliente.getDataCadastro(), cliente.getCpf(), cliente.getTelefone()});
-                });
+                }
             }
             
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
@@ -683,8 +683,10 @@ public class FormClientePedido extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FormClientePedido().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormClientePedido().setVisible(true);
+            }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

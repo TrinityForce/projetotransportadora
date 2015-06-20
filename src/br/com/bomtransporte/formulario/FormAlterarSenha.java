@@ -175,8 +175,10 @@ public class FormAlterarSenha extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FormAlterarSenha().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormAlterarSenha().setVisible(true);
+            }
         });
     }
 

@@ -29,10 +29,10 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
         try {
             jCB_Rotas.removeAllItems();
-            pdd.listarTodosAtivados().forEach((PrecoDistancia preco) -> {
+            for(PrecoDistancia preco : pdd.listarTodosAtivados()){
                 //PrecoDistancia pd = (PrecoDistancia) preco;
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
-            });
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.err);
@@ -43,14 +43,14 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         CidadeDao cidadeDao = new CidadeDao();
         try {
             limparComboBox();
-            cidadeDao.listarUf().forEach(cid -> {
+            for(Object cid : cidadeDao.listar()){
                 Cidade cidade = (Cidade) cid;
                 String uf = cidade.getUf();
                 if (uf.contains("SP") || uf.contains("RJ") || uf.contains("MG") || uf.contains("ES")) {
                     jCB_Origem.addItem(cidade.getUf());
                     jCB_Destino.addItem(cidade.getUf());
                 }
-            });
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
         }
@@ -60,11 +60,11 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         CidadeDao cidadeDao = new CidadeDao();
         try {
             limparComboBox();
-            cidadeDao.listarUf().forEach(cid -> {
+            for(Object cid : cidadeDao.listar()) {
                 Cidade cidade = (Cidade) cid;
                 jCB_Origem.addItem(cidade.getUf());
                 jCB_Destino.addItem(cidade.getUf());
-            });
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
         }
@@ -309,8 +309,10 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FormCadastrarRota().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormCadastrarRota().setVisible(true);
+            }
         });
     }
 

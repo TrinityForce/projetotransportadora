@@ -1,5 +1,6 @@
 package br.com.bomtransporte.main;
 
+import br.com.bomtransporte.formulario.FormBackground;
 import br.com.bomtransporte.formulario.FormLogin;
 
 /**
@@ -12,7 +13,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        FormBackground formBg = new FormBackground();
         FormLogin formLogin = new FormLogin();
         //Forçando o tema Windows para todas as telas, para que o tema NIMBUS não volte a aparecer.
         try {
@@ -25,6 +26,7 @@ public class Main {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             ex.getMessage();
         }
+        formBg.setVisible(true);
         formLogin.setVisible(true);
     }
 }

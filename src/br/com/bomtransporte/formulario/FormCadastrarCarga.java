@@ -117,12 +117,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         PrecoPesoDao pesoDao = new PrecoPesoDao();
         try {
             jCB_Peso.removeAllItems();
-            pesoDao.listarTodosAtivados().forEach((PrecoPeso peso) -> {
+            for(PrecoPeso peso : pesoDao.listarTodosAtivados()){
                 String str = peso.getIdPrecoPeso() + " - " + peso.getPeso() + "Kg  -R$" + peso.getValor();
                 jCB_Peso.addItem(str.replace("/", " ate "));
                 //PrecoDistancia pd = (PrecoDistancia) preco;
                 // jCB_Peso.addItem(peso.getIdPrecoPeso() + " " + peso.getPeso() + "Kg  -R$" + peso.getValor());
-            });
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.err);
@@ -133,10 +133,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         PrecoDistanciaDao pdd = new PrecoDistanciaDao();
         try {
             jCB_Rotas.removeAllItems();
-            pdd.listarTodosAtivados().forEach((PrecoDistancia preco) -> {
+//            pdd.listarTodosAtivados().forEach((PrecoDistancia preco) -> {
+            for(PrecoDistancia preco : pdd.listarTodosAtivados()){
                 //PrecoDistancia pd = (PrecoDistancia) preco;
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
-            });
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace(System.err);
@@ -267,10 +268,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             final List<Object> listaCargas = cargaDao.listarCargas(idPedido_CliSelecionado);
 
             if (listaCargas != null && listaCargas.size() > 0) {
-                listaCargas.forEach((Object cargaAtual) -> {
+                for(Object cargaAtual : listaCargas){
                     Carga carga = (Carga) cargaAtual;
                     dados.add(new Object[]{carga.getIdCarga(), carga.getDescricao(), carga.getPeso(), carga.getQuantidade()});
-                });
+                }
             }
 
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
