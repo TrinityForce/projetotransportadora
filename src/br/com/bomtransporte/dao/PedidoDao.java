@@ -226,6 +226,9 @@ public class PedidoDao extends Conexao implements Dao {
                 + "  where pc.idCliente =?"
                 + "  and p.dataVenda between ? and ?;");
         stmt.setInt(1, idPedido);
+        stmt.setDate(2, new java.sql.Date(dataInicial.getTime()));
+        stmt.setDate(3, new java.sql.Date(dataFinal.getTime()));
+
         rs = stmt.executeQuery();
 
         while (rs.next()) {

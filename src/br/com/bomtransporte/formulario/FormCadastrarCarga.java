@@ -117,7 +117,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         PrecoPesoDao pesoDao = new PrecoPesoDao();
         try {
             jCB_Peso.removeAllItems();
-            for(PrecoPeso peso : pesoDao.listarTodosAtivados()){
+            for (PrecoPeso peso : pesoDao.listarTodosAtivados()) {
                 String str = peso.getIdPrecoPeso() + " - " + peso.getPeso() + "Kg  -R$" + peso.getValor();
                 jCB_Peso.addItem(str.replace("/", " ate "));
                 //PrecoDistancia pd = (PrecoDistancia) preco;
@@ -134,7 +134,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         try {
             jCB_Rotas.removeAllItems();
 //            pdd.listarTodosAtivados().forEach((PrecoDistancia preco) -> {
-            for(PrecoDistancia preco : pdd.listarTodosAtivados()){
+            for (PrecoDistancia preco : pdd.listarTodosAtivados()) {
                 //PrecoDistancia pd = (PrecoDistancia) preco;
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
             }
@@ -150,6 +150,24 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         } else {
             return false;
         }
+    }
+
+    private Double calcularDimensaoCubica() {
+
+        List<String> listCampos = new ArrayList<>();
+
+        listCampos.add(jTF_Largura.getText());
+        listCampos.add(jTF_Altura.getText());
+        listCampos.add(jTF_Profundidade.getText());
+        Double total = null;
+
+        if (verificarCampos(listCampos)) {
+            Double largura = Double.valueOf(listCampos.get(0));
+            Double altura = Double.valueOf(listCampos.get(1));
+            Double profundidade = Double.valueOf(listCampos.get(2));
+            return largura * altura * profundidade*300.0;
+        }
+        return null;
     }
 
     private boolean verificarCampo(Integer campo) {
@@ -268,7 +286,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             final List<Object> listaCargas = cargaDao.listarCargas(idPedido_CliSelecionado);
 
             if (listaCargas != null && listaCargas.size() > 0) {
-                for(Object cargaAtual : listaCargas){
+                for (Object cargaAtual : listaCargas) {
                     Carga carga = (Carga) cargaAtual;
                     dados.add(new Object[]{carga.getIdCarga(), carga.getDescricao(), carga.getPeso(), carga.getQuantidade()});
                 }
@@ -350,7 +368,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jTB_Cargas = new javax.swing.JTable();
         jBT_Salvar = new javax.swing.JButton();
         jBT_AdicionarCarga = new javax.swing.JButton();
-        jTF_Descricao = new javax.swing.JTextField();
         jTF_Quantidade = new javax.swing.JTextField();
         jTF_IdCliente1 = new javax.swing.JTextField();
         jTF_NomeCliente1 = new javax.swing.JTextField();
@@ -362,6 +379,14 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Descricao6 = new javax.swing.JLabel();
         jLB_Descricao7 = new javax.swing.JLabel();
         jCB_Peso = new javax.swing.JComboBox();
+        jTF_Profundidade = new javax.swing.JTextField();
+        jTF_Descricao = new javax.swing.JTextField();
+        jTF_Altura = new javax.swing.JTextField();
+        jTF_Largura = new javax.swing.JTextField();
+        jLB_Descricao8 = new javax.swing.JLabel();
+        jLB_Descricao9 = new javax.swing.JLabel();
+        jLB_Descricao10 = new javax.swing.JLabel();
+        jLB_Descricao11 = new javax.swing.JLabel();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -560,9 +585,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 70));
 
-        jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 320, 30));
-
         jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Quantidade.setText("1");
         jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 36, 30));
@@ -584,9 +606,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Carga.add(jTF_Cpf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 160, 30));
 
-        jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao4.setText("Descricao");
-        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLB_Descricao4.setText("(valores em metro)");
+        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
 
         jLB_Quantidade1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Quantidade1.setText("Quantidade");
@@ -615,6 +637,34 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             }
         });
         jPN_Carga.add(jCB_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 320, -1));
+
+        jTF_Profundidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPN_Carga.add(jTF_Profundidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 50, 30));
+
+        jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 320, 30));
+
+        jTF_Altura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPN_Carga.add(jTF_Altura, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 50, 30));
+
+        jTF_Largura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPN_Carga.add(jTF_Largura, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 50, 30));
+
+        jLB_Descricao8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao8.setText("Descricao");
+        jPN_Carga.add(jLB_Descricao8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+
+        jLB_Descricao9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao9.setText("Altura");
+        jPN_Carga.add(jLB_Descricao9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
+
+        jLB_Descricao10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao10.setText("Largura");
+        jPN_Carga.add(jLB_Descricao10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
+
+        jLB_Descricao11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao11.setText("Profundidade");
+        jPN_Carga.add(jLB_Descricao11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, -1, -1));
 
         jTB_Pedido.addTab("Cadastrar Carga", jPN_Carga);
 
@@ -756,6 +806,8 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             if (verificarCampos(listCampos)) {
                 Carga carga = new Carga();
                 cargaDao = new CargaDao();
+                
+            Double dimensaoCubica =   calcularDimensaoCubica();
 
                 carga.setIdPedido_Cli(idPedido_CliSelecionado);
                 carga.setDescricao(listCampos.get(0));
@@ -844,12 +896,16 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_CEP;
     private javax.swing.JLabel jLB_Descricao1;
+    private javax.swing.JLabel jLB_Descricao10;
+    private javax.swing.JLabel jLB_Descricao11;
     private javax.swing.JLabel jLB_Descricao2;
     private javax.swing.JLabel jLB_Descricao3;
     private javax.swing.JLabel jLB_Descricao4;
     private javax.swing.JLabel jLB_Descricao5;
     private javax.swing.JLabel jLB_Descricao6;
     private javax.swing.JLabel jLB_Descricao7;
+    private javax.swing.JLabel jLB_Descricao8;
+    private javax.swing.JLabel jLB_Descricao9;
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
     private javax.swing.JLabel jLB_Fechar4;
@@ -870,6 +926,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JScrollPane jSP_Cargas;
     private javax.swing.JTable jTB_Cargas;
     private javax.swing.JTabbedPane jTB_Pedido;
+    private javax.swing.JTextField jTF_Altura;
     private javax.swing.JTextField jTF_Bairro;
     private javax.swing.JTextField jTF_Cep;
     private javax.swing.JTextField jTF_Complemento;
@@ -879,11 +936,13 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_Descricao;
     private javax.swing.JTextField jTF_IdCliente;
     private javax.swing.JTextField jTF_IdCliente1;
+    private javax.swing.JTextField jTF_Largura;
     private javax.swing.JTextField jTF_Logradouro;
     private javax.swing.JTextField jTF_NomeCidade;
     private javax.swing.JTextField jTF_NomeCliente;
     private javax.swing.JTextField jTF_NomeCliente1;
     private javax.swing.JTextField jTF_Numero;
+    private javax.swing.JTextField jTF_Profundidade;
     private javax.swing.JTextField jTF_Quantidade;
     private javax.swing.JTextField jTF_Uf;
     // End of variables declaration//GEN-END:variables

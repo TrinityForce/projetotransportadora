@@ -103,7 +103,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         Period p = Period.between(inicio, today);
         Integer anos = inicio.getYear();
         
-        for (int i = 0; i < p.getYears(); i++) {
+        for (int i = 0; i <= p.getYears(); i++) {
             jCB_AnoInicial.addItem(anos);
             jCB_AnoFinal.addItem(anos);
             anos++;
@@ -606,6 +606,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
         
         Object[] options = optionList.toArray();
+        
         //pega o status que o usuario selecionou
         Object value = JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
                 "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null,
