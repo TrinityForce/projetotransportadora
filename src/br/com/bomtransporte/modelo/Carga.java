@@ -14,11 +14,12 @@ public class Carga {
     private Integer idPedido_Cli;
     private Integer idPrecoPeso;
     private Double valor;
+    private Double dimensaoCubica;
 
     public Carga() {
     }
 
-    public Carga(Integer idCarga, String descricao, String peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli, Integer idPrecoPeso, Double valor) {
+    public Carga(Integer idCarga, String descricao, String peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli, Integer idPrecoPeso, Double valor, Double dimensaoCubica) {
         this.idCarga = idCarga;
         this.descricao = descricao;
         this.peso = peso;
@@ -27,9 +28,8 @@ public class Carga {
         this.idPedido_Cli = idPedido_Cli;
         this.idPrecoPeso = idPrecoPeso;
         this.valor = valor;
+        this.dimensaoCubica = dimensaoCubica;
     }
-
-
 
     /**
      * @return the idCarga
@@ -117,6 +117,14 @@ public class Carga {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public Double getDimensaoCubica() {
+        return dimensaoCubica;
+    }
+
+    public void setDimensaoCubica(Double dimensaoCubica) {
+        this.dimensaoCubica = dimensaoCubica;
     }
 
 }

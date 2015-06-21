@@ -12,7 +12,7 @@ package br.com.bomtransporte.modelo;
  */
 
 //CAMINHAO DO ROMILDO
-public  final class Caminhao {
+public  final  class Caminhao {
     
    /**
     * valores em metro
@@ -29,6 +29,30 @@ public  final class Caminhao {
      * dimensao em metro cubico
      */
     private final Double dimensaoCubica =  21.120;
+
+    public Double getAltura() {
+        return altura;
+    }
+
+    public Double getLargura() {
+        return largura;
+    }
+
+    public Double getProfundidade() {
+        return profundidade;
+    }
+
+    public Double getPesoTotalSuportado() {
+        return pesoTotalSuportado;
+    }
+
+    public Double getPesoBrutoDoCaminhao() {
+        return pesoBrutoDoCaminhao;
+    }
+
+    public Double getDimensaoCubica() {
+        return dimensaoCubica;
+    }
     
     
 

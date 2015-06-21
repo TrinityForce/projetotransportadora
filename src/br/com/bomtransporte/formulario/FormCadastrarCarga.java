@@ -7,6 +7,7 @@ import br.com.bomtransporte.dao.EnderecoDao;
 import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.dao.PrecoDistanciaDao;
 import br.com.bomtransporte.dao.PrecoPesoDao;
+import br.com.bomtransporte.modelo.Caminhao;
 import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.modelo.Endereco;
@@ -72,9 +73,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         preencherComboPeso();
         desabilitarBotao(jBT_AdicionarCarga);
         verificarAba();
-        jLB_ErroCep.setVisible(false);
         desabilitarCampos(jTF_Bairro, jTF_NomeCidade, jTF_Logradouro, jTF_Uf);
         jTB_Pedido.setEnabledAt(1, false);
+        jLB_ErroCep.setVisible(false);
     }
 
     private void verificarAba() {
@@ -159,13 +160,32 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         listCampos.add(jTF_Largura.getText());
         listCampos.add(jTF_Altura.getText());
         listCampos.add(jTF_Profundidade.getText());
-        Double total = null;
+        Double total = 0.0;
 
         if (verificarCampos(listCampos)) {
             Double largura = Double.valueOf(listCampos.get(0));
             Double altura = Double.valueOf(listCampos.get(1));
             Double profundidade = Double.valueOf(listCampos.get(2));
-            return largura * altura * profundidade*300.0;
+            total = largura * altura * profundidade * 300;
+            double rounded = (double) Math.round(total * 100) / 100;
+            System.out.println(total +" rounded is "+ rounded);
+
+
+
+            Caminhao c = new Caminhao();
+            if (c.getAltura() <= altura) {
+
+                JOptionPane.showMessageDialog(this, "A altura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
+                return null;
+            } else if (c.getLargura() <= largura) {
+                JOptionPane.showMessageDialog(this, "A largura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
+                return null;
+            } else if (c.getProfundidade() <= profundidade) {
+                JOptionPane.showMessageDialog(this, "A profundidade e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
+                return null;
+            } else {
+                return rounded;
+            }
         }
         return null;
     }
@@ -758,34 +778,43 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         List<String> listCampos = new ArrayList<>();
         listCampos.add(jTF_Descricao.getText());
         listCampos.add(jTF_Quantidade.getText());
+        listCampos.add(jTF_Altura.getText());
+        listCampos.add(jTF_Largura.getText());
+        listCampos.add(jTF_Profundidade.getText());
 
         try {
             //verifica se todos os valores estao preenchidos
             if (verificarCampos(listCampos)) {
-                Carga carga = new Carga();
+                Double dimensaoCubica = calcularDimensaoCubica();
+                if (dimensaoCubica != null) {
+                    CargaDao cargaDao = new CargaDao();
+                    Carga carga = new Carga();
 
-                pedido.setIdPedido(pedidoDao.insertGetKey(pedido));
-                idPedido_CliSelecionado = pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
-                        precoDistancia.getIdPrecoDistancia());
-                CargaDao cargaDao = new CargaDao();
-                carga.setIdPedido_Cli(idPedido_CliSelecionado);
-                carga.setDescricao(listCampos.get(0));
-                carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
-                carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
 
-                cargaDao.insertGetKey(carga);
-                preencherTabela();
+                    pedido.setIdPedido(pedidoDao.insertGetKey(pedido));
+                    idPedido_CliSelecionado = pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
+                            precoDistancia.getIdPrecoDistancia());
 
-                JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-                Integer opt = JOptionPane.showConfirmDialog(this,
-                        "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
-                        JOptionPane.YES_NO_OPTION);
-                if (opt == JOptionPane.YES_OPTION) {
-                    desabilitarBotao(jBT_Salvar);
-                    limparCampos();
-                    habilitarBotao(jBT_AdicionarCarga);
-                } else {
-                    FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+                    carga.setIdPedido_Cli(idPedido_CliSelecionado);
+                    carga.setDescricao(listCampos.get(0));
+                    carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
+                    carga.setDimensaoCubica(dimensaoCubica);
+                    carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
+
+                    cargaDao.insertGetKey(carga);
+                    preencherTabela();
+
+                    JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                    Integer opt = JOptionPane.showConfirmDialog(this,
+                            "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
+                            JOptionPane.YES_NO_OPTION);
+                    if (opt == JOptionPane.YES_OPTION) {
+                        desabilitarBotao(jBT_Salvar);
+                        limparCampos();
+                        habilitarBotao(jBT_AdicionarCarga);
+                    } else {
+                        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);
@@ -800,31 +829,58 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         List<String> listCampos = new ArrayList<>();
         listCampos.add(jTF_Descricao.getText());
         listCampos.add(jTF_Quantidade.getText());
+        listCampos.add(jTF_Altura.getText());
+        listCampos.add(jTF_Largura.getText());
+        listCampos.add(jTF_Profundidade.getText());
 
         try {
             //verifica se todos os valores estao preenchidos
             if (verificarCampos(listCampos)) {
-                Carga carga = new Carga();
-                cargaDao = new CargaDao();
-                
-            Double dimensaoCubica =   calcularDimensaoCubica();
+                Double dimensaoCubica = calcularDimensaoCubica();
+                if (dimensaoCubica != null) {
 
-                carga.setIdPedido_Cli(idPedido_CliSelecionado);
-                carga.setDescricao(listCampos.get(0));
-                carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
-                System.err.println("idprecopeso " + carga.getIdPrecoPeso());
-                carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
-                cargaDao.insertGetKey(carga);
+                    CargaDao cargaDao = new CargaDao();
+                    Carga carga = new Carga();
+                    Double dimensaoCubicaDoPedido = 0.0;
+                    Caminhao caminhao = new Caminhao();
 
-                preencherTabela();
-                JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
-                Integer opt = JOptionPane.showConfirmDialog(this,
-                        "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
-                        JOptionPane.YES_NO_OPTION);
-                if (opt == JOptionPane.YES_OPTION) {
-                    limparCampos();
-                } else {
-                    FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+                    final List<Object> listaCargas = cargaDao.listarCargas(idPedido_CliSelecionado);
+
+                    if (listaCargas != null && listaCargas.size() > 0) {
+                        for (Object cargaAtual : listaCargas) {
+                            Carga c = (Carga) cargaAtual;
+                            System.out.println("dimensao "+c.getDimensaoCubica());
+                            dimensaoCubicaDoPedido +=(Double) c.getDimensaoCubica();
+                        }
+                    }
+
+                    System.err.println("dimensao total " +dimensaoCubicaDoPedido +"  dc "+ dimensaoCubica+ " some de tudo "+dimensaoCubicaDoPedido+dimensaoCubica);
+                    if ((dimensaoCubicaDoPedido + dimensaoCubica) >= caminhao.getDimensaoCubica()) {
+
+                        JOptionPane.showMessageDialog(this, "limite de cargas do pedido atingido", "limite atingido", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    carga.setIdPedido_Cli(idPedido_CliSelecionado);
+                    carga.setDescricao(listCampos.get(0));
+                    carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
+                    carga.setDimensaoCubica(dimensaoCubica);
+
+                    System.err.println("idprecopeso " + carga.getIdPrecoPeso());
+                    carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
+                    cargaDao.insertGetKey(carga);
+
+                    preencherTabela();
+                    JOptionPane.showMessageDialog(this, "Produto incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                    Integer opt = JOptionPane.showConfirmDialog(this,
+                            "Deseja adicionar uma nova carga a este pedido?", "ADICIONAR NOVA CARGA",
+                            JOptionPane.YES_NO_OPTION);
+                    if (opt == JOptionPane.YES_OPTION) {
+                        limparCampos();
+                    } else {
+                        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+                    }
+
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO", JOptionPane.ERROR_MESSAGE);

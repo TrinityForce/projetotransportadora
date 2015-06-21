@@ -169,7 +169,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                             
                             habilitarBotoes(jBT_AlterarPedido, jBT_AlterarStatusPedido);
                             
-                            if (pedidoSelecionado.getStatusPedido().equals("Em aguardo")) {
+                            if (pedidoSelecionado.getStatusPedido().equals("Aguardando")) {
                                 habilitarBotoes(jBT_AdicionarCarga);
                                 
                             } else {

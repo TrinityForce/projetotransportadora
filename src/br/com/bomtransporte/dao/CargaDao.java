@@ -18,11 +18,12 @@ public class CargaDao extends Conexao implements Dao {
 
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            stmt = con.prepareStatement("INSERT INTO CARGA(descricao,idprecoPeso,quantidade, idPedido_Cli) VALUES(?,?,?, ?)", Statement.RETURN_GENERATED_KEYS);
+            stmt = con.prepareStatement("INSERT INTO CARGA(descricao,idprecoPeso,quantidade, idPedido_Cli,dimensaoCubica) VALUES(?,?,?, ?,?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, carga.getDescricao());
             stmt.setInt(2, carga.getIdPrecoPeso());
             stmt.setInt(3, carga.getQuantidade());
             stmt.setInt(4, carga.getIdPedido_Cli());
+            stmt.setDouble(5, carga.getDimensaoCubica());
 
             stmt.execute();
 
@@ -124,12 +125,13 @@ public class CargaDao extends Conexao implements Dao {
 
         while (rs.next()) {
             Carga carga = new Carga();
-            carga.setIdCarga(rs.getInt("idCarga"));
-            carga.setDescricao(rs.getString("descricao"));
-            carga.setQuantidade(rs.getInt("quantidade"));
-            carga.setIdPrecoPeso(rs.getInt("idPrecoPeso"));
+            carga.setIdCarga(rs.getInt("c.idCarga"));
+            carga.setDescricao(rs.getString("c.descricao"));
+            carga.setQuantidade(rs.getInt("c.quantidade"));
+            carga.setDimensaoCubica(rs.getDouble("c.dimensaoCubica"));
+            carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
             carga.setPeso(rs.getString("pp.peso"));
-            carga.setValor(rs.getDouble("pp.valor"));
+            carga.setValor(rs.getDouble("pp.valor"));            
             listaCargas.add(carga);
         }
 
