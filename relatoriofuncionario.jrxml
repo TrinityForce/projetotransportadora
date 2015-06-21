@@ -33,10 +33,6 @@
 				</textElement>
 				<text><![CDATA[RELATÓRIO OPERACIONAL]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="0" width="128" height="79" uuid="4f368727-b2bb-4928-8918-5cfc7f26d46b"/>
-				<imageExpression><![CDATA["C:\\Users\\JhonattanSouza_\\Documents\\NetBeansProjects\\projetotransportadora\\src\\br\\com\\bomtransporte\\imagem\\logo-relat.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
