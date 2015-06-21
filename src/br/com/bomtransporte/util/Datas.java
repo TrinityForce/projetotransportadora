@@ -1,5 +1,6 @@
 package br.com.bomtransporte.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,16 +11,17 @@ import java.util.Date;
  * @author Gustavo Carvalho
  */
 public class Datas {
+
     /**
      * @author JhonattanSouza_
      * @return DataAtual Dia/Mes/Ano
      */
-    public static String dataAtual(){
+    public static String dataAtual() {
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return String.valueOf(sdf.format(data));
     }
-    
+
     /**
      * @author Gustavo Carvalho
      * @return Data,Ano,Mês,Dia,Hora,Minuto,Segundo
@@ -30,4 +32,18 @@ public class Datas {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
         return sdf.format(date);
     }
+
+    /**
+     * @author Gustavo Carvalho
+     * @param date
+     * @return dateObject
+     */
+    public static Date parseDate(String date) {
+        try {
+            return new SimpleDateFormat("yyyy-mm-dd").parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
 }

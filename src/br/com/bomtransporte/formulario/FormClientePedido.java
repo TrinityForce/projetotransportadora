@@ -5,6 +5,7 @@ import br.com.bomtransporte.dao.ClienteDao;
 import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.Cliente;
+import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
@@ -12,11 +13,14 @@ import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +34,7 @@ import javax.swing.ListSelectionModel;
  * @author JhonattanSouza_
  */
 public class FormClientePedido extends javax.swing.JFrame {
-    
+
     private ClienteDao clienteDao;
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
@@ -38,19 +42,19 @@ public class FormClientePedido extends javax.swing.JFrame {
     public static Integer idCliente, ativarAba, idPedido_CliSelecionado,
             idPedidoSelecionado;
     private String statusPedidoSelecionado;
-    
+
     public FormClientePedido() {
         initComponents();
         preencherTabela();
         verificarAba();
     }
-    
+
     private void desabilitarBotoes(JButton... bt) {
         for (JButton bt1 : bt) {
             bt1.setEnabled(false);
         }
     }
-    
+
     private void habilitarBotoes(JButton... bt) {
         for (JButton bt1 : bt) {
             bt1.setEnabled(true);
@@ -59,11 +63,11 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     //habilita a primeira aba do jpanel
     private void verificarAba() {
-        
+
         jTB_CliPedido.setEnabledAt(0, true);
         jTB_CliPedido.setEnabledAt(1, false);
         jTB_CliPedido.setSelectedIndex(0);
-        
+
         desabilitarBotoes(jBT_ListarPedidos);
     }
 
@@ -78,7 +82,7 @@ public class FormClientePedido extends javax.swing.JFrame {
             try {
                 CargaDao cargaDao = new CargaDao();
                 Double valorTotal = 0.0;
-                
+
                 final List<Object> listaCarga = cargaDao.listarCargas(idPedido_CliSelecionado);
                 System.out.println("dentro do try");
                 for (Object carga : listaCarga) {
@@ -97,43 +101,43 @@ public class FormClientePedido extends javax.swing.JFrame {
     //preenche jcombox data
     private void preencheData() {
         String[] mths = (new DateFormatSymbols()).getMonths();
-        
+
         LocalDate today = LocalDate.now();
         LocalDate inicio = LocalDate.of(2010, Month.JANUARY, 1);
         Period p = Period.between(inicio, today);
         Integer anos = inicio.getYear();
-        
+
         for (int i = 0; i <= p.getYears(); i++) {
             jCB_AnoInicial.addItem(anos);
             jCB_AnoFinal.addItem(anos);
             anos++;
         }
-        
+
         for (String mth : mths) {
             jCB_DataInicial.addItem(mth);
             jCB_DataFinal.addItem(mth);
         }
-        
+
     }
 
     //preenche a tabela pedido
     private void preencherTabelaPedido() {
-        
+
         ArrayList dados = new ArrayList();
-        
+
         String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
         desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
         try {
             pedidoDao = new PedidoDao();
             final List<Object> listaPedido = pedidoDao.listarPedidos(idCliente);
-            
+
             if (listaPedido != null && listaPedido.size() > 0) {
-                for(Object pedidoAtual : listaPedido){
+                for (Object pedidoAtual : listaPedido) {
                     Pedido pedido = (Pedido) pedidoAtual;
                     dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
                 }
             }
-            
+
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTB_Pedidos.setModel(modTabela);
             jTB_Pedidos.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -146,49 +150,49 @@ public class FormClientePedido extends javax.swing.JFrame {
             jTB_Pedidos.getColumnModel().getColumn(3).setResizable(false);
             jTB_Pedidos.getColumnModel().getColumn(4).setPreferredWidth(150);
             jTB_Pedidos.getColumnModel().getColumn(4).setResizable(false);
-            
+
             jTB_Pedidos.getTableHeader().setReorderingAllowed(false);
             jTB_Pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTB_Pedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            
+
             jTB_Pedidos.addMouseListener(new MouseAdapter() {
-                
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                     try {
                         List<Object> lista = pedidoDao.listarPedidos(idCliente);
                         pedidoSelecionado = (Pedido) lista.
                                 get(jTB_Pedidos.convertRowIndexToModel(jTB_Pedidos.getSelectedRow()));
-                        
+
                         idPedido_CliSelecionado = pedidoSelecionado.getIdPedido_Cli();
                         idPedidoSelecionado = pedidoSelecionado.getIdPedido();
                         statusPedidoSelecionado = pedidoSelecionado.getStatusPedido();
                         preencherTotal();
                         if ((idPedidoSelecionado != null) && (idPedido_CliSelecionado) != null) {
-                            
+
                             habilitarBotoes(jBT_AlterarPedido, jBT_AlterarStatusPedido);
-                            
+
                             if (pedidoSelecionado.getStatusPedido().equals("Aguardando")) {
                                 habilitarBotoes(jBT_AdicionarCarga);
-                                
+
                             } else {
                                 desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido);
                             }
                         } else {
                             desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
-                            
+
                         }
-                        
+
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro genérico1: " + ex.getMessage());
                     }
                 }
-                
+
             });
-            
+
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(this, "Erro no Banco de Dados: " + sqle.getMessage());
         } catch (Exception e) {
@@ -198,9 +202,9 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     //preenche a tabela cliente
     private void preencherTabela() {
-        
+
         ArrayList dados = new ArrayList();
-        
+
         String[] colunas = new String[]{"ID", "NOME", "DATA CADASTRO", "CPF", "TELEFONE"};
         final List<Object> listaCliente;
         try {
@@ -210,17 +214,17 @@ public class FormClientePedido extends javax.swing.JFrame {
             } else {
                 listaCliente = clienteDao.consultarCliente(jTF_Consulta.getText());
             }
-            
+
             desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_AdicionarCarga);
             //Verifica se a lista está preenchida
             if (listaCliente != null && listaCliente.size() > 0) {
                 //Percorre a lista
-                for(Object clienteAtual : listaCliente) {
+                for (Object clienteAtual : listaCliente) {
                     Cliente cliente = (Cliente) clienteAtual;
                     dados.add(new Object[]{cliente.getIdCliente(), cliente.getNome(), cliente.getDataCadastro(), cliente.getCpf(), cliente.getTelefone()});
                 }
             }
-            
+
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTableClientes.setModel(modTabela);
             jTableClientes.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -233,26 +237,26 @@ public class FormClientePedido extends javax.swing.JFrame {
             jTableClientes.getColumnModel().getColumn(3).setResizable(false);
             jTableClientes.getColumnModel().getColumn(4).setPreferredWidth(150);
             jTableClientes.getColumnModel().getColumn(4).setResizable(false);
-            
+
             jTableClientes.getTableHeader().setReorderingAllowed(false);
             jTableClientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTableClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            
+
             jTableClientes.addMouseListener(new MouseAdapter() {
-                
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                     try {
-                        
+
                         List<Object> lista = clienteDao.listar();
                         clienteSelecionado = (Cliente) lista.
                                 get(jTableClientes.convertRowIndexToModel(jTableClientes.getSelectedRow()));
                         idCliente = clienteSelecionado.getIdCliente();
                         System.err.println("idCliente " + idCliente);
-                        
+
                         habilitarBotoes(jBT_ListarPedidos, jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido);
-                        
+
                     } catch (SQLException sqlex) {
                         JOptionPane.showMessageDialog(FormClientePedido.this, "Erro no Banco de Dados: " + sqlex.getMessage());
                     } catch (Exception ex) {
@@ -260,14 +264,14 @@ public class FormClientePedido extends javax.swing.JFrame {
                     }
                 }
             });
-            
+
         } catch (SQLException sqle) {
             JOptionPane.showMessageDialog(this, "Erro no Banco de Dados: " + sqle.getMessage());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -525,9 +529,9 @@ public class FormClientePedido extends javax.swing.JFrame {
             if (opt == JOptionPane.YES_OPTION) {
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(idCliente);
-                
+
                 clienteDao.excluir(cliente);
-                
+
                 preencherTabela();
                 JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -560,13 +564,13 @@ public class FormClientePedido extends javax.swing.JFrame {
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
         //habilita a segunda aba
         if (idCliente != null) {
-            
+
             jTB_CliPedido.setEnabledAt(1, true);
             jTB_CliPedido.setEnabledAt(0, false);
             jTB_CliPedido.setSelectedIndex(1);
             preencherTabelaPedido();
             preencheData();
-            
+
         } else {
             JOptionPane.showMessageDialog(this,
                     "Selecione um cliente!", "Erro", JOptionPane.INFORMATION_MESSAGE);
@@ -589,7 +593,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
         //cria uma list com os status do pedido
         List<String> optionList = new ArrayList<>();
-        
+
         optionList.add("Saiu para entrega");
         optionList.add("Entregue");
         optionList.add("Extraviado");
@@ -610,9 +614,9 @@ public class FormClientePedido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Esse pedido já foi entregue!", "PEDIDO ENTREGUE", JOptionPane.INFORMATION_MESSAGE);
                 return;
         }
-        
+
         Object[] options = optionList.toArray();
-        
+
         //pega o status que o usuario selecionou
         Object value = JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
                 "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null,
@@ -626,7 +630,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), optionList.get(index));
                 preencherTabelaPedido();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco: " + ex.getMessage() , "Erro", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco: " + ex.getMessage(), "Erro", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
@@ -649,7 +653,15 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
 
     private void jBT_PesquisarPedidoPelaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarPedidoPelaDataActionPerformed
-        // TODO add your handling code here:
+        Integer initialMonth = jCB_DataInicial.getSelectedIndex() + 1;
+        Integer initialYear = (Integer) jCB_AnoInicial.getSelectedItem();
+        Integer finalMonth = jCB_DataFinal.getSelectedIndex() + 1;
+        Integer finalYear = (Integer) jCB_AnoFinal.getSelectedItem();
+
+        Date initialDate = Datas.parseDate(initialYear + "-0" + initialMonth + "-0" + 1);
+        Date finalDate = Datas.parseDate(finalYear + "-0" + finalMonth + "-0" + 1);
+
+
     }//GEN-LAST:event_jBT_PesquisarPedidoPelaDataActionPerformed
 
     private void jCB_DataFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_DataFinalActionPerformed
@@ -667,7 +679,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private void jCB_AnoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoFinalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_AnoFinalActionPerformed
-    
+
     public static void main(String args[]) {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

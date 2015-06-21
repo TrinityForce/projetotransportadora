@@ -6,6 +6,9 @@
 
 package br.com.bomtransporte.modelo;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 /**
  * 
  * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
@@ -17,42 +20,44 @@ public  final  class Caminhao {
    /**
     * valores em metro
     */
-    private final Double  altura = 2.40;
-    private final Double largura =2.20;
-    private final Double profundidade = 3.0;
+    private final BigDecimal   altura = new BigDecimal(2.40);
+    private final BigDecimal largura = new BigDecimal(2.20);
+    private final BigDecimal profundidade = new BigDecimal(3.0);
     /**
      * peso em kg
      */
-    private final Double pesoTotalSuportado = 1800.0;
-    private final Double pesoBrutoDoCaminhao = 3500.0;
+    private final BigDecimal pesoTotalSuportado = new BigDecimal(1800);
+    private final BigDecimal pesoBrutoDoCaminhao = new BigDecimal(3500) ;
     /**
      * dimensao em metro cubico (quatorze)
      */
-      private final Double dimensaoCubica =  14.0;
+      private final BigDecimal dimensaoCubica = new  BigDecimal(14);
 
-    public Double getAltura() {
+    public BigDecimal getAltura() {
         return altura;
     }
 
-    public Double getLargura() {
+    public BigDecimal getLargura() {
         return largura;
     }
 
-    public Double getProfundidade() {
+    public BigDecimal getProfundidade() {
         return profundidade;
     }
 
-    public Double getPesoTotalSuportado() {
+    public BigDecimal getPesoTotalSuportado() {
         return pesoTotalSuportado;
     }
 
-    public Double getPesoBrutoDoCaminhao() {
+    public BigDecimal getPesoBrutoDoCaminhao() {
         return pesoBrutoDoCaminhao;
     }
 
-    public Double getDimensaoCubica() {
+    public BigDecimal getDimensaoCubica() {
         return dimensaoCubica;
     }
+
+
     
     
 
