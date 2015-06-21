@@ -28,8 +28,8 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jLB_BemVindo = new javax.swing.JLabel();
         jLB_Nome = new javax.swing.JLabel();
+        jBT_Relatorio = new javax.swing.JButton();
         jBT_Cliente = new javax.swing.JButton();
-        jBT_Pedido1 = new javax.swing.JButton();
         jBT_AlterarSenha = new javax.swing.JButton();
         jBT_Pedido = new javax.swing.JButton();
         jBT_Sair = new javax.swing.JButton();
@@ -50,6 +50,17 @@ public class FormFuncionario extends javax.swing.JFrame {
         jLB_Nome.setText("NAME_PLACEHOLDER");
         getContentPane().add(jLB_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, 40));
 
+        jBT_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Relatorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Relatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/relat-icon.png"))); // NOI18N
+        jBT_Relatorio.setText("Relatórios");
+        jBT_Relatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_RelatorioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBT_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 290, 100));
+
         jBT_Cliente.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Cliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/cliente-icon.png"))); // NOI18N
@@ -60,17 +71,6 @@ public class FormFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBT_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 290, 100));
-
-        jBT_Pedido1.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Pedido1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Pedido1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/transito-icon.png"))); // NOI18N
-        jBT_Pedido1.setText("Administrar Pedidos");
-        jBT_Pedido1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_Pedido1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jBT_Pedido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 290, 100));
 
         jBT_AlterarSenha.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -129,10 +129,6 @@ public class FormFuncionario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jBT_ClienteActionPerformed
 
-    private void jBT_Pedido1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_Pedido1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBT_Pedido1ActionPerformed
-
     private void jBT_AlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarSenhaActionPerformed
         FormAlterarSenha formSenha = new FormAlterarSenha();
         formSenha.setVisible(true);
@@ -154,6 +150,12 @@ public class FormFuncionario extends javax.swing.JFrame {
         formLogin.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBT_LogoutActionPerformed
+
+    private void jBT_RelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_RelatorioActionPerformed
+        FormRelatorio formRelat = new FormRelatorio();
+        formRelat.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBT_RelatorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,7 +196,7 @@ public class FormFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Cliente;
     private javax.swing.JButton jBT_Logout;
     private javax.swing.JButton jBT_Pedido;
-    private javax.swing.JButton jBT_Pedido1;
+    private javax.swing.JButton jBT_Relatorio;
     private javax.swing.JButton jBT_Sair;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_BemVindo;

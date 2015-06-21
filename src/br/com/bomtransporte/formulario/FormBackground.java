@@ -1,5 +1,7 @@
 package br.com.bomtransporte.formulario;
 
+import br.com.bomtransporte.util.MainBackground;
+import java.awt.GridLayout;
 import javax.swing.JFrame;
 
 /**
@@ -7,11 +9,15 @@ import javax.swing.JFrame;
  * @author JhonattanSouza_
  */
 public class FormBackground extends javax.swing.JFrame {
-
+    private final MainBackground mbg;
 
     public FormBackground() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLayout(new GridLayout());
+        mbg = new MainBackground("src/br/com/bomtransporte/imagem/background.jpg");
+        getContentPane().add(mbg);
+        mbg.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
