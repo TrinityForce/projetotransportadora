@@ -21,6 +21,7 @@ import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -155,31 +156,39 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         listCampos.add(jTF_Altura.getText());
         listCampos.add(jTF_Profundidade.getText());
         Double total;
+        try {
+            if (verificarCampos(listCampos)) {
+                BigDecimal bLargura = BigDecimal.valueOf(Double.valueOf(listCampos.get(0)));
+                BigDecimal bAltura = BigDecimal.valueOf(Double.valueOf(listCampos.get(1)));
+                BigDecimal bProfundidade = BigDecimal.valueOf(Double.valueOf(listCampos.get(2)));
 
-        if (verificarCampos(listCampos)) {
-            Double largura = Double.valueOf(listCampos.get(0));
-            Double altura = Double.valueOf(listCampos.get(1));
-            Double profundidade = Double.valueOf(listCampos.get(2));
-            total = largura * altura * profundidade * 300;
-            double rounded = (double) Math.round(total * 100) / 100;
-            System.out.println(total +" rounded is "+ rounded);
+                BigDecimal bTotal = bAltura.multiply(bLargura).multiply(bProfundidade);
+                System.err.println("TRETA DO BIG DECIMAL TOTAL = " + bTotal);
 
+                Double largura = Double.valueOf(listCampos.get(0));
+                Double altura = Double.valueOf(listCampos.get(1));
+                Double profundidade = Double.valueOf(listCampos.get(2));
+                total = largura * altura * profundidade;
+                double rounded = (double) Math.round(total * 100) / 100;
+                System.out.println(total + " rounded is " + rounded);
 
+                Caminhao c = new Caminhao();
+                if (c.getAltura() <= altura) {
 
-            Caminhao c = new Caminhao();
-            if (c.getAltura() <= altura) {
-
-                JOptionPane.showMessageDialog(this, "A altura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                return null;
-            } else if (c.getLargura() <= largura) {
-                JOptionPane.showMessageDialog(this, "A largura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                return null;
-            } else if (c.getProfundidade() <= profundidade) {
-                JOptionPane.showMessageDialog(this, "A profundidade e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                return null;
-            } else {
-                return rounded;
+                    JOptionPane.showMessageDialog(this, "A altura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
+                    return null;
+                } else if (c.getLargura() <= largura) {
+                    JOptionPane.showMessageDialog(this, "A largura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
+                    return null;
+                } else if (c.getProfundidade() <= profundidade) {
+                    JOptionPane.showMessageDialog(this, "A profundidade e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
+                    return null;
+                } else {
+                    return rounded;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -780,7 +789,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                     CargaDao cargaDao = new CargaDao();
                     Carga carga = new Carga();
 
-
                     pedido.setIdPedido(pedidoDao.insertGetKey(pedido));
                     idPedido_CliSelecionado = pedidoDao.inserirPedidoCli(idCliente, pedido.getIdPedido(),
                             precoDistancia.getIdPrecoDistancia());
@@ -839,12 +847,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                     if (listaCargas != null && listaCargas.size() > 0) {
                         for (Object cargaAtual : listaCargas) {
                             Carga c = (Carga) cargaAtual;
-                            System.out.println("dimensao "+c.getDimensaoCubica());
-                            dimensaoCubicaDoPedido +=c.getDimensaoCubica();
+                            System.out.println("dimensao " + c.getDimensaoCubica());
+                            dimensaoCubicaDoPedido += c.getDimensaoCubica();
                         }
                     }
 
-                    System.err.println("dimensao total " +dimensaoCubicaDoPedido +"  dc "+ dimensaoCubica+ " some de tudo "+dimensaoCubicaDoPedido+dimensaoCubica);
+                    System.err.println("dimensao total " + dimensaoCubicaDoPedido + "  dc " + dimensaoCubica + " some de tudo " + dimensaoCubicaDoPedido + dimensaoCubica);
                     if ((dimensaoCubicaDoPedido + dimensaoCubica) >= caminhao.getDimensaoCubica()) {
 
                         JOptionPane.showMessageDialog(this, "limite de cargas do pedido atingido", "limite atingido", JOptionPane.ERROR_MESSAGE);

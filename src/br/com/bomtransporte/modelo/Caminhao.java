@@ -19,16 +19,16 @@ public  final  class Caminhao {
     */
     private final Double  altura = 2.40;
     private final Double largura =2.20;
-    private final Double profundidade = 4.0;
+    private final Double profundidade = 3.0;
     /**
      * peso em kg
      */
     private final Double pesoTotalSuportado = 1800.0;
     private final Double pesoBrutoDoCaminhao = 3500.0;
     /**
-     * dimensao em metro cubico
+     * dimensao em metro cubico (quatorze)
      */
-    private final Double dimensaoCubica =  21.120;
+      private final Double dimensaoCubica =  14.0;
 
     public Double getAltura() {
         return altura;
