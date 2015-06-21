@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bomtransporte.dao;
 
-import br.com.bomtransporte.modelo.Carga;
-import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.modelo.Pedido;
-import br.com.bomtransporte.modelo.PrecoDistancia;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
+ * @author Gustavo Carvalho
  */
 public class PedidoDao extends Conexao implements Dao {
 
@@ -63,7 +55,6 @@ public class PedidoDao extends Conexao implements Dao {
                 con.rollback();
                 System.out.println("Connection rollback...");
             }
-            e.printStackTrace();
 
         } finally {
             if (con != null && !con.isClosed()) {
@@ -106,7 +97,6 @@ public class PedidoDao extends Conexao implements Dao {
                 con.rollback();
                 System.out.println("Connection rollback...");
             }
-            e.printStackTrace();
 
         } finally {
             if (con != null && !con.isClosed()) {
@@ -141,17 +131,37 @@ public class PedidoDao extends Conexao implements Dao {
 
     @Override
     public void excluir(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public List<Object> listar() throws Exception {
-        return null;
+        List<Object> listaPedidos = new ArrayList<>();
+
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido;");
+
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("P.idPedido"));
+            pedido.setProtocolo(rs.getString("P.protocolo"));
+            pedido.setDataVenda(rs.getDate("P.dataVenda"));
+            pedido.setDesconto(rs.getInt("P.desconto"));
+            pedido.setStatusPedido(rs.getString("P.statusPedido"));
+            pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            listaPedidos.add(pedido);
+        }
+
+        close();
+        return listaPedidos;
     }
 
     @Override
     public void inserir(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public List<Object> listarPedidos(Integer idCliente) throws Exception {
@@ -265,5 +275,32 @@ public class PedidoDao extends Conexao implements Dao {
 
         con.close();
 
+    }
+
+    public List<Object> listarPedidos(String status) throws Exception {
+        List<Object> listaPedidos = new ArrayList<>();
+
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido where P.statusPedido = ?;");
+        stmt.setString(1, status);
+
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("P.idPedido"));
+            pedido.setProtocolo(rs.getString("P.protocolo"));
+            pedido.setDataVenda(rs.getDate("P.dataVenda"));
+            pedido.setDesconto(rs.getInt("P.desconto"));
+            pedido.setStatusPedido(rs.getString("P.statusPedido"));
+            pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            listaPedidos.add(pedido);
+        }
+
+        close();
+        return listaPedidos;
     }
 }
