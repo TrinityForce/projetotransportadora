@@ -43,27 +43,13 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         CidadeDao cidadeDao = new CidadeDao();
         try {
             limparComboBox();
-            for(Object cid : cidadeDao.listar()){
+            for(Object cid : cidadeDao.listarUf()){
                 Cidade cidade = (Cidade) cid;
                 String uf = cidade.getUf();
                 if (uf.contains("SP") || uf.contains("RJ") || uf.contains("MG") || uf.contains("ES")) {
                     jCB_Origem.addItem(cidade.getUf());
                     jCB_Destino.addItem(cidade.getUf());
                 }
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void preencherComboBoxBrasil() {
-        CidadeDao cidadeDao = new CidadeDao();
-        try {
-            limparComboBox();
-            for(Object cid : cidadeDao.listar()) {
-                Cidade cidade = (Cidade) cid;
-                jCB_Origem.addItem(cidade.getUf());
-                jCB_Destino.addItem(cidade.getUf());
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
@@ -86,8 +72,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jCB_Rotas = new javax.swing.JComboBox();
         jPN_Alterar = new javax.swing.JPanel();
-        jRB_Sudeste = new javax.swing.JRadioButton();
-        jRB_Brasil = new javax.swing.JRadioButton();
         Origem = new javax.swing.JLabel();
         Destino = new javax.swing.JLabel();
         Valor = new javax.swing.JLabel();
@@ -138,28 +122,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Alterar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPN_Alterar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jRB_Sudeste.setBackground(new java.awt.Color(2, 160, 133));
-        BTG_Estados.add(jRB_Sudeste);
-        jRB_Sudeste.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jRB_Sudeste.setText("Rotas -> Sudeste");
-        jRB_Sudeste.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRB_SudesteActionPerformed(evt);
-            }
-        });
-        jPN_Alterar.add(jRB_Sudeste, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 140, -1));
-
-        jRB_Brasil.setBackground(new java.awt.Color(2, 160, 133));
-        BTG_Estados.add(jRB_Brasil);
-        jRB_Brasil.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jRB_Brasil.setText("Rotas -> Brasil");
-        jRB_Brasil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRB_BrasilActionPerformed(evt);
-            }
-        });
-        jPN_Alterar.add(jRB_Brasil, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 140, -1));
-
         Origem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Origem.setText("CADASTRAR NOVA ROTA");
         jPN_Alterar.add(Origem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
@@ -191,7 +153,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
                 jBT_AdicionarActionPerformed(evt);
             }
         });
-        jPN_Alterar.add(jBT_Adicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 170, 60));
+        jPN_Alterar.add(jBT_Adicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 170, 60));
         jPN_Alterar.add(jFTF_Valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 130, 30));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -249,14 +211,6 @@ public class FormCadastrarRota extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente: " + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBT_AdicionarActionPerformed
-
-    private void jRB_SudesteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRB_SudesteActionPerformed
-        preencherComboBoxSudeste();
-    }//GEN-LAST:event_jRB_SudesteActionPerformed
-
-    private void jRB_BrasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRB_BrasilActionPerformed
-        preencherComboBoxBrasil();
-    }//GEN-LAST:event_jRB_BrasilActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String[] idRota;
@@ -335,7 +289,5 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPN_Alterar;
     private javax.swing.JPanel jPN_Cadastrar;
-    private javax.swing.JRadioButton jRB_Brasil;
-    private javax.swing.JRadioButton jRB_Sudeste;
     // End of variables declaration//GEN-END:variables
 }

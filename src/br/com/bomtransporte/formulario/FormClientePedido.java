@@ -320,7 +320,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSC_Tabela.setViewportView(jTableClientes);
 
-        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 670, 260));
+        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 670, 270));
 
         jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -379,9 +379,10 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
         jPN_PesquisarCliente.add(jBT_ListarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 90, 200, 70));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setText("Pesquisar pelo nome ou CPF");
-        jPN_PesquisarCliente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jLabel1.setText("Consulta por nome ou por CPF do Cliente.");
+        jPN_PesquisarCliente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 370, 30));
 
         jTB_CliPedido.addTab("Pesquisar Cliente", null, jPN_PesquisarCliente, "Pesquisar cliente e selecionar uma ação.");
 
@@ -461,7 +462,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_PesquisarPedidoPelaDataActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_PesquisarPedidoPelaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 70, 70));
+        jPN_CadastrarPedido.add(jBT_PesquisarPedidoPelaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 80, 80));
 
         jCB_DataFinal.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_DataFinal.addActionListener(new java.awt.event.ActionListener() {
@@ -469,7 +470,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_DataFinalActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_DataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 120, -1));
+        jPN_CadastrarPedido.add(jCB_DataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, -1));
 
         jCB_DataInicial.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_DataInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -477,7 +478,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_DataInicialActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_DataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 120, -1));
+        jPN_CadastrarPedido.add(jCB_DataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 120, -1));
 
         jCB_AnoInicial.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_AnoInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -485,7 +486,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_AnoInicialActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_AnoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 90, -1));
+        jPN_CadastrarPedido.add(jCB_AnoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 90, -1));
 
         jCB_AnoFinal.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_AnoFinal.addActionListener(new java.awt.event.ActionListener() {
@@ -493,7 +494,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_AnoFinalActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_AnoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 90, -1));
+        jPN_CadastrarPedido.add(jCB_AnoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 90, -1));
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 

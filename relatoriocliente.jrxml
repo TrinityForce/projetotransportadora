@@ -27,16 +27,23 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="84" y="19" width="388" height="37" uuid="af75493e-da77-409f-be85-36c4a02ed029"/>
+				<reportElement x="128" y="21" width="388" height="37" uuid="af75493e-da77-409f-be85-36c4a02ed029"/>
 				<textElement>
 					<font size="28"/>
 				</textElement>
 				<text><![CDATA[RELATÓRIO OPERACIONAL]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="128" height="79" uuid="37479872-7057-4271-9947-0f559d5e6bf2"/>
+				<imageExpression><![CDATA["C:\\Users\\JhonattanSouza_\\Documents\\NetBeansProjects\\projetotransportadora\\src\\br\\com\\bomtransporte\\imagem\\logo-relat.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="52" splitType="Stretch">
+		<band height="39" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="37" uuid="c588ac76-d7f3-4edc-b770-0d5c9ca83e44"/>
+			</rectangle>
 			<staticText>
 				<reportElement x="128" y="0" width="303" height="37" uuid="008deb2c-169f-425d-8a2a-24bb87df2bde"/>
 				<textElement>
@@ -47,64 +54,124 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="455" y="0" width="100" height="20" uuid="0b0f2b63-e85e-4d18-9ee5-a20ab65a8bf9"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="355" y="0" width="100" height="20" uuid="40782ed8-585a-4b5c-ad8f-08b6436a51a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="255" y="0" width="100" height="20" uuid="5e40b454-14a0-4418-a514-03e97e656c60"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="100" y="0" width="155" height="20" uuid="ebc0b329-a64b-4fd1-bb0a-c3126ce66a82"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="100" height="20" uuid="af5bb3fb-b887-413c-a4e0-6037d7e9c92e"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="0" y="41" width="100" height="20" uuid="3df639a2-1bdc-4012-aba1-b2e4f5999d96"/>
-				<text><![CDATA[idPessoa]]></text>
+				<reportElement x="0" y="0" width="100" height="20" uuid="3df639a2-1bdc-4012-aba1-b2e4f5999d96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="255" y="41" width="100" height="20" uuid="aec6fab2-9186-434d-b7aa-c7c8431298c2"/>
-				<text><![CDATA[cpf]]></text>
+				<reportElement x="255" y="0" width="100" height="20" uuid="aec6fab2-9186-434d-b7aa-c7c8431298c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="41" width="100" height="20" uuid="83dfa528-9699-4571-a066-c9a07a3c4798"/>
-				<text><![CDATA[telefone]]></text>
+				<reportElement x="355" y="0" width="100" height="20" uuid="83dfa528-9699-4571-a066-c9a07a3c4798"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[TELEFONE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="41" width="100" height="20" uuid="03e98022-c2de-44fa-b5ca-8ce9db9d66b1"/>
-				<text><![CDATA[dataCadastro]]></text>
+				<reportElement x="455" y="0" width="100" height="20" uuid="03e98022-c2de-44fa-b5ca-8ce9db9d66b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[DATA CADASTRO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="41" width="155" height="20" uuid="74f56551-146d-4d35-b9f1-beac802ffa40"/>
-				<text><![CDATA[nome]]></text>
+				<reportElement x="100" y="0" width="155" height="20" uuid="74f56551-146d-4d35-b9f1-beac802ffa40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[NOME]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="455" y="0" width="100" height="20" uuid="902a6593-3589-4ca2-9aa3-69a6e30a04ed"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="355" y="0" width="100" height="20" uuid="dc46b5d0-a7bd-4525-ad4c-b752792bec87"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="255" y="0" width="100" height="20" uuid="19bcf849-f236-4140-ba0a-7598d5d00a44"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="100" y="0" width="155" height="20" uuid="8fa1ae25-0fc9-4dd9-81f6-ffba5274b2c2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="100" height="20" uuid="36fd5a80-7000-45a0-90ba-6a576bebacce"/>
+			</rectangle>
 			<textField>
 				<reportElement x="0" y="0" width="100" height="20" uuid="649e64b6-c1ec-458f-815c-feb300584467"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{idPessoa}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="255" y="0" width="100" height="20" uuid="e75b66a8-446f-4074-8c8d-d62245203276"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="355" y="0" width="100" height="20" uuid="817b2ec8-dc38-4a19-8fc2-d3bef2af35f8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="455" y="0" width="100" height="20" uuid="f6f68a7f-3264-46d5-a95b-75345b86fdc8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{dataCadastro}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="155" height="20" uuid="cec19e1d-dcca-455e-9956-c44795528f69"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="9" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="0" y="20" width="100" height="20" uuid="d5219d5c-4a8d-488a-821c-8e7c152936dc"/>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d5219d5c-4a8d-488a-821c-8e7c152936dc"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="20" width="100" height="20" uuid="12698cb5-e4a8-4818-8912-703cbfc1e6fa"/>
+				<reportElement x="455" y="0" width="100" height="20" uuid="12698cb5-e4a8-4818-8912-703cbfc1e6fa"/>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
