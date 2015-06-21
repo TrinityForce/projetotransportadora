@@ -21,8 +21,6 @@ import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
 import java.lang.reflect.Field;
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -146,11 +144,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }
 
     private boolean verificarCampo(String campo) {
-        if (campo != null && campo.trim().length() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return campo != null && campo.trim().length() > 0;
     }
 
     private Double calcularDimensaoCubica() {
@@ -160,7 +154,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         listCampos.add(jTF_Largura.getText());
         listCampos.add(jTF_Altura.getText());
         listCampos.add(jTF_Profundidade.getText());
-        Double total = 0.0;
+        Double total;
 
         if (verificarCampos(listCampos)) {
             Double largura = Double.valueOf(listCampos.get(0));
@@ -191,11 +185,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }
 
     private boolean verificarCampo(Integer campo) {
-        if (campo != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return campo != null;
     }
 
     private boolean verificarRadio(JRadioButton rb1, JRadioButton rb2) {
@@ -850,7 +840,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                         for (Object cargaAtual : listaCargas) {
                             Carga c = (Carga) cargaAtual;
                             System.out.println("dimensao "+c.getDimensaoCubica());
-                            dimensaoCubicaDoPedido +=(Double) c.getDimensaoCubica();
+                            dimensaoCubicaDoPedido +=c.getDimensaoCubica();
                         }
                     }
 
@@ -887,7 +877,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
         }
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
@@ -935,6 +924,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FormCadastrarCarga().setVisible(true);
             }

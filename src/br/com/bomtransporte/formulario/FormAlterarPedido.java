@@ -10,6 +10,7 @@ import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.modelo.PrecoDistancia;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -122,7 +123,6 @@ public class FormAlterarPedido extends javax.swing.JFrame {
 
             } catch (Exception ex) {
                 Logger.getLogger(FormAlterarPedido.class.getName()).log(Level.SEVERE, null, ex);
-                ex.printStackTrace();
             }
         }
     }
@@ -138,7 +138,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
              });*/
             for (PrecoDistancia preco : pdd.listarTodosAtivados()) {
                 jCB_Rotas.addItem(preco.getIdPrecoDistancia() + " " + preco.getOrigemDestinoUf() + "-R$" + preco.getValor());
-                if (preco.getIdPrecoDistancia() == idPrecoDistanciaInteger) {
+                if (Objects.equals(preco.getIdPrecoDistancia(), idPrecoDistanciaInteger)) {
                     jCB_Rotas.setSelectedIndex(contador);
                 }
                 contador++;
@@ -509,6 +509,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FormAlterarPedido().setVisible(true);
             }

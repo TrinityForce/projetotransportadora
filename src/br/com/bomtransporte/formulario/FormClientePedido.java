@@ -588,22 +588,27 @@ public class FormClientePedido extends javax.swing.JFrame {
             return;
         }
         //cria uma list com os status do pedido
-        List<String> optionList = new ArrayList<String>();
+        List<String> optionList = new ArrayList<>();
         
         optionList.add("Saiu para entrega");
         optionList.add("Entregue");
         optionList.add("Extraviado");
 
         //mostra somente as opcoes necessarias de acordo com a regra de negocio
-        if (statusPedidoSelecionado.equals("Em aguardo") || statusPedidoSelecionado.equals("Aguardando")) {
-            optionList.remove(1);
-        } else if (statusPedidoSelecionado.equals("Saiu para entrega")) {
-            optionList.remove(0);
-        } else if (statusPedidoSelecionado.equals("Extraviado")) {
-            optionList.remove(2);
-        } else {
-            JOptionPane.showMessageDialog(this, "Esse pedido ja foi entregado!", "Pedido entregue", JOptionPane.INFORMATION_MESSAGE);
-            return;
+        switch (statusPedidoSelecionado) {
+            case "Em aguardo":
+            case "Aguardando":
+                optionList.remove(1);
+                break;
+            case "Saiu para entrega":
+                optionList.remove(0);
+                break;
+            case "Extraviado":
+                optionList.remove(2);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Esse pedido já foi entregue!", "PEDIDO ENTREGUE", JOptionPane.INFORMATION_MESSAGE);
+                return;
         }
         
         Object[] options = optionList.toArray();
@@ -621,7 +626,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), optionList.get(index));
                 preencherTabelaPedido();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco: " + ex.getMessage() , "Erro", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
@@ -686,6 +691,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FormClientePedido().setVisible(true);
             }
