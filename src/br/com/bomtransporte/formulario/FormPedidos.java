@@ -121,6 +121,7 @@ public class FormPedidos extends javax.swing.JFrame {
         jBT_AlterarStatusPedido = new javax.swing.JButton();
         jBT_Voltar = new javax.swing.JButton();
         jLB_Status = new javax.swing.JLabel();
+        jBT_AdicionarPedidoNoCaminhao = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -163,7 +164,7 @@ public class FormPedidos extends javax.swing.JFrame {
                 jBT_AlterarStatusPedidoActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 220, 70));
+        jPN_Background.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 220, 70));
 
         jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -178,6 +179,16 @@ public class FormPedidos extends javax.swing.JFrame {
 
         jLB_Status.setText("Status:");
         jPN_Background.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+
+        jBT_AdicionarPedidoNoCaminhao.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AdicionarPedidoNoCaminhao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AdicionarPedidoNoCaminhao.setText("Add caminhao");
+        jBT_AdicionarPedidoNoCaminhao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AdicionarPedidoNoCaminhaoActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_AdicionarPedidoNoCaminhao, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 220, 70));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/relat-background.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -246,6 +257,10 @@ public class FormPedidos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jBT_VoltarActionPerformed
 
+    private void jBT_AdicionarPedidoNoCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarPedidoNoCaminhaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBT_AdicionarPedidoNoCaminhaoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -279,6 +294,7 @@ public class FormPedidos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBT_AdicionarPedidoNoCaminhao;
     private javax.swing.JButton jBT_AlterarStatusPedido;
     private javax.swing.JButton jBT_Voltar;
     private javax.swing.JComboBox jCB_Status;
