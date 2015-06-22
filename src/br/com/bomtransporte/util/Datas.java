@@ -37,6 +37,7 @@ public class Datas {
     }
 
     /**
+     * transforma uma string em um objeto date
      * @author Gustavo Carvalho
      * @param date
      * @return dateObject
@@ -50,7 +51,12 @@ public class Datas {
         return date;
 
     }
-
+/**
+ * transforma um objeto java.util.date em java.sql.date
+ * @author Gustavo Carvalho
+ * @param date
+ * @return 
+ */
     public static java.sql.Date convertFromJAVADateToSQLDate(java.util.Date date) {
         return new java.sql.Date(date.getTime());
     }
