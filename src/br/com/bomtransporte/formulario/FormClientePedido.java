@@ -22,8 +22,6 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -276,6 +274,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         jTB_CliPedido = new javax.swing.JTabbedPane();
         jPN_PesquisarCliente = new javax.swing.JPanel();
         jSC_Tabela = new javax.swing.JScrollPane();
@@ -600,7 +599,6 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         //mostra somente as opcoes necessarias de acordo com a regra de negocio
         switch (statusPedidoSelecionado) {
-            case "Em aguardo":
             case "Aguardando":
                 optionList.remove(1);
                 break;
@@ -664,6 +662,10 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBT_PesquisarPedidoPelaDataActionPerformed
 
+    private void jCB_AnoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoFinalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_AnoFinalActionPerformed
+
     private void jCB_DataFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_DataFinalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_DataFinalActionPerformed
@@ -675,11 +677,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private void jCB_AnoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoInicialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_AnoInicialActionPerformed
-
-    private void jCB_AnoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoFinalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCB_AnoFinalActionPerformed
-
+    
     public static void main(String args[]) {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -728,6 +726,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Descricao4;
     private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
     private javax.swing.JScrollPane jSC_Tabela;
