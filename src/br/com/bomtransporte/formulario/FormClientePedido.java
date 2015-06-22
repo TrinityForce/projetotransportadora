@@ -40,6 +40,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     public static Integer idCliente, ativarAba, idPedido_CliSelecionado,
             idPedidoSelecionado;
     private String statusPedidoSelecionado;
+    private Boolean pesquisarPedidoPelaData = false;
 
     public FormClientePedido() {
         initComponents();
@@ -72,6 +73,28 @@ public class FormClientePedido extends javax.swing.JFrame {
     //verifica se a string so contem numeros e retorna true
     public static boolean isNumeric(String string) {
         return string.matches("^[-+]?\\d+(\\.\\d+)?$");
+    }
+
+    private Date getJcbInitialDate() {
+        Integer initialMonth = jCB_DataInicial.getSelectedIndex() + 1;
+        Integer initialYear = (Integer) jCB_AnoInicial.getSelectedItem();
+
+        Date initialDate = Datas.parseDate("0" + initialMonth + " 01 " + initialYear);
+
+        System.out.println("initial jdbc date " + initialDate);
+
+        return initialDate;
+    }
+
+    private Date getJcbFinalDate() {
+        Integer finalMonth = jCB_DataFinal.getSelectedIndex() + 1;
+        Integer finalYear = (Integer) jCB_AnoFinal.getSelectedItem();
+
+        Date finalDate = Datas.parseDate("0" + finalMonth + " 21 " + finalYear);
+
+        System.out.println("final jdbc date " + finalDate);
+
+        return finalDate;
     }
 
     //preenche o valor total do pedido
@@ -127,8 +150,16 @@ public class FormClientePedido extends javax.swing.JFrame {
         desabilitarBotoes(jBT_AdicionarCarga, jBT_AlterarPedido, jBT_AlterarStatusPedido);
         try {
             pedidoDao = new PedidoDao();
-            final List<Object> listaPedido = pedidoDao.listarPedidos(idCliente);
+            final List<Object> listaPedido;
 
+            if (pesquisarPedidoPelaData) {
+
+                pesquisarPedidoPelaData = false;
+                listaPedido = pedidoDao.buscarPedidoPelaData(idCliente, getJcbInitialDate(), getJcbFinalDate());
+
+            } else {
+                listaPedido = pedidoDao.listarPedidos(idCliente);
+            }
             if (listaPedido != null && listaPedido.size() > 0) {
                 for (Object pedidoAtual : listaPedido) {
                     Pedido pedido = (Pedido) pedidoAtual;
@@ -195,6 +226,7 @@ public class FormClientePedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro no Banco de Dados: " + sqle.getMessage());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -300,6 +332,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         jCB_DataInicial = new javax.swing.JComboBox();
         jCB_AnoInicial = new javax.swing.JComboBox();
         jCB_AnoFinal = new javax.swing.JComboBox();
+        jBT_ListarTodos = new javax.swing.JButton();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -499,6 +532,16 @@ public class FormClientePedido extends javax.swing.JFrame {
         });
         jPN_CadastrarPedido.add(jCB_AnoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 90, -1));
 
+        jBT_ListarTodos.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_ListarTodos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_ListarTodos.setText("Listar todos");
+        jBT_ListarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_ListarTodosActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jBT_ListarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 160, 80));
+
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 
         getContentPane().add(jTB_CliPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 700, 510));
@@ -558,6 +601,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         //preenche a tabela cliente
         preencherTabela();
         desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_ListarPedidos);
+
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
@@ -651,13 +695,9 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
 
     private void jBT_PesquisarPedidoPelaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarPedidoPelaDataActionPerformed
-        Integer initialMonth = jCB_DataInicial.getSelectedIndex() + 1;
-        Integer initialYear = (Integer) jCB_AnoInicial.getSelectedItem();
-        Integer finalMonth = jCB_DataFinal.getSelectedIndex() + 1;
-        Integer finalYear = (Integer) jCB_AnoFinal.getSelectedItem();
 
-        Date initialDate = Datas.parseDate(initialYear + "-0" + initialMonth + "-0" + 1);
-        Date finalDate = Datas.parseDate(finalYear + "-0" + finalMonth + "-0" + 1);
+        pesquisarPedidoPelaData = true;
+        preencherTabelaPedido();
 
 
     }//GEN-LAST:event_jBT_PesquisarPedidoPelaDataActionPerformed
@@ -677,7 +717,12 @@ public class FormClientePedido extends javax.swing.JFrame {
     private void jCB_AnoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoInicialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_AnoInicialActionPerformed
-    
+
+    private void jBT_ListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarTodosActionPerformed
+        pesquisarPedidoPelaData = false;
+        preencherTabelaPedido();
+    }//GEN-LAST:event_jBT_ListarTodosActionPerformed
+
     public static void main(String args[]) {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -715,6 +760,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_CadastrarPedido;
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_ListarPedidos;
+    private javax.swing.JButton jBT_ListarTodos;
     private javax.swing.JButton jBT_Pesquisar;
     private javax.swing.JButton jBT_PesquisarPedidoPelaData;
     private javax.swing.JButton jBT_Voltar;

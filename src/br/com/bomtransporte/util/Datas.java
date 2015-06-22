@@ -2,8 +2,11 @@ package br.com.bomtransporte.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -38,12 +41,17 @@ public class Datas {
      * @param date
      * @return dateObject
      */
-    public static Date parseDate(String date) {
-        try {
-            return new SimpleDateFormat("yyyy-mm-dd").parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
+    public static Date parseDate(String string) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd yyyy", Locale.ENGLISH);
+        LocalDate localDate = LocalDate.parse(string, formatter);
+        Date date = java.sql.Date.valueOf(localDate);
+
+        return date;
+
     }
 
+    public static java.sql.Date convertFromJAVADateToSQLDate(java.util.Date date) {
+        return new java.sql.Date(date.getTime());
+    }
 }

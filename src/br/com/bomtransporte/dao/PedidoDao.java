@@ -1,10 +1,12 @@
 package br.com.bomtransporte.dao;
 
 import br.com.bomtransporte.modelo.Pedido;
+import br.com.bomtransporte.util.Datas;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -225,40 +227,40 @@ public class PedidoDao extends Conexao implements Dao {
         return pedido;
     }
 
-    public Object buscarPedidoPelaData(Integer idPedido, Date dataInicial, Date dataFinal) throws Exception {
-        Pedido pedido = null;
+    public List<Object> buscarPedidoPelaData(Integer idCliente, Date dataInicial, Date dataFinal) throws Exception {
+        List<Object> listaPedidos = new ArrayList<>();
+        System.out.println("data init " + Datas.convertFromJAVADateToSQLDate(dataInicial));
+        System.out.println("data fin " + Datas.convertFromJAVADateToSQLDate(dataFinal));
+        System.err.println("idcliente " + idCliente);
 
         inicializarAtributos();
-        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         stmt = con.prepareStatement(" SELECT * FROM Pedido p"
                 + "  inner join Pedido_Cli  pc on p.idPedido = pc.idPedido"
                 + "  where pc.idCliente =?"
                 + "  and p.dataVenda between ? and ?;");
-        stmt.setInt(1, idPedido);
-        stmt.setDate(2, new java.sql.Date(dataInicial.getTime()));
-        stmt.setDate(3, new java.sql.Date(dataFinal.getTime()));
+        stmt.setInt(1, idCliente);
+        stmt.setDate(2, Datas.convertFromJAVADateToSQLDate(dataInicial));
+        stmt.setDate(3, Datas.convertFromJAVADateToSQLDate(dataFinal));
 
         rs = stmt.executeQuery();
 
         while (rs.next()) {
-            pedido = new Pedido();
+            Pedido pedido = new Pedido();
             pedido.setIdPedido(rs.getInt("p.idPedido"));
             pedido.setProtocolo(rs.getString("p.protocolo"));
             pedido.setDataVenda(rs.getDate("p.dataVenda"));
             pedido.setDesconto(rs.getInt("p.desconto"));
             pedido.setStatusPedido(rs.getString("p.statusPedido"));
-            pedido.setNumero(rs.getString("pe.numero"));
             pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
-            pedido.setComplemento(rs.getString("pe.complemento"));
-            pedido.setIdPrecoDistania(rs.getInt("pc.idPrecoDistancia"));
+            listaPedidos.add(pedido);
 
-            return pedido;
         }
 
         close();
 
-        return pedido;
+        return listaPedidos;
     }
 
     public void update(Integer idPedido, String statusPedido) throws Exception {
