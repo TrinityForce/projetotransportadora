@@ -17,11 +17,10 @@ import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.modelo.PrecoDistancia;
 import br.com.bomtransporte.modelo.PrecoPeso;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
+import br.com.bomtransporte.util.Calc;
 import br.com.bomtransporte.util.Datas;
 import br.com.bomtransporte.util.Tela;
 import java.awt.event.MouseAdapter;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -49,15 +48,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private PedidoDao pedidoDao;
     private Pedido pedido;
     private PrecoDistancia precoDistancia;
-
-    public void imprimirObjeto(Object obj) throws IllegalArgumentException, IllegalAccessException {
-        for (Field field : obj.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            String name = field.getName();
-            Object value = field.get(obj);
-            System.out.printf("%s: %s%n", name, value);
-        }
-    }
 
     /**
      * Creates new form FormCadCliente
@@ -148,49 +138,26 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         return campo != null && campo.trim().length() > 0;
     }
 
-    private BigDecimal calcularDimensaoCubica() {
-
-        List<String> listCampos = new ArrayList<>();
-
-        listCampos.add(jTF_Largura.getText());
-        listCampos.add(jTF_Altura.getText());
-        listCampos.add(jTF_Profundidade.getText());
-        Double total;
-        try {
-            if (verificarCampos(listCampos)) {
-                BigDecimal bLargura = BigDecimal.valueOf(Double.valueOf(listCampos.get(0)));
-                BigDecimal bAltura = BigDecimal.valueOf(Double.valueOf(listCampos.get(1)));
-                BigDecimal bProfundidade = BigDecimal.valueOf(Double.valueOf(listCampos.get(2)));
-
-                BigDecimal bTotal = bAltura.multiply(bLargura).multiply(bProfundidade);
-                System.err.println("TRETA DO BIG DECIMAL TOTAL = " + bTotal);
-
-                /* Double largura = Double.valueOf(listCampos.get(0));
-                 Double altura = Double.valueOf(listCampos.get(1));
-                 Double profundidade = Double.valueOf(listCampos.get(2));
-                 total = largura * altura * profundidade;
-                 double rounded = (double) Math.round(total * 100) / 100;
-                 System.out.println(total + " rounded is " + rounded);
-                 */
-                Caminhao c = new Caminhao();
-                if (c.getAltura().compareTo(bAltura) == -1) {
-
-                    JOptionPane.showMessageDialog(this, "A altura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                    return null;
-                } else if (c.getLargura().compareTo(bLargura) == -1) {
-                    JOptionPane.showMessageDialog(this, "A largura e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                    return null;
-                } else if (c.getProfundidade().compareTo(bProfundidade) == -1) {
-                    JOptionPane.showMessageDialog(this, "A profundidade e maior que a do caminhao", "ERRO", JOptionPane.INFORMATION_MESSAGE);
-                    return null;
-                } else {
-                    return bTotal;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private Double calcularDimensaoTotal(){
+        Double largura, altura, profundidade;
+        largura = Double.parseDouble(jTF_Largura.getText());
+        altura = Double.parseDouble(jTF_Altura.getText());
+        profundidade = Double.parseDouble(jTF_Profundidade.getText());
+        Double totalCubagem = Calc.calcDimenCubica(altura, largura, profundidade);
+        
+        if(altura >= Caminhao.getAltura()){
+            JOptionPane.showMessageDialog(this, "ALTURA DA CARGA EXCEDEU O LIMITE.", "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
+            return null;
         }
-        return null;
+        else if(largura >= Caminhao.getLargura()){
+            JOptionPane.showMessageDialog(this, "LARGURA DA CARGA EXCEDEU O LIMITE.", "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }else if(profundidade >= Caminhao.getProfundidade()){
+            JOptionPane.showMessageDialog(this, "PROFUNDIDADE DA CARGA EXCEDEU O LIMITE.", "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
+            return null;
+        }
+
+        return totalCubagem;
     }
 
     private boolean verificarCampo(Integer campo) {
@@ -784,7 +751,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         try {
             //verifica se todos os valores estao preenchidos
             if (verificarCampos(listCampos)) {
-                BigDecimal dimensaoCubica = calcularDimensaoCubica();
+                Double dimensaoCubica = calcularDimensaoTotal();
                 if (dimensaoCubica != null) {
                     CargaDao cargaDao = new CargaDao();
                     Carga carga = new Carga();
@@ -796,9 +763,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                     carga.setIdPedido_Cli(idPedido_CliSelecionado);
                     carga.setDescricao(listCampos.get(0));
                     carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
-                    carga.setDimensaoCubica(dimensaoCubica.doubleValue());
+                    carga.setDimensaoCubica(dimensaoCubica);
                     carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
-
+                    carga.setStatus("Aguardando");
                     cargaDao.insertGetKey(carga);
                     preencherTabela();
 
@@ -834,7 +801,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         try {
             //verifica se todos os valores estao preenchidos
             if (verificarCampos(listCampos)) {
-                BigDecimal dimensaoCubica = calcularDimensaoCubica();
+                Double dimensaoCubica = calcularDimensaoTotal();
                 if (dimensaoCubica != null) {
 
                     CargaDao cargaDao = new CargaDao();
@@ -852,19 +819,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                         }
                     }
 
-                    System.err.println("dimensao total " + dimensaoCubicaDoPedido + "  dc " + dimensaoCubica + " some de tudo " + dimensaoCubicaDoPedido + dimensaoCubica);
-                    BigDecimal soma = BigDecimal.valueOf(dimensaoCubicaDoPedido).add(dimensaoCubica);
-                    if (soma.compareTo(caminhao.getDimensaoCubica()) == 2) {
-
-                        JOptionPane.showMessageDialog(this, "limite de cargas do pedido atingido", "limite atingido", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-
                     carga.setIdPedido_Cli(idPedido_CliSelecionado);
                     carga.setDescricao(listCampos.get(0));
                     carga.setIdPrecoPeso(Integer.valueOf(String.valueOf(jCB_Peso.getSelectedItem()).substring(0, 1)));
-                    carga.setDimensaoCubica((dimensaoCubica.doubleValue()));
-
+                    carga.setDimensaoCubica(dimensaoCubica);
+                    carga.setStatus("Aguardando");
                     System.err.println("idprecopeso " + carga.getIdPrecoPeso());
                     carga.setQuantidade(Integer.valueOf(listCampos.get(1)));
                     cargaDao.insertGetKey(carga);

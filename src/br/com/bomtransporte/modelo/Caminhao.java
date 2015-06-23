@@ -1,64 +1,78 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.com.bomtransporte.modelo;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 /**
- * 
- * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
+ *
+ * @author Gustavo Carvalho
  */
+public class Caminhao {
 
-//CAMINHAO DO ROMILDO
-public  final  class Caminhao {
-    
-   /**
-    * valores em metro
-    */
-    private final BigDecimal   altura = new BigDecimal(2.40);
-    private final BigDecimal largura = new BigDecimal(2.20);
-    private final BigDecimal profundidade = new BigDecimal(3.0);
     /**
-     * peso em kg
+     * Altura do caminhão em centímetros.
      */
-    private final BigDecimal pesoTotalSuportado = new BigDecimal(1800);
-    private final BigDecimal pesoBrutoDoCaminhao = new BigDecimal(3500) ;
+    private static final Double altura = 240.0;
     /**
-     * dimensao em metro cubico (quatorze)
+     * Larguda do caminhão em centímetros.
      */
-      private final BigDecimal dimensaoCubica = new  BigDecimal(14);
+    private static final Double largura = 220.0;
+    /**
+     * Profundidade do caminhão em centímetros.
+     */
+    private static final Double profundidade = 300.0;
+    /**
+     * Peso total suportado 1800KG.
+     */
+    private static final Double pesoTotalSuportado = 1800.0;
+    /**
+     * Peso total do Caminhão.
+     */
+    private static final Double pesoTotalCaminhao = 3500.0;
+    /**
+     * Dimensão cúbica total do caminhão.
+     */
+    private static final Double dimensaoCubica = 20.0;
 
-    public BigDecimal getAltura() {
+    public Caminhao() {
+    }
+
+    /**
+     * @return the altura
+     */
+    public static Double getAltura() {
         return altura;
     }
 
-    public BigDecimal getLargura() {
+    /**
+     * @return the largura
+     */
+    public static Double getLargura() {
         return largura;
     }
 
-    public BigDecimal getProfundidade() {
+    /**
+     * @return the profundidade
+     */
+    public static Double getProfundidade() {
         return profundidade;
     }
 
-    public BigDecimal getPesoTotalSuportado() {
+    /**
+     * @return the pesoTotalSuportado
+     */
+    public static Double getPesoTotalSuportado() {
         return pesoTotalSuportado;
     }
 
-    public BigDecimal getPesoBrutoDoCaminhao() {
-        return pesoBrutoDoCaminhao;
+    /**
+     * @return the pesoTotalCaminhao
+     */
+    public static Double getPesoTotalCaminhao() {
+        return pesoTotalCaminhao;
     }
 
-    public BigDecimal getDimensaoCubica() {
+    /**
+     * @return the dimensaoCubica
+     */
+    public static Double getDimensaoCubica() {
         return dimensaoCubica;
     }
-
-
-    
-    
-
 }

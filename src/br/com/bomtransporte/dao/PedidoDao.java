@@ -305,4 +305,21 @@ public class PedidoDao extends Conexao implements Dao {
         close();
         return listaPedidos;
     }
+    
+    public Double retornarDimensaoTotal(Integer idPedido) throws Exception{
+        Double dimensaoTotal = 0.0;
+        
+        inicializarAtributos();
+        
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+        
+        stmt = con.prepareStatement("SELECT SUM(dimensaoCubica) as dimensaoCubica FROM Carga INNER JOIN Pedido_Cli on Carga.idPedido_Cli = pedido_cli.idPedido_Cli WHERE idPedido_Cli = ?;");
+        stmt.setInt(1, idPedido);
+        rs = stmt.executeQuery();
+        
+        if(rs != null && rs.next()){
+            dimensaoTotal = rs.getDouble("dimensaoCubica");
+        }
+        return dimensaoTotal;
+    }
 }

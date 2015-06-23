@@ -18,13 +18,13 @@ public class CargaDao extends Conexao implements Dao {
 
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            stmt = con.prepareStatement("INSERT INTO CARGA(descricao,idprecoPeso,quantidade, idPedido_Cli,dimensaoCubica) VALUES(?,?,?, ?,?)", Statement.RETURN_GENERATED_KEYS);
+            stmt = con.prepareStatement("INSERT INTO CARGA(descricao,idprecoPeso,quantidade, idPedido_Cli,dimensaoCubica,status) VALUES(?,?,?, ?,?,?)", Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, carga.getDescricao());
             stmt.setInt(2, carga.getIdPrecoPeso());
             stmt.setInt(3, carga.getQuantidade());
             stmt.setInt(4, carga.getIdPedido_Cli());
             stmt.setDouble(5, carga.getDimensaoCubica());
-
+            stmt.setString(6, carga.getStatus());
             stmt.execute();
 
             rs = stmt.getGeneratedKeys();
@@ -131,7 +131,8 @@ public class CargaDao extends Conexao implements Dao {
             carga.setDimensaoCubica(rs.getDouble("c.dimensaoCubica"));
             carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
             carga.setPeso(rs.getString("pp.peso"));
-            carga.setValor(rs.getDouble("pp.valor"));            
+            carga.setValor(rs.getDouble("pp.valor"));    
+            carga.setStatus(rs.getString("c.status"));
             listaCargas.add(carga);
         }
 
@@ -143,5 +144,4 @@ public class CargaDao extends Conexao implements Dao {
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
