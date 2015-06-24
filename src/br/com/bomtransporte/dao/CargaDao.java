@@ -58,11 +58,12 @@ public class CargaDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("UPDATE CARGA SET descricao = ? , peso = ?, quantidade = ? where idCarga = ?");
+        stmt = con.prepareStatement("UPDATE CARGA SET descricao = ? , idPrecoPeso = ?, quantidade = ?, status = ? where idCarga = ?");
         stmt.setString(1, carga.getDescricao());
         stmt.setInt(2, carga.getIdPrecoPeso());
         stmt.setInt(3, carga.getQuantidade());
-        stmt.setInt(4, carga.getIdCarga());
+        stmt.setString(4, carga.getStatus());
+        stmt.setInt(5, carga.getIdCarga());
 
         stmt.execute();
 
@@ -131,7 +132,38 @@ public class CargaDao extends Conexao implements Dao {
             carga.setDimensaoCubica(rs.getDouble("c.dimensaoCubica"));
             carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
             carga.setPeso(rs.getString("pp.peso"));
-            carga.setValor(rs.getDouble("pp.valor"));    
+            carga.setValor(rs.getDouble("pp.valor"));
+            carga.setStatus(rs.getString("c.status"));
+            listaCargas.add(carga);
+        }
+
+        con.close();
+        return listaCargas;
+    }
+
+    public List<Object> listarCargasPorStatus(Integer idPedido_cli, String status) throws Exception {
+        List<Object> listaCargas = new ArrayList<>();
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("select * from Carga c "
+                + "  join PrecoPeso pp on pp.idPrecoPeso = c.idPrecoPeso "
+                + "  where idPedido_Cli = ? and status =? ;");
+        stmt.setInt(1, idPedido_cli);
+        stmt.setString(2, status);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Carga carga = new Carga();
+            carga.setIdCarga(rs.getInt("c.idCarga"));
+            carga.setDescricao(rs.getString("c.descricao"));
+            carga.setQuantidade(rs.getInt("c.quantidade"));
+            carga.setDimensaoCubica(rs.getDouble("c.dimensaoCubica"));
+            carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
+            carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
+            carga.setPeso(rs.getString("pp.peso"));
+            carga.setValor(rs.getDouble("pp.valor"));
             carga.setStatus(rs.getString("c.status"));
             listaCargas.add(carga);
         }

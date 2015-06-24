@@ -1,5 +1,7 @@
 package br.com.bomtransporte.modelo;
 
+import java.util.List;
+
 /**
  *
  * @author Gustavo Carvalho
@@ -22,14 +24,28 @@ public class Caminhao {
      * Peso total suportado 1800KG.
      */
     private static final Double pesoTotalSuportado = 1800.0;
+
     /**
-     * Peso total do Caminhão.
+     * peso das cargas que estao no caminhao
      */
-    private static final Double pesoTotalCaminhao = 3500.0;
+    private static Double pesoDasCargasNoCaminhao = 0.0;
+
     /**
      * Dimensão cúbica total do caminhão em centimetro
      */
-    private static final Double dimensaoCubica =15840.0;
+    private static final Double dimensaoCubica = 15840.0;
+
+    /**
+     * total de dimensao cubica das cargas no caminhao
+     */
+    private static Double dimensaoCubicaPreenchida = 0.0;
+
+    /**
+     * lista com ids das cargas que estao no caminhao
+     */
+    private static List<Integer> listaCarga;
+
+    private static String rota;
 
     public Caminhao() {
     }
@@ -63,16 +79,44 @@ public class Caminhao {
     }
 
     /**
-     * @return the pesoTotalCaminhao
-     */
-    public static Double getPesoTotalCaminhao() {
-        return pesoTotalCaminhao;
-    }
-
-    /**
      * @return the dimensaoCubica
      */
     public static Double getDimensaoCubica() {
         return dimensaoCubica;
     }
+
+    public static List<Integer> getListaCarga() {
+        return listaCarga;
+    }
+
+    public static void setListaCarga(List<Integer> listaCarga) {
+        Caminhao.listaCarga = listaCarga;
+    }
+
+    public static String getRota() {
+        return rota;
+    }
+
+    public static void setRota(String rota) {
+        Caminhao.rota = rota;
+    }
+
+    public static Double getPesoDasCargasNoCaminhao() {
+        return pesoDasCargasNoCaminhao;
+    }
+
+    public static void setPesoDasCargasNoCaminhao(Double pesoDasCargasNoCaminhao) {
+        Caminhao.pesoDasCargasNoCaminhao += pesoDasCargasNoCaminhao;
+    }
+
+    public static Double getDimensaoCubicaPreenchida() {
+        return dimensaoCubicaPreenchida;
+    }
+
+    public static void setDimensaoCubicaPreenchida(Double dimensaoCubicaPreenchida) {
+        Caminhao.dimensaoCubicaPreenchida += dimensaoCubicaPreenchida;
+    }
+    
+    
+
 }

@@ -173,7 +173,9 @@ public class PedidoDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido where idCliente = ?;");
+        stmt = con.prepareStatement("SELECT * FROM Pedido P "
+                + "inner join Pedido_Cli  PC on P.idPedido = PC.idPedido"
+                + " where idCliente = ?;");
         stmt.setInt(1, idCliente);
 
         rs = stmt.executeQuery();
@@ -186,6 +188,7 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setDesconto(rs.getInt("P.desconto"));
             pedido.setStatusPedido(rs.getString("P.statusPedido"));
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            pedido.setIdPrecoDistania(rs.getInt("PC.idPrecoDistancia"));
             listaPedidos.add(pedido);
         }
 
@@ -286,7 +289,9 @@ public class PedidoDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido where P.statusPedido = ?;");
+        stmt = con.prepareStatement("SELECT * FROM Pedido P "
+                + " inner join Pedido_Cli  PC on P.idPedido = PC.idPedido "
+                + " where P.statusPedido = ?;");
         stmt.setString(1, status);
 
         rs = stmt.executeQuery();
@@ -299,25 +304,26 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setDesconto(rs.getInt("P.desconto"));
             pedido.setStatusPedido(rs.getString("P.statusPedido"));
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            pedido.setIdPrecoDistania(rs.getInt("PC.idPrecoDistancia"));
             listaPedidos.add(pedido);
         }
 
         close();
         return listaPedidos;
     }
-    
-    public Double retornarDimensaoTotal(Integer idPedido) throws Exception{
+
+    public Double retornarDimensaoTotal(Integer idPedido) throws Exception {
         Double dimensaoTotal = 0.0;
-        
+
         inicializarAtributos();
-        
+
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-        
+
         stmt = con.prepareStatement("SELECT SUM(dimensaoCubica) as dimensaoCubica FROM Carga INNER JOIN Pedido_Cli on Carga.idPedido_Cli = pedido_cli.idPedido_Cli WHERE idPedido_Cli = ?;");
         stmt.setInt(1, idPedido);
         rs = stmt.executeQuery();
-        
-        if(rs != null && rs.next()){
+
+        if (rs != null && rs.next()) {
             dimensaoTotal = rs.getDouble("dimensaoCubica");
         }
         return dimensaoTotal;
