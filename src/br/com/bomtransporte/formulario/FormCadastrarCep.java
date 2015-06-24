@@ -5,7 +5,18 @@
  */
 package br.com.bomtransporte.formulario;
 
+import br.com.bomtransporte.dao.CidadeDao;
+import br.com.bomtransporte.dao.EnderecoDao;
+import br.com.bomtransporte.modelo.Cidade;
+import br.com.bomtransporte.modelo.Endereco;
+import br.com.bomtransporte.util.Tela;
+import br.com.bomtransporte.util.Validacao;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,19 +24,71 @@ import javax.swing.JButton;
  */
 public class FormCadastrarCep extends javax.swing.JFrame {
 
+    Cidade cidade;
+    CidadeDao cidadeDao;
+
+    //nome do form que chamou essa tela
+    private String nomeForm = null;
+
     /**
      * Creates new form FormCadastrarCep
      */
     public FormCadastrarCep() {
         initComponents();
+        Tela.desabilitarBotao(jCB_Cidade);
+        preencherJcbUF();
     }
-    
-        private void desabilitarBotao(JButton bt) {
-        bt.setEnabled(false);
+
+    public void setNomeForm(String str) {
+        if (str != null) {
+            this.nomeForm = str;
+        }
     }
-    
-    private void habilitarBotao(JButton bt) {
-        bt.setEnabled(true);
+
+    private void preencherJcbUF() {
+        cidadeDao = new CidadeDao();
+        try {
+            List<Object> list = cidadeDao.listarUf();
+            for (Object obj : list) {
+                cidade = (Cidade) obj;
+                jCB_UF.addItem(cidade.getUf());
+
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FormCadastrarCep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void preencherJcbCidade(String uf) {
+        cidadeDao = new CidadeDao();
+        try {
+            List<String> list = cidadeDao.listarCidadePorUF(uf);
+            for (String str : list) {
+
+                jCB_Cidade.addItem(str);
+            }
+            Tela.habilitarBotao(jCB_Cidade);
+        } catch (Exception ex) {
+            Logger.getLogger(FormCadastrarCep.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private boolean verificarCep() {
+        String cep = jTF_Cep.getText();
+        EnderecoDao enderecoDao = new EnderecoDao();
+        try {
+            Endereco endereco = enderecoDao.retornarEndereco(cep);
+            if (endereco != null) {
+
+                return true;
+            } else {
+
+                return false;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Um erro ocorreu ao verificar o cep: " + ex.getMessage(), "ERRO", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return false;
     }
 
     /**
@@ -52,9 +115,9 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jBT_Alterar = new javax.swing.JButton();
-        jCB_Status = new javax.swing.JComboBox();
-        jCB_Status1 = new javax.swing.JComboBox();
+        jBT_Salvar = new javax.swing.JButton();
+        jCB_UF = new javax.swing.JComboBox();
+        jCB_Cidade = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,84 +142,68 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Bairro");
 
-        jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
-        jBT_Alterar.setText("Salvar ");
-        jBT_Alterar.addActionListener(new java.awt.event.ActionListener() {
+        jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/salvar-icon.png"))); // NOI18N
+        jBT_Salvar.setText("Salvar ");
+        jBT_Salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_AlterarActionPerformed(evt);
+                jBT_SalvarActionPerformed(evt);
             }
         });
 
-        jCB_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada" }));
-        jCB_Status.addItemListener(new java.awt.event.ItemListener() {
+        jCB_UF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        jCB_UF.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCB_StatusItemStateChanged(evt);
-            }
-        });
-        jCB_Status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_StatusActionPerformed(evt);
+                jCB_UFItemStateChanged(evt);
             }
         });
 
-        jCB_Status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada" }));
-        jCB_Status1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCB_Status1ItemStateChanged(evt);
-            }
-        });
-        jCB_Status1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCB_Status1ActionPerformed(evt);
-            }
-        });
+        jCB_Cidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLB_CEP1)
-                        .addGap(55, 55, 55)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCB_Status1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)))
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jCB_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(209, 209, 209))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel15)
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(208, 208, 208)
-                .addComponent(jBT_Alterar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLB_CEP1)
+                                        .addGap(55, 55, 55)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jCB_UF, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(51, 51, 51)
+                                                .addComponent(jLabel16))
+                                            .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jCB_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jBT_Salvar)))
+                .addGap(0, 20, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 356, Short.MAX_VALUE)
+                    .addGap(0, 327, Short.MAX_VALUE)
                     .addComponent(jLB_Background1)
-                    .addGap(0, 356, Short.MAX_VALUE)))
+                    .addGap(0, 196, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,22 +216,22 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                             .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15)
                             .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCB_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCB_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
-                            .addComponent(jCB_Status1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jCB_UF, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jBT_Alterar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jBT_Salvar)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 129, Short.MAX_VALUE)
@@ -199,26 +246,52 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTF_CepActionPerformed
 
-    private void jBT_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarActionPerformed
+    private void jBT_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SalvarActionPerformed
+        List<String> campos = new ArrayList();
+        campos.add(jTF_Cep.getText());
+        campos.add(jTF_Bairro.getText());
+        campos.add(jTF_Logradouro.getText());
+        campos.add((String) jCB_Cidade.getSelectedItem());
+        campos.add((String) jCB_UF.getSelectedItem());
 
-    }//GEN-LAST:event_jBT_AlterarActionPerformed
+        if (Validacao.verificarCamposVazios(campos)) {
+            if (!verificarCep()) {
+                try {
+                    Endereco endereco = new Endereco();
+                    EnderecoDao enderecoDao = new EnderecoDao();
 
-    private void jCB_StatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_StatusItemStateChanged
-       
-    
-    }//GEN-LAST:event_jCB_StatusItemStateChanged
+                    endereco.setCep(campos.get(0));
+                    endereco.setBairro(campos.get(1));
+                    endereco.setLogradouro(campos.get(2));
+                    endereco.setNomeCidade(campos.get(3));
+                    endereco.setUf(campos.get(4));
 
-    private void jCB_StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_StatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCB_StatusActionPerformed
+                    enderecoDao.inserir(endereco);
+                   
+                  Object  form =  Class.forName(nomeForm);
+                    
+                   
 
-    private void jCB_Status1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_Status1ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCB_Status1ItemStateChanged
+                    JOptionPane.showMessageDialog(this, "CEP incluido com sucesso!", "SUCESSO",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e) {
+                    Logger.getLogger(FormCadastrarCep.class.getName()).log(Level.SEVERE, null, e);
 
-    private void jCB_Status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_Status1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCB_Status1ActionPerformed
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Este cep ja esta cadastrado no sistema!",
+                        "CEP JA ESTA CADASTRADO", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBT_SalvarActionPerformed
+
+    private void jCB_UFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_UFItemStateChanged
+        preencherJcbCidade((String) jCB_UF.getSelectedItem());
+
+    }//GEN-LAST:event_jCB_UFItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -231,7 +304,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -256,9 +329,9 @@ public class FormCadastrarCep extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBT_Alterar;
-    private javax.swing.JComboBox jCB_Status;
-    private javax.swing.JComboBox jCB_Status1;
+    private javax.swing.JButton jBT_Salvar;
+    private javax.swing.JComboBox jCB_Cidade;
+    private javax.swing.JComboBox jCB_UF;
     private javax.swing.JLabel jLB_Background1;
     private javax.swing.JLabel jLB_CEP1;
     private javax.swing.JLabel jLabel15;

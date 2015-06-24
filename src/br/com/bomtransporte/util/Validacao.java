@@ -1,19 +1,19 @@
 package br.com.bomtransporte.util;
 
 import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  *
  * @author JhonattanSouza_
  */
 public class Validacao {
-    
+
     /**
-     * 
+     *
      * @param cpf Que será validado
      * @return Se o cpf estiver ok retorna true, senão , retorna false
      */
-    
     public static boolean validarCPF(String cpf) {
         String tempCpf;
         tempCpf = cpf.replace(".", "");
@@ -29,38 +29,63 @@ public class Validacao {
         }
 
         char dig10, dig11;
-        int sm, i , r , num, peso;
-        
-        try{
+        int sm, i, r, num, peso;
+
+        try {
             sm = 0;
             peso = 10;
-            for(i = 0; i <9; i++){
-                num = (int)(tempCpf.charAt(i)-48);
+            for (i = 0; i < 9; i++) {
+                num = (int) (tempCpf.charAt(i) - 48);
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
-            
+
             r = 11 - (sm % 11);
-            
-            if((r == 10) || (r == 11)) dig10 = '0';
-            else dig10 = (char)(r + 48);
-            
+
+            if ((r == 10) || (r == 11)) {
+                dig10 = '0';
+            } else {
+                dig10 = (char) (r + 48);
+            }
+
             sm = 0;
             peso = 11;
-            for(i=0;i<10;i++){
-                num = (int)(tempCpf.charAt(i) - 48);
+            for (i = 0; i < 10; i++) {
+                num = (int) (tempCpf.charAt(i) - 48);
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
-            
+
             r = 11 - (sm % 11);
-            if((r==10)||(r == 11)) dig11 = '0';
-            else dig11 = (char)(r + 48);
-            
-            if((dig10 == tempCpf.charAt(9)) && (dig11 == tempCpf.charAt(10))) return true;
-            else return false;
-        }catch(InputMismatchException imex){
+            if ((r == 10) || (r == 11)) {
+                dig11 = '0';
+            } else {
+                dig11 = (char) (r + 48);
+            }
+
+            if ((dig10 == tempCpf.charAt(9)) && (dig11 == tempCpf.charAt(10))) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (InputMismatchException imex) {
             return false;
-        }   
+        }
     }
+
+    public static boolean verificarCamposVazios(List<String> list) {
+        Boolean vazio = true;
+        if (list != null && !list.isEmpty()) {
+            for (String campo : list) {
+                if (campo == null || campo.trim().length() == 0) {
+                    vazio = false;
+                    return vazio;
+                }
+            }
+        } else {
+            vazio = false;
+        }
+        return vazio;
+    }
+
 }

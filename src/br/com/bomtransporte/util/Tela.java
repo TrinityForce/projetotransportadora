@@ -3,6 +3,7 @@ package br.com.bomtransporte.util;
 import java.awt.Component;
 import java.awt.Container;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -50,11 +51,24 @@ public class Tela {
         }
     }
     
-    public void habilitarBotao(JButton bt) {
-        bt.setEnabled(true);
+    public static void desabilitarBotoes(JButton... bt) {
+        for (JButton bt1 : bt) {
+            bt1.setEnabled(false);
+        }
     }
 
-    public void desabilitarBotao(JButton bt) {
-        bt.setEnabled(false);
+    public static void habilitarBotoes(JButton... bt) {
+        for (JButton bt1 : bt) {
+            bt1.setEnabled(true);
+        }
+    }
+
+    
+        public static void habilitarBotao(JComboBox jcb) {
+        jcb.setEnabled(true);
+    }
+
+    public static void desabilitarBotao(JComboBox jcb) {
+        jcb.setEnabled(false);
     }   
 }

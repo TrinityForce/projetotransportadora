@@ -59,11 +59,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         preencherCampos();
         preencherComboPreco();
         preencherComboPeso();
-        desabilitarBotao(jBT_AdicionarCarga);
         verificarAba();
         desabilitarCampos(jTF_Bairro, jTF_NomeCidade, jTF_Logradouro, jTF_Uf);
         jTB_Pedido.setEnabledAt(1, false);
         jLB_ErroCep.setVisible(false);
+        Tela.desabilitarBotoes(jBT_AdicionarCarga, jBT_CadastrarCep);
     }
 
     private void verificarAba() {
@@ -79,6 +79,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
             preencherTabela();
         }
+    }
+
+    //usado para pegar o cep da tela FormCadastrarCep
+    public void setCep(String cep) {
+        jTF_Cep.setText(cep);
     }
 
     private void preencherCampos() {
@@ -137,21 +142,20 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         return campo != null && campo.trim().length() > 0;
     }
 
-    private Double calcularDimensaoTotal(){
+    private Double calcularDimensaoTotal() {
         Double largura, altura, profundidade;
         largura = Double.parseDouble(jTF_Largura.getText());
         altura = Double.parseDouble(jTF_Altura.getText());
         profundidade = Double.parseDouble(jTF_Profundidade.getText());
         Double totalCubagem = Calc.calcDimenCubica(altura, largura, profundidade);
-        
-        if(altura >= Caminhao.getAltura()){
+
+        if (altura >= Caminhao.getAltura()) {
             JOptionPane.showMessageDialog(this, "ALTURA DA CARGA EXCEDEU O LIMITE.", "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
             return null;
-        }
-        else if(largura >= Caminhao.getLargura()){
+        } else if (largura >= Caminhao.getLargura()) {
             JOptionPane.showMessageDialog(this, "LARGURA DA CARGA EXCEDEU O LIMITE.", "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
             return null;
-        }else if(profundidade >= Caminhao.getProfundidade()){
+        } else if (profundidade >= Caminhao.getProfundidade()) {
             JOptionPane.showMessageDialog(this, "PROFUNDIDADE DA CARGA EXCEDEU O LIMITE.", "ATENÇÃO!", JOptionPane.WARNING_MESSAGE);
             return null;
         }
@@ -254,6 +258,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jLB_ErroCep.setText("CEP Não Encontrado.");
                 jLB_ErroCep.setVisible(true);
                 limparCamposCep();
+                Tela.habilitarBotoes(jBT_CadastrarCep);
                 return false;
             }
         } catch (Exception ex) {
@@ -348,6 +353,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Obrigatorio9 = new javax.swing.JLabel();
         jLB_Obrigatorio10 = new javax.swing.JLabel();
         jLB_Obrigatorio11 = new javax.swing.JLabel();
+        jBT_CadastrarCep = new javax.swing.JButton();
         jPN_Carga = new javax.swing.JPanel();
         jSP_Cargas = new javax.swing.JScrollPane();
         jTB_Cargas = new javax.swing.JTable();
@@ -541,6 +547,16 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Obrigatorio11.setText("*");
         jPN_Pedido.add(jLB_Obrigatorio11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 10, 20));
 
+        jBT_CadastrarCep.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_CadastrarCep.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jBT_CadastrarCep.setText("Cadastrar CEP");
+        jBT_CadastrarCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_CadastrarCepActionPerformed(evt);
+            }
+        });
+        jPN_Pedido.add(jBT_CadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 120, 30));
+
         jTB_Pedido.addTab("Cadastrar Pedido", jPN_Pedido);
 
         jPN_Carga.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -714,7 +730,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 //                if (jTF_Desconto.getText() != null && jTF_Desconto.getText().trim().length() > 0) {
 //                    pedido.setDesconto(Integer.valueOf(jTF_Desconto.getText()));
 //                }
-
                 pedido.setIdEnderecoCorreios(idEndereco);
                 pedido.setNumero(listCampos.get(1));
                 pedido.setProtocolo(Datas.getCurrentDate() + idCliente);
@@ -878,6 +893,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_PesoActionPerformed
 
+    private void jBT_CadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarCepActionPerformed
+        FormCadastrarCep formCep = new FormCadastrarCep();
+        formCep.setVisible(true);    }//GEN-LAST:event_jBT_CadastrarCepActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -920,6 +939,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AdicionarCarga;
     private javax.swing.JButton jBT_AlterarPedido;
+    private javax.swing.JButton jBT_CadastrarCep;
     private javax.swing.JButton jBT_ProximaTela;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;

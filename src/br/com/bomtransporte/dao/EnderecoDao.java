@@ -3,6 +3,7 @@ package br.com.bomtransporte.dao;
 import br.com.bomtransporte.modelo.Cidade;
 import br.com.bomtransporte.modelo.Endereco;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,20 +90,20 @@ public class EnderecoDao extends Conexao implements Dao {
         con.close();
         return endereco;
     }
-    
-    public Endereco retornarEnderecoPorIdPedido (Integer idPedido) throws Exception {
-       Endereco endereco = null;
-       
-       inicializarAtributos();
-       con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
-       
-       stmt = con.prepareStatement("select * from pedido_endereco pe" +
-                " join enderecocorreios ec on ec.id = pe.idEnderecoCorreios" +
-                " join cidadecorreios cc on cc.id = ec.idCidade" +
-                " where pe.idPedido = ?;");
-       stmt.setInt(1, idPedido);
-       rs = stmt.executeQuery();
-       
+
+    public Endereco retornarEnderecoPorIdPedido(Integer idPedido) throws Exception {
+        Endereco endereco = null;
+
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("select * from pedido_endereco pe"
+                + " join enderecocorreios ec on ec.id = pe.idEnderecoCorreios"
+                + " join cidadecorreios cc on cc.id = ec.idCidade"
+                + " where pe.idPedido = ?;");
+        stmt.setInt(1, idPedido);
+        rs = stmt.executeQuery();
+
         while (rs.next()) {
             if (endereco == null) {
                 endereco = new Endereco();
@@ -115,13 +116,13 @@ public class EnderecoDao extends Conexao implements Dao {
             endereco.setNomeCidade(rs.getString("cc.nome"));
             endereco.setUf(rs.getString("cc.uf"));
             endereco.setLogradouro(rs.getString("ec.logradouro"));
-            
+
             con.close();
             return endereco;
         }
 
         con.close();
-        
+
         return endereco;
     }
 
@@ -147,7 +148,48 @@ public class EnderecoDao extends Conexao implements Dao {
 
     @Override
     public void inserir(Object obj) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Endereco endereco = (Endereco) obj;
+        try {
+            inicializarAtributos();
+            con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+            con.setAutoCommit(false);
+
+            stmt = con.prepareStatement("select id from cidadeCorreios where uf = ? and nome =?",
+                    Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, endereco.getUf());
+            stmt.setString(2, endereco.getNomeCidade());
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                endereco.setCidade_id(rs.getInt("id"));
+            }
+
+            stmt = con.prepareStatement("insert into EnderecoCorreios"
+                    + " (logradouro, cep, bairro, idCidade)"
+                    + " values"
+                    + " (?, ?, ?, ?);");
+            stmt.setString(1, endereco.getLogradouro());
+            stmt.setString(2, endereco.getCep());
+            stmt.setString(3, endereco.getBairro());
+            stmt.setInt(4, endereco.getCidade_id());
+            stmt.execute();
+
+            con.commit();
+            close();
+        } catch (SQLException e) {
+            if (con != null) {
+                con.rollback();
+                System.out.println("Connection rollback...");
+            }
+            e.printStackTrace();
+
+        } finally {
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+
     }
 
     @Override
