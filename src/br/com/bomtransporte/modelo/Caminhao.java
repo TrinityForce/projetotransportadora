@@ -26,22 +26,22 @@ public class Caminhao {
     private static final Double pesoTotalSuportado = 1800.0;
 
     /**
-     * peso das cargas que estao no caminhao
+     * peso das cargas que estao no caminhao.
      */
     private static Double pesoDasCargasNoCaminhao = 0.0;
 
     /**
-     * Dimensão cúbica total do caminhão em centimetro
+     * Dimensão cúbica total do caminhão em centimetro.
      */
     private static final Double dimensaoCubica = 15840.0;
 
     /**
-     * total de dimensao cubica das cargas no caminhao
+     * total de dimensao cubica das cargas no caminhao.
      */
     private static Double dimensaoCubicaPreenchida = 0.0;
 
     /**
-     * lista com ids das cargas que estao no caminhao
+     * lista com ids das cargas que estao no caminhao.
      */
     private static List<Integer> listaCarga;
 
