@@ -2,8 +2,6 @@ package br.com.bomtransporte.util;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -58,5 +56,5 @@ public class Tela {
 
     public void desabilitarBotao(JButton bt) {
         bt.setEnabled(false);
-    }
+    }   
 }

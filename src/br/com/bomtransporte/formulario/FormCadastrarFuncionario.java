@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
@@ -84,6 +85,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jTF_Nome.setEnabled(false);
     }
 
+    public String capitalize(String str){
+        return WordUtils.capitalizeFully(str.trim());
+    }
+    
     private void preencherTabela() {
 
         ArrayList dados = new ArrayList();
@@ -385,14 +390,14 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                     Usuario usuario = new Usuario();
 
                     funcionario.setUsuario(usuario);
-                    funcionario.setNome(nome.toUpperCase().trim());
+                    funcionario.setNome(capitalize(nome));
                     funcionario.setDataCadastro(dataCadastro);
-                    funcionario.getUsuario().setLogin(login.toUpperCase().trim());
-                    funcionario.getUsuario().setSenha(senha);
+                    funcionario.getUsuario().setLogin(login.trim());
+                    funcionario.getUsuario().setSenha(senha.trim());
                     funcionario.getUsuario().setAlterarSenha(true);
                     funcionario.getUsuario().setIdPerfil(idPerfil);
-                    funcionario.setCargo(cargo);
-                    funcionario.getUsuario().setEmail(email);
+                    funcionario.setCargo(capitalize(cargo));
+                    funcionario.getUsuario().setEmail(email.trim());
 
                     funcionarioDao.inserir(funcionario);
 
@@ -432,11 +437,11 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                     funcionario.getUsuario().setIdUsuario(idUsuario);
                     funcionario.setIdPessoa(idPessoa);
                     funcionario.setIdFuncionario(idFuncionario);
-                    funcionario.setNome(nome);
-                    funcionario.getUsuario().setLogin(login);
+                    funcionario.setNome(capitalize(nome));
+                    funcionario.getUsuario().setLogin(login.trim());
                     funcionario.getUsuario().setIdPerfil(idPerfil);
-                    funcionario.setCargo(cargo);
-                    funcionario.getUsuario().setEmail(email);
+                    funcionario.setCargo(capitalize(cargo));
+                    funcionario.getUsuario().setEmail(email.trim());
 
                     funcionarioDao.alterar(funcionario);
 

@@ -21,6 +21,9 @@
 	<field name="idPessoa" class="java.lang.Integer">
 		<fieldDescription><![CDATA[idPessoa]]></fieldDescription>
 	</field>
+	<field name="idCliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idCliente]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -121,13 +124,6 @@
 				<reportElement x="0" y="0" width="100" height="20" uuid="36fd5a80-7000-45a0-90ba-6a576bebacce"/>
 			</rectangle>
 			<textField>
-				<reportElement x="0" y="0" width="100" height="20" uuid="649e64b6-c1ec-458f-815c-feb300584467"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="11"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{idPessoa}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="255" y="0" width="100" height="20" uuid="e75b66a8-446f-4074-8c8d-d62245203276"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="11"/>
@@ -154,6 +150,13 @@
 					<font size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="3c3e158e-a871-481f-8659-102ceac612da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idCliente}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
