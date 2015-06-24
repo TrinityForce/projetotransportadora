@@ -33,7 +33,7 @@ public final class JTFSomenteNumeros extends JTextField {
     }
 
     private void jTextFieldKeyTyped(KeyEvent evt) {
-        String caracteres = "0987654321";
+        String caracteres = "0987654321.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }

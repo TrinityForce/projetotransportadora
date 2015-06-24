@@ -32,27 +32,6 @@ public class Tela {
         return campo.getName() != null && campo.getName().equals(nomeCampo) && !verificarCampo(campo.getText());
     }
 
-    public boolean verificarCamposCliente(Container container) {
-        List<String> tempLista = new ArrayList<>();
-        Boolean tudoPreenchido = false;
-        for (Component c : container.getComponents()) {
-            if (c instanceof JTextField) {
-                JTextField tempCampo = (JTextField) c;
-                tempLista.add(tempCampo.getText());
-            }
-        }
-        if (tempLista != null){
-            tudoPreenchido = true;
-            for(String item : tempLista){
-                if(item == null){
-                    tudoPreenchido = false;
-                    break;
-                }
-            }
-        }
-        return tudoPreenchido;
-    }
-
     public static Boolean verificarCampos(Container container) {
         for (Component c : container.getComponents()) {
             if (c instanceof JTextField || c instanceof JPasswordField) {

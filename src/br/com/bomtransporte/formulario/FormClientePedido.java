@@ -10,6 +10,7 @@ import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
+import br.com.bomtransporte.util.Relatorios;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -22,6 +23,8 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -318,6 +321,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         jTF_Consulta = new javax.swing.JTextField();
         jBT_ListarPedidos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jBT_Relatorio = new javax.swing.JButton();
         jPN_CadastrarPedido = new javax.swing.JPanel();
         jSP_Pedidos = new javax.swing.JScrollPane();
         jTB_Pedidos = new javax.swing.JTable();
@@ -356,7 +360,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         ));
         jSC_Tabela.setViewportView(jTableClientes);
 
-        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 670, 270));
+        jPN_PesquisarCliente.add(jSC_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 670, 210));
 
         jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -417,8 +421,19 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setText("Consulta por nome ou por CPF do Cliente.");
-        jPN_PesquisarCliente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 370, 30));
+        jLabel1.setText("Consulta por nome ou por CPF do Cliente. Pesquisa em branco para todos.");
+        jPN_PesquisarCliente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 600, 30));
+
+        jBT_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Relatorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Relatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/relato-icon.png"))); // NOI18N
+        jBT_Relatorio.setText("Gerar Relatório");
+        jBT_Relatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_RelatorioActionPerformed(evt);
+            }
+        });
+        jPN_PesquisarCliente.add(jBT_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 210, 70));
 
         jTB_CliPedido.addTab("Pesquisar Cliente", null, jPN_PesquisarCliente, "Pesquisar cliente e selecionar uma ação.");
 
@@ -583,10 +598,6 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_ExcluirActionPerformed
 
     private void jBT_CadastrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarPedidoActionPerformed
-//        jTB_CliPedido.setEnabledAt(1, true);
-        //      jTB_CliPedido.setEnabledAt(0, false);
-        //    jTB_CliPedido.setSelectedIndex(1);
-
         FormCadastrarCarga formCad = new FormCadastrarCarga();
         formCad.setVisible(true);
         dispose();
@@ -598,25 +609,22 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarActionPerformed
 
     private void jBT_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarActionPerformed
-        //preenche a tabela cliente
+        //Preenche a tabela de Clientes.
         preencherTabela();
         desabilitarBotoes(jBT_Alterar, jBT_Excluir, jBT_CadastrarPedido, jBT_ListarPedidos);
-
     }//GEN-LAST:event_jBT_PesquisarActionPerformed
 
     private void jBT_ListarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarPedidosActionPerformed
         //habilita a segunda aba
         if (idCliente != null) {
-
             jTB_CliPedido.setEnabledAt(1, true);
             jTB_CliPedido.setEnabledAt(0, false);
             jTB_CliPedido.setSelectedIndex(1);
             preencherTabelaPedido();
             preencheData();
-
         } else {
             JOptionPane.showMessageDialog(this,
-                    "Selecione um cliente!", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                    "É PRECISO SELECIONAR UM CLIENTE!", "ATENÇÃO.", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jBT_ListarPedidosActionPerformed
 
@@ -695,11 +703,8 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
 
     private void jBT_PesquisarPedidoPelaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_PesquisarPedidoPelaDataActionPerformed
-
         pesquisarPedidoPelaData = true;
         preencherTabelaPedido();
-
-
     }//GEN-LAST:event_jBT_PesquisarPedidoPelaDataActionPerformed
 
     private void jCB_AnoFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_AnoFinalActionPerformed
@@ -722,6 +727,16 @@ public class FormClientePedido extends javax.swing.JFrame {
         pesquisarPedidoPelaData = false;
         preencherTabelaPedido();
     }//GEN-LAST:event_jBT_ListarTodosActionPerformed
+
+    private void jBT_RelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_RelatorioActionPerformed
+        try {
+            clienteDao = new ClienteDao();
+            List lista = clienteDao.listar();
+            Relatorios.gerarRelatorio("relatoriocliente.jrxml",lista,null);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "ERRO INESPERADO, POR FAVOR CONTATE O ADMINISTRADOR DO SISTEMA.\n" + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jBT_RelatorioActionPerformed
 
     public static void main(String args[]) {
         /* Set the Windows look and feel */
@@ -763,6 +778,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_ListarTodos;
     private javax.swing.JButton jBT_Pesquisar;
     private javax.swing.JButton jBT_PesquisarPedidoPelaData;
+    private javax.swing.JButton jBT_Relatorio;
     private javax.swing.JButton jBT_Voltar;
     private javax.swing.JComboBox jCB_AnoFinal;
     private javax.swing.JComboBox jCB_AnoInicial;

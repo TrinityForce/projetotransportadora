@@ -7,6 +7,7 @@ import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Usuario;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
+import br.com.bomtransporte.util.Relatorios;
 import br.com.bomtransporte.util.Tela;
 import br.com.bomtransporte.util.ValidarEmail;
 import java.awt.event.MouseAdapter;
@@ -24,7 +25,7 @@ import javax.swing.ListSelectionModel;
  * @author JhonattanSouza_
  */
 public class FormCadastrarFuncionario extends javax.swing.JFrame {
-    
+
     private FuncionarioDao funcionarioDao;
     private Funcionario funcionarioSelecionado;
     private Integer idUsuario, idPessoa, idFuncionario;
@@ -37,21 +38,21 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         desabilitarCampos();
         preencherTabela();
     }
-    
+
     private boolean verificarRadio(JRadioButton rb1, JRadioButton rb2) {
         return rb1.isSelected() == true || rb2.isSelected() == true;
     }
-    
+
     private void limparCampos() {
         jTF_Cargo.setText("");
         jTF_Nome.setText("");
         jTF_Login.setText("");
         jTF_Email.setText("");
         jPS_Senha.setText("");
-        
+
         BG_Perfil.clearSelection();
     }
-    
+
     private void habilitarCampos() {
         jTF_Nome.setEnabled(true);
         jTF_Cargo.setEnabled(true);
@@ -61,15 +62,15 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jRB_Administrador.setEnabled(true);
         jRB_Funcionario.setEnabled(true);
     }
-    
+
     private void habilitarBotao(JButton bt) {
         bt.setEnabled(true);
     }
-    
+
     private void desabilitarBotao(JButton bt) {
         bt.setEnabled(false);
     }
-    
+
     private void desabilitarCampos() {
         jTF_Cargo.setEnabled(false);
         jTF_Login.setEnabled(false);
@@ -82,25 +83,25 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jBT_Excluir.setEnabled(false);
         jTF_Nome.setEnabled(false);
     }
-    
+
     private void preencherTabela() {
-        
+
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"ID", "NOME", "CARGO", "DATA CADASTRO", "E-MAIL", "LOGIN"};
-        
+
         try {
             funcionarioDao = new FuncionarioDao();
             final List<Object> listaFuncionario = funcionarioDao.listar();
-            
+
             if (listaFuncionario != null && listaFuncionario.size() > 0) {
-                for(Object funcionarioAtual : listaFuncionario) {
+                for (Object funcionarioAtual : listaFuncionario) {
                     Funcionario funcionario = (Funcionario) funcionarioAtual;
                     dados.add(new Object[]{funcionario.getIdFuncionario(), funcionario.getNome(),
                         funcionario.getCargo(), funcionario.getDataCadastro(), funcionario.getUsuario().getEmail(),
                         funcionario.getUsuario().getLogin()});
                 }
             }
-            
+
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTableFuncionario.setModel(modTabela);
             jTableFuncionario.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -118,22 +119,23 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             jTableFuncionario.getTableHeader().setReorderingAllowed(false);
             jTableFuncionario.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTableFuncionario.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            
+
             jTableFuncionario.addMouseListener(new MouseAdapter() {
-                
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    
+
                     try {
-                        
+
                         List<Object> lista = funcionarioDao.listar();
                         funcionarioSelecionado = (Funcionario) lista.
                                 get(jTableFuncionario.convertRowIndexToModel(jTableFuncionario.getSelectedRow()));
-                        
+
                         jTF_Nome.setText(String.valueOf(funcionarioSelecionado.getNome()));
                         jTF_Cargo.setText(funcionarioSelecionado.getCargo());
                         jTF_Email.setText(funcionarioSelecionado.getUsuario().getEmail());
                         jTF_Login.setText(funcionarioSelecionado.getUsuario().getLogin());
+                        jPS_Senha.setText("placeholder");
                         Integer idPerfil = funcionarioSelecionado.getUsuario().getIdPerfil();
                         idPessoa = funcionarioSelecionado.getIdPessoa();
                         idUsuario = funcionarioSelecionado.getUsuario().getIdUsuario();
@@ -144,13 +146,13 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                         if (idPerfil == 2) {
                             jRB_Funcionario.setSelected(true);
                         }
-                        
+
                         habilitarCampos();
                         habilitarBotao(jBT_Alterar);
                         habilitarBotao(jBT_Excluir);
                         desabilitarBotao(jBT_Salvar);
                         jPS_Senha.setEnabled(false);
-                        
+
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(FormCadastrarFuncionario.this, "Erro Inesperado: \n" + ex.getMessage());
                     }
@@ -178,6 +180,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jBT_Excluir = new javax.swing.JButton();
         jBT_Salvar = new javax.swing.JButton();
         jBT_Alterar = new javax.swing.JButton();
+        jBT_Relatorio2 = new javax.swing.JButton();
         jRB_Administrador = new javax.swing.JRadioButton();
         jRB_Funcionario = new javax.swing.JRadioButton();
         jPS_Senha = new javax.swing.JPasswordField();
@@ -216,7 +219,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         ));
         jSP_TabelaFuncionario.setViewportView(jTableFuncionario);
 
-        jPN_Background.add(jSP_TabelaFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, 690, 170));
+        jPN_Background.add(jSP_TabelaFuncionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 700, 180));
 
         jBT_Novo.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Novo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -227,7 +230,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_NovoActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 150, 90));
+        jPN_Background.add(jBT_Novo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 80, 150, 80));
 
         jBT_Excluir.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Excluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -238,7 +241,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_ExcluirActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 280, 150, 90));
+        jPN_Background.add(jBT_Excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 150, 80));
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -249,7 +252,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_SalvarActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 150, 90));
+        jPN_Background.add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 80, 150, 80));
 
         jBT_Alterar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Alterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -260,18 +263,29 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jBT_AlterarActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 150, 90));
+        jPN_Background.add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 150, 80));
+
+        jBT_Relatorio2.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Relatorio2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Relatorio2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/relato-icon.png"))); // NOI18N
+        jBT_Relatorio2.setText("Gerar Relatório");
+        jBT_Relatorio2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_Relatorio2ActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_Relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 210, 70));
 
         BG_Perfil.add(jRB_Administrador);
         jRB_Administrador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Administrador.setText("Administrador");
-        jPN_Background.add(jRB_Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, -1, -1));
+        jPN_Background.add(jRB_Administrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
 
         BG_Perfil.add(jRB_Funcionario);
         jRB_Funcionario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Funcionario.setText("Funcionário");
-        jPN_Background.add(jRB_Funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, -1, -1));
-        jPN_Background.add(jPS_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 170, 250, 30));
+        jPN_Background.add(jRB_Funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 120, -1));
+        jPN_Background.add(jPS_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 250, 30));
 
         jTF_Email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Email.addActionListener(new java.awt.event.ActionListener() {
@@ -279,16 +293,16 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                 jTF_EmailActionPerformed(evt);
             }
         });
-        jPN_Background.add(jTF_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, 250, 30));
+        jPN_Background.add(jTF_Email, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 250, 30));
 
         jTF_Login.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 250, 30));
+        jPN_Background.add(jTF_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 250, 30));
 
         jTF_Cargo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 250, 30));
+        jPN_Background.add(jTF_Cargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 250, 30));
 
         jTF_Nome.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 250, 30));
+        jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 250, 30));
 
         jLB_Fechar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLB_Fechar.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,33 +316,34 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setText("Todos os campos sao obrigatórios");
-        jPN_Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
+        jLabel1.setText("Todos os campos obrigatórios.");
+        jPN_Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, -1));
 
         jLB_Texto6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto6.setText("E-mail");
-        jPN_Background.add(jLB_Texto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
+        jPN_Background.add(jLB_Texto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
 
         jLB_Texto5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto5.setText("Perfil");
-        jPN_Background.add(jLB_Texto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, -1, -1));
+        jPN_Background.add(jLB_Texto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
         jLB_Texto4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto4.setText("Senha");
-        jPN_Background.add(jLB_Texto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, -1, -1));
+        jPN_Background.add(jLB_Texto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
         jLB_Texto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto.setText("Nome");
-        jPN_Background.add(jLB_Texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
+        jPN_Background.add(jLB_Texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
         jLB_Texto1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto1.setText("Cargo ");
-        jPN_Background.add(jLB_Texto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        jPN_Background.add(jLB_Texto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, -1, -1));
 
         jLB_Texto2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Texto2.setText("Login");
-        jPN_Background.add(jLB_Texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
+        jPN_Background.add(jLB_Texto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cadastrar-funcionario-bg.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -359,32 +374,32 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         String email = jTF_Email.getText();
         String dataCadastro = Datas.dataAtual();
         Integer idPerfil;
-        
+
         try {
             if (Tela.verificarCampos(jPN_Background) && verificarRadio(jRB_Administrador, jRB_Funcionario)) {
                 ValidarEmail ve = new ValidarEmail();
                 if (ve.validar(email)) {
                     idPerfil = (jRB_Administrador.isSelected()) ? 1 : 2;
-                    
+
                     Funcionario funcionario = new Funcionario();
                     Usuario usuario = new Usuario();
-                    
+
                     funcionario.setUsuario(usuario);
-                    funcionario.setNome(nome);
+                    funcionario.setNome(nome.toUpperCase().trim());
                     funcionario.setDataCadastro(dataCadastro);
-                    funcionario.getUsuario().setLogin(login);
+                    funcionario.getUsuario().setLogin(login.toUpperCase().trim());
                     funcionario.getUsuario().setSenha(senha);
                     funcionario.getUsuario().setAlterarSenha(true);
                     funcionario.getUsuario().setIdPerfil(idPerfil);
                     funcionario.setCargo(cargo);
                     funcionario.getUsuario().setEmail(email);
-                    
+
                     funcionarioDao.inserir(funcionario);
-                    
+
                     desabilitarCampos();
                     limparCampos();
                     preencherTabela();
-                    
+
                     JOptionPane.showMessageDialog(this, "Funcionário incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "E-mail inválido, por favor corrigir", "E-MAIL INVÁLIDO", JOptionPane.ERROR_MESSAGE);
@@ -403,16 +418,16 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         String login = jTF_Login.getText();
         String email = jTF_Email.getText();
         Integer idPerfil;
-        
+
         try {
             if (Tela.verificarCampos(jPN_Background) && verificarRadio(jRB_Administrador, jRB_Funcionario)) {
                 ValidarEmail ve = new ValidarEmail();
                 if (ve.validar(email)) {
                     idPerfil = (jRB_Administrador.isSelected()) ? 1 : 2;
-                    
+
                     Funcionario funcionario = new Funcionario();
                     Usuario usuario = new Usuario();
-                    
+
                     funcionario.setUsuario(usuario);
                     funcionario.getUsuario().setIdUsuario(idUsuario);
                     funcionario.setIdPessoa(idPessoa);
@@ -422,13 +437,13 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                     funcionario.getUsuario().setIdPerfil(idPerfil);
                     funcionario.setCargo(cargo);
                     funcionario.getUsuario().setEmail(email);
-                    
+
                     funcionarioDao.alterar(funcionario);
-                    
+
                     desabilitarCampos();
                     limparCampos();
                     preencherTabela();
-                    
+
                     JOptionPane.showMessageDialog(this, "Funcionário alterado com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "E-mail inválido, por favor corrigir", "E-MAIL INVÁLIDO", JOptionPane.ERROR_MESSAGE);
@@ -447,9 +462,9 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             if (opt == JOptionPane.YES_OPTION) {
                 Funcionario funcionario = new Funcionario();
                 funcionario.setIdFuncionario(idFuncionario);
-                
+
                 funcionarioDao.excluir(funcionario);
-                
+
                 desabilitarCampos();
                 limparCampos();
                 preencherTabela();
@@ -463,6 +478,16 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private void jTF_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_EmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTF_EmailActionPerformed
+
+    private void jBT_Relatorio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_Relatorio2ActionPerformed
+        try {
+            funcionarioDao = new FuncionarioDao();
+            List lista = funcionarioDao.listar();
+            Relatorios.gerarRelatorio("relatoriofuncionario.jrxml", lista, null);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "ERRO INESPERADO, POR FAVOR CONTATE O ADMINISTRADOR DO SISTEMA.\n" + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jBT_Relatorio2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -499,6 +524,9 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Alterar;
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_Novo;
+    private javax.swing.JButton jBT_Relatorio;
+    private javax.swing.JButton jBT_Relatorio1;
+    private javax.swing.JButton jBT_Relatorio2;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Fechar;

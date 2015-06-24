@@ -7,6 +7,7 @@ import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.PrecoDistancia;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
+import br.com.bomtransporte.util.JTFSomenteNumeros;
 import javax.swing.JOptionPane;
 
 /**
@@ -79,9 +80,11 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jCB_Origem = new javax.swing.JComboBox();
         jCB_Destino = new javax.swing.JComboBox();
         jBT_Adicionar = new javax.swing.JButton();
-        jFTF_Valor = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jFTF_Valor = new javax.swing.JTextField();
+        jFTF_Valor = new JTFSomenteNumeros(10);
+        Valor1 = new javax.swing.JLabel();
         jLB_Fechar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,7 +114,7 @@ public class FormCadastrarRota extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPN_Cadastrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 190, 70));
+        jPN_Cadastrar.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 190, 70));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jPN_Cadastrar.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 170, 40));
@@ -127,15 +130,15 @@ public class FormCadastrarRota extends javax.swing.JFrame {
         jPN_Alterar.add(Origem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
         Destino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Destino.setText("Destino: *");
+        Destino.setText("Destino: ");
         jPN_Alterar.add(Destino, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         Valor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Valor.setText("Valor: *");
-        jPN_Alterar.add(Valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        Valor.setText("R$");
+        jPN_Alterar.add(Valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, -1));
 
         Origem2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Origem2.setText("Origem: *");
+        Origem2.setText("Origem: ");
         jPN_Alterar.add(Origem2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         jCB_Origem.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
@@ -154,11 +157,13 @@ public class FormCadastrarRota extends javax.swing.JFrame {
             }
         });
         jPN_Alterar.add(jBT_Adicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 170, 60));
+
+        jFTF_Valor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPN_Alterar.add(jFTF_Valor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 130, 30));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("* - Campos Obrigatórios");
-        jPN_Alterar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        Valor1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Valor1.setText("Valor: ");
+        jPN_Alterar.add(Valor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         getContentPane().add(jPN_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 340, 330));
 
@@ -173,6 +178,10 @@ public class FormCadastrarRota extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLB_Fechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
+
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("TODOS OS CAMPOS OBRIGATÓRIOS.");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, -1, -1));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/rota-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -279,12 +288,13 @@ public class FormCadastrarRota extends javax.swing.JFrame {
     private javax.swing.JLabel Origem2;
     private javax.swing.JLabel Origem3;
     private javax.swing.JLabel Valor;
+    private javax.swing.JLabel Valor1;
     private javax.swing.JButton jBT_Adicionar;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jCB_Destino;
     private javax.swing.JComboBox jCB_Origem;
     private javax.swing.JComboBox jCB_Rotas;
-    private javax.swing.JFormattedTextField jFTF_Valor;
+    private javax.swing.JTextField jFTF_Valor;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Fechar;
     private javax.swing.JLabel jLabel1;

@@ -37,6 +37,7 @@ public class FormRecuperarSenha extends javax.swing.JFrame {
         jTF_Email = new javax.swing.JTextField();
         jBT_AlterarSenha = new javax.swing.JButton();
         jLB_Mensagem = new javax.swing.JLabel();
+        jLB_Fechar6 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,6 +66,17 @@ public class FormRecuperarSenha extends javax.swing.JFrame {
         jLB_Mensagem.setForeground(new java.awt.Color(204, 0, 0));
         jLB_Mensagem.setText("ERROR_PLACEHOLDER");
         getContentPane().add(jLB_Mensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 150, -1));
+
+        jLB_Fechar6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLB_Fechar6.setForeground(new java.awt.Color(255, 255, 255));
+        jLB_Fechar6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLB_Fechar6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLB_Fechar6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLB_Fechar6MouseReleased(evt);
+            }
+        });
+        getContentPane().add(jLB_Fechar6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 0, 40, 40));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/esqueci-senha-form.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 400));
@@ -97,6 +109,12 @@ public class FormRecuperarSenha extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro inesperado, por favor tente novamente. " + e.getMessage());
         }
     }//GEN-LAST:event_jBT_AlterarSenhaActionPerformed
+
+    private void jLB_Fechar6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar6MouseReleased
+        FormLogin formLogin = new FormLogin();
+        formLogin.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLB_Fechar6MouseReleased
 
     /**
      * @param args the command line arguments
@@ -138,6 +156,7 @@ public class FormRecuperarSenha extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AlterarSenha;
     private javax.swing.JLabel jLB_Background;
+    private javax.swing.JLabel jLB_Fechar6;
     private javax.swing.JLabel jLB_Mensagem;
     private javax.swing.JTextField jTF_Email;
     // End of variables declaration//GEN-END:variables

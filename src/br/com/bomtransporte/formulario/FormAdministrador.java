@@ -23,7 +23,6 @@ public class FormAdministrador extends javax.swing.JFrame {
         jBT_Funcionario = new javax.swing.JButton();
         jBT_Sair = new javax.swing.JButton();
         jBT_Logout = new javax.swing.JButton();
-        jBT_Relatorio = new javax.swing.JButton();
         jBT_PesqCliente = new javax.swing.JButton();
         jBT_Rota = new javax.swing.JButton();
         jLB_Nome = new javax.swing.JLabel();
@@ -90,17 +89,6 @@ public class FormAdministrador extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBT_Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 480, 130, -1));
-
-        jBT_Relatorio.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Relatorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Relatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/relat-icon.png"))); // NOI18N
-        jBT_Relatorio.setText("Relatórios");
-        jBT_Relatorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_RelatorioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jBT_Relatorio, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 290, 100));
 
         jBT_PesqCliente.setBackground(new java.awt.Color(0, 0, 0));
         jBT_PesqCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -179,12 +167,6 @@ public class FormAdministrador extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jBT_PesqClienteActionPerformed
 
-    private void jBT_RelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_RelatorioActionPerformed
-        FormRelatorio formRelat = new FormRelatorio();
-        formRelat.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jBT_RelatorioActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -225,7 +207,6 @@ public class FormAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Funcionario;
     private javax.swing.JButton jBT_Logout;
     private javax.swing.JButton jBT_PesqCliente;
-    private javax.swing.JButton jBT_Relatorio;
     private javax.swing.JButton jBT_Rota;
     private javax.swing.JButton jBT_Sair;
     private javax.swing.JLabel jLB_Background;

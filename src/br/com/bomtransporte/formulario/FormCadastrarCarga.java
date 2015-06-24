@@ -519,7 +519,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Desconto *");
+        jLabel14.setText("Desconto");
         jPN_Pedido.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLB_Obrigatorio7.setForeground(new java.awt.Color(153, 0, 0));
