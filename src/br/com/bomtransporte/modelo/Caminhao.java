@@ -27,9 +27,9 @@ public class Caminhao {
      */
     private static final Double pesoTotalCaminhao = 3500.0;
     /**
-     * Dimensão cúbica total do caminhão.
+     * Dimensão cúbica total do caminhão em centimetro
      */
-    private static final Double dimensaoCubica = 20.0;
+    private static final Double dimensaoCubica =15840.0;
 
     public Caminhao() {
     }

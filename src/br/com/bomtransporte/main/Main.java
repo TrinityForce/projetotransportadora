@@ -28,5 +28,7 @@ public class Main {
         }
         formBg.setVisible(true);
         formLogin.setVisible(true);
+
     }
+
 }
