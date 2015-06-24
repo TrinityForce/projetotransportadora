@@ -39,13 +39,6 @@ public class FuncionarioRN {
         }
     }
 
-    public static String cPrimeiraLetra(String original) {
-        if (original.length() == 0) {
-            return original;
-        }
-        return original.substring(0, 1).toUpperCase() + original.substring(1);
-    }
-
     /**
      *
      * @param msg Senha que irá ser transformada em hash md5

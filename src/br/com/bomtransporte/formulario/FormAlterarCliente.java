@@ -9,10 +9,10 @@ import br.com.bomtransporte.regrasnegocio.ClienteRN;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  *
@@ -58,7 +58,6 @@ public class FormAlterarCliente extends javax.swing.JFrame {
                 } else {
                     System.out.println("endereco n encontrado");
                 }
-
             } else {
                 System.out.println("cliente n encontrado");
             }
@@ -161,13 +160,16 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jTF_Telefone2.setText("");
 
     }
+    
+    public String capitalize(String str){
+        return WordUtils.capitalizeFully(str.trim());
+    }
 
     //verifica se todos os campos da lista estao preenchidos e retorna true
     private boolean verificarCamposVazios(List<String> list) {
         Boolean vazio = true;
         if (list != null && !list.isEmpty()) {
-            for (Iterator<String> it = list.iterator(); it.hasNext();) {
-                String campo = it.next();
+            for (String campo : list) {
                 if (campo == null || campo.trim().length() == 0) {
                     vazio = false;
                 }
@@ -412,11 +414,11 @@ public class FormAlterarCliente extends javax.swing.JFrame {
                         //preenche o objeto cliente
                         Cliente cliente = new Cliente();
                         ClienteDao clienteDao = new ClienteDao();
-                        cliente.setNome(listaCampos.get(0));
+                        cliente.setNome(capitalize(listaCampos.get(0)));
                         cliente.setTelefone(listaCampos.get(1));
                         cliente.setCpf(ajustarCpf(listaCampos.get(2)));
-                        cliente.setNumeroCasa(listaCampos.get(3));
-                        cliente.setComplemento(complemento);
+                        cliente.setNumeroCasa(listaCampos.get(3).trim());
+                        cliente.setComplemento(complemento.trim());
                         cliente.setIdEndereco(idEndereco);
                         cliente.setDataCadastro(Datas.dataAtual());
                         cliente.setTelefone2(telefone2);
@@ -447,7 +449,9 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_VerificarActionPerformed
 
     private void jLB_FecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_FecharMouseReleased
-        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+        FormClientePedido formCli = new FormClientePedido();
+        formCli.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jLB_FecharMouseReleased
 
     /**

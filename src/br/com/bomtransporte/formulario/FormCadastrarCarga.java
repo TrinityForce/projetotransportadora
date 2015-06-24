@@ -1,7 +1,6 @@
 package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.CargaDao;
-import br.com.bomtransporte.util.JTFSomenteNumeros;
 import br.com.bomtransporte.dao.ClienteDao;
 import br.com.bomtransporte.dao.EnderecoDao;
 import br.com.bomtransporte.dao.PedidoDao;
@@ -34,7 +33,7 @@ import javax.swing.ListSelectionModel;
 
 /**
  *
- * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
+ * @author Gustavo Carvalho
  */
 public class FormCadastrarCarga extends javax.swing.JFrame {
 
@@ -331,8 +330,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jTF_Cpf = new javax.swing.JTextField();
         jTF_IdCliente = new javax.swing.JTextField();
         jTF_NomeCidade = new javax.swing.JTextField();
-        jTF_Desconto = new javax.swing.JTextField();
-        jTF_Desconto = new JTFSomenteNumeros();
         jLB_Fechar = new javax.swing.JLabel();
         jLB_Descricao1 = new javax.swing.JLabel();
         jLB_CEP = new javax.swing.JLabel();
@@ -346,9 +343,11 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Descricao3 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLB_Obrigatorio7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLB_Obrigatorio9 = new javax.swing.JLabel();
+        jLB_Obrigatorio10 = new javax.swing.JLabel();
+        jLB_Obrigatorio11 = new javax.swing.JLabel();
         jPN_Carga = new javax.swing.JPanel();
         jSP_Cargas = new javax.swing.JScrollPane();
         jTB_Cargas = new javax.swing.JTable();
@@ -373,6 +372,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLB_Descricao9 = new javax.swing.JLabel();
         jLB_Descricao10 = new javax.swing.JLabel();
         jLB_Descricao11 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -424,7 +424,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jCB_RotasActionPerformed(evt);
             }
         });
-        jPN_Pedido.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, 170, -1));
+        jPN_Pedido.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 170, -1));
 
         jTF_NomeCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_NomeCliente.setEnabled(false);
@@ -438,9 +438,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 210, 30));
         jPN_Pedido.add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 320, 30));
         jPN_Pedido.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 200, 30));
-        jPN_Pedido.add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 130, 30));
+        jPN_Pedido.add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 140, 30));
         jPN_Pedido.add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 80, 30));
-        jPN_Pedido.add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, 330, 30));
+        jPN_Pedido.add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 310, 30));
 
         jTF_Cpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_Cpf.setEnabled(false);
@@ -449,13 +449,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jTF_CpfActionPerformed(evt);
             }
         });
-        jPN_Pedido.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 180, 30));
+        jPN_Pedido.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 180, 30));
 
         jTF_IdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_IdCliente.setEnabled(false);
         jPN_Pedido.add(jTF_IdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 50, 30));
-        jPN_Pedido.add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 180, 30));
-        jPN_Pedido.add(jTF_Desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 180, 30));
+        jPN_Pedido.add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 200, 30));
 
         jLB_Fechar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLB_Fechar.setForeground(new java.awt.Color(255, 255, 255));
@@ -474,7 +473,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jLB_Descricao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
         jLB_CEP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_CEP.setText("CEP *");
+        jLB_CEP.setText("CEP");
         jPN_Pedido.add(jLB_CEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -486,16 +485,16 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("Destino *");
-        jPN_Pedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, -1, -1));
+        jLabel7.setText("Destino");
+        jPN_Pedido.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("Número *");
+        jLabel10.setText("Número");
         jPN_Pedido.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Complemento");
-        jPN_Pedido.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
+        jPN_Pedido.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, -1, -1));
 
         jLB_ErroCep.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLB_ErroCep.setForeground(new java.awt.Color(255, 0, 0));
@@ -504,7 +503,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jLB_Descricao2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao2.setText("CPF");
-        jPN_Pedido.add(jLB_Descricao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+        jPN_Pedido.add(jLB_Descricao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
         jLB_Descricao3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao3.setText("ID");
@@ -516,19 +515,31 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("UF");
-        jPN_Pedido.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel14.setText("Desconto");
-        jPN_Pedido.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPN_Pedido.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, -1, -1));
 
         jLB_Obrigatorio7.setForeground(new java.awt.Color(153, 0, 0));
         jLB_Obrigatorio7.setText("* - Campos Obrigatórios");
         jPN_Pedido.add(jLB_Obrigatorio7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 180, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 0, 51));
         jLabel2.setText("* - Campos Obrigatórios");
-        jPN_Pedido.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jPN_Pedido.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, -1, -1));
+
+        jLB_Obrigatorio9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio9.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio9.setText("*");
+        jPN_Pedido.add(jLB_Obrigatorio9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 10, 20));
+
+        jLB_Obrigatorio10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio10.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio10.setText("*");
+        jPN_Pedido.add(jLB_Obrigatorio10, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 10, 20));
+
+        jLB_Obrigatorio11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio11.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio11.setText("*");
+        jPN_Pedido.add(jLB_Obrigatorio11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 10, 20));
 
         jTB_Pedido.addTab("Cadastrar Pedido", jPN_Pedido);
 
@@ -547,7 +558,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         ));
         jSP_Cargas.setViewportView(jTB_Cargas);
 
-        jPN_Carga.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 660, 180));
+        jPN_Carga.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 670, 140));
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -571,9 +582,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Carga.add(jBT_AdicionarCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 170, 70));
 
-        jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTF_Quantidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTF_Quantidade.setText("1");
-        jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 36, 30));
+        jPN_Carga.add(jTF_Quantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 36, 30));
 
         jTF_IdCliente1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_IdCliente1.setEnabled(false);
@@ -593,12 +604,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Carga.add(jTF_Cpf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 160, 30));
 
         jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLB_Descricao4.setText("(valores em metro)");
-        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
+        jLB_Descricao4.setText("(VALORES EM CENTÍMETROS)");
+        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
 
         jLB_Quantidade1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Quantidade1.setText("Quantidade");
-        jPN_Carga.add(jLB_Quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+        jPN_Carga.add(jLB_Quantidade1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLB_Peso1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Peso1.setText("Peso");
@@ -624,17 +635,17 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         });
         jPN_Carga.add(jCB_Peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 320, -1));
 
-        jTF_Profundidade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Profundidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 50, 30));
+        jTF_Profundidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPN_Carga.add(jTF_Profundidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 50, 30));
 
         jTF_Descricao.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jPN_Carga.add(jTF_Descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 320, 30));
 
-        jTF_Altura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Altura, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 50, 30));
+        jTF_Altura.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPN_Carga.add(jTF_Altura, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 50, 30));
 
-        jTF_Largura.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_Carga.add(jTF_Largura, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 50, 30));
+        jTF_Largura.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPN_Carga.add(jTF_Largura, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 50, 30));
 
         jLB_Descricao8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao8.setText("Descricao");
@@ -642,15 +653,20 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jLB_Descricao9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao9.setText("Altura");
-        jPN_Carga.add(jLB_Descricao9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, -1, -1));
+        jPN_Carga.add(jLB_Descricao9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, -1, -1));
 
         jLB_Descricao10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao10.setText("Largura");
-        jPN_Carga.add(jLB_Descricao10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
+        jPN_Carga.add(jLB_Descricao10, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 60, -1));
 
         jLB_Descricao11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao11.setText("Profundidade");
-        jPN_Carga.add(jLB_Descricao11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, -1, -1));
+        jPN_Carga.add(jLB_Descricao11, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel3.setText("Todos os campos obrigatórios.");
+        jPN_Carga.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
 
         jTB_Pedido.addTab("Cadastrar Carga", jPN_Carga);
 
@@ -695,9 +711,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
                 pedido.setDataVenda(Calendar.getInstance().getTime());
 
-                if (jTF_Desconto.getText() != null && jTF_Desconto.getText().trim().length() > 0) {
-                    pedido.setDesconto(Integer.valueOf(jTF_Desconto.getText()));
-                }
+//                if (jTF_Desconto.getText() != null && jTF_Desconto.getText().trim().length() > 0) {
+//                    pedido.setDesconto(Integer.valueOf(jTF_Desconto.getText()));
+//                }
 
                 pedido.setIdEnderecoCorreios(idEndereco);
                 pedido.setNumero(listCampos.get(1));
@@ -853,7 +869,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
 
     private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
-        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+        FormClientePedido formCli = new FormClientePedido();
+        formCli.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
 
     private void jCB_PesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_PesoActionPerformed
@@ -923,14 +941,17 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
     private javax.swing.JLabel jLB_Fechar4;
+    private javax.swing.JLabel jLB_Obrigatorio10;
+    private javax.swing.JLabel jLB_Obrigatorio11;
     private javax.swing.JLabel jLB_Obrigatorio7;
+    private javax.swing.JLabel jLB_Obrigatorio9;
     private javax.swing.JLabel jLB_Peso1;
     private javax.swing.JLabel jLB_Quantidade1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -946,7 +967,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private javax.swing.JTextField jTF_Complemento;
     private javax.swing.JTextField jTF_Cpf;
     private javax.swing.JTextField jTF_Cpf1;
-    private javax.swing.JTextField jTF_Desconto;
     private javax.swing.JTextField jTF_Descricao;
     private javax.swing.JTextField jTF_IdCliente;
     private javax.swing.JTextField jTF_IdCliente1;
