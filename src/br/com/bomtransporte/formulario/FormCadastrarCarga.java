@@ -81,11 +81,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         }
     }
 
-    //usado para pegar o cep da tela FormCadastrarCep
-    public void setCep(String cep) {
-        jTF_Cep.setText(cep);
-    }
-
     private void preencherCampos() {
         try {
             clienteDao = new ClienteDao();
@@ -895,7 +890,9 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     private void jBT_CadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarCepActionPerformed
         FormCadastrarCep formCep = new FormCadastrarCep();
-        formCep.setVisible(true);    }//GEN-LAST:event_jBT_CadastrarCepActionPerformed
+        formCep.setVisible(true);
+
+    }//GEN-LAST:event_jBT_CadastrarCepActionPerformed
 
     /**
      * @param args the command line arguments

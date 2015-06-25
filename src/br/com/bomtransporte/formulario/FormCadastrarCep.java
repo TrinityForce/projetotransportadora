@@ -27,9 +27,6 @@ public class FormCadastrarCep extends javax.swing.JFrame {
     Cidade cidade;
     CidadeDao cidadeDao;
 
-    //nome do form que chamou essa tela
-    private String nomeForm = null;
-
     /**
      * Creates new form FormCadastrarCep
      */
@@ -37,12 +34,6 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         initComponents();
         Tela.desabilitarBotao(jCB_Cidade);
         preencherJcbUF();
-    }
-
-    public void setNomeForm(String str) {
-        if (str != null) {
-            this.nomeForm = str;
-        }
     }
 
     private void preencherJcbUF() {
@@ -267,10 +258,6 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                     endereco.setUf(campos.get(4));
 
                     enderecoDao.inserir(endereco);
-                   
-                  Object  form =  Class.forName(nomeForm);
-                    
-                   
 
                     JOptionPane.showMessageDialog(this, "CEP incluido com sucesso!", "SUCESSO",
                             JOptionPane.INFORMATION_MESSAGE);
