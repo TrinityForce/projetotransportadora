@@ -24,31 +24,31 @@ import javax.swing.ListSelectionModel;
  * @author JhonattanSouza_
  */
 public class FormPedidos extends javax.swing.JFrame {
-    
+
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
     private String statusPedidoSelecionado;
     private Carga carga;
     private CargaDao cargaDao;
-    
+
     public FormPedidos() {
         initComponents();
         preencherTabelaPedido();
         desabilitarBotao(jBT_AlterarStatusPedido);
     }
-    
+
     private void desabilitarBotao(JButton bt) {
         bt.setEnabled(false);
     }
-    
+
     private void habilitarBotao(JButton bt) {
         bt.setEnabled(true);
     }
-    
+
     private void preencherTabelaPedido() {
-        
+
         ArrayList dados = new ArrayList();
-        
+
         String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
         List<Object> listaPedido = null;
         final List<Object> listaSelecionada;
@@ -70,16 +70,16 @@ public class FormPedidos extends javax.swing.JFrame {
                 case 4:
                     listaPedido = pedidoDao.listarPedidos("Carga Extraviada");
             }
-            
+
             listaSelecionada = listaPedido;
-            
+
             if (listaPedido != null && listaPedido.size() > 0) {
                 for (Object pedidoAtual : listaPedido) {
                     Pedido pedido = (Pedido) pedidoAtual;
                     dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
                 }
             }
-            
+
             ModeloTabela modTabela = new ModeloTabela(dados, colunas);
             jTB_Pedidos.setModel(modTabela);
             jTB_Pedidos.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -92,33 +92,33 @@ public class FormPedidos extends javax.swing.JFrame {
             jTB_Pedidos.getColumnModel().getColumn(3).setResizable(false);
             jTB_Pedidos.getColumnModel().getColumn(4).setPreferredWidth(150);
             jTB_Pedidos.getColumnModel().getColumn(4).setResizable(false);
-            
+
             jTB_Pedidos.getTableHeader().setReorderingAllowed(false);
             jTB_Pedidos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             jTB_Pedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            
+
             jTB_Pedidos.addMouseListener(new MouseAdapter() {
-                
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
                         List<Object> lista = listaSelecionada;
                         pedidoSelecionado = (Pedido) lista.get(jTB_Pedidos.convertRowIndexToModel(jTB_Pedidos.getSelectedRow()));
                         statusPedidoSelecionado = pedidoSelecionado.getStatusPedido();
-                        
+
                         habilitarBotao(jBT_AlterarStatusPedido);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(FormPedidos.this, "Erro genérico1: " + ex.getMessage());
                     }
                 }
-                
+
             });
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -222,14 +222,14 @@ public class FormPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBT_AlterarStatusPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusPedidoActionPerformed
-        
+
         if (statusPedidoSelecionado == null || statusPedidoSelecionado.trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o pedido!\n O status do pedido esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         //cria uma list com os status do pedido
         List<String> optionList = new ArrayList<>();
-        
+
         optionList.add("Saiu para entrega");
         optionList.add("Entregue");
         optionList.add("Extraviado");
@@ -249,7 +249,7 @@ public class FormPedidos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Esse pedido já foi entregue!", "PEDIDO ENTREGUE", JOptionPane.INFORMATION_MESSAGE);
                 return;
         }
-        
+
         Object[] options = optionList.toArray();
 
         //pega o status que o usuario selecionou
@@ -285,14 +285,14 @@ public class FormPedidos extends javax.swing.JFrame {
          *quantidade de cargas que nao se foi possivel adicionar ao caminhao
          */
         Integer qtdCarga = 0;
-        
+
         cargaDao = new CargaDao();
-        
+
         try {
             List<Object> list = cargaDao.listarCargasPorStatus(pedidoSelecionado.getIdPedido_Cli(), "Aguardando");
 
             //para o metodo caso nao tenha nenhuma carga com status aguardando
-            if (list.isEmpty()) {
+            if (list == null || list.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Nao ha nenhuma carga para ser enviada",
                         "Erro", JOptionPane.INFORMATION_MESSAGE);
                 return;
@@ -301,7 +301,7 @@ public class FormPedidos extends javax.swing.JFrame {
                 carga = (Carga) carga1;
 
                 //verifica se o caminhao pode comportar a dimensao cubica da carga 
-                if (carga.getDimensaoCubica() + Caminhao.getDimensaoCubica() < Caminhao.getDimensaoCubicaPreenchida()) {
+                if (carga.getDimensaoCubica() + Caminhao.getDimensaoCubicaPreenchida()< Caminhao.getDimensaoCubica()) {
                     //verifica se o caminhao pode comportar o peso da carga
                     if ((Calc.calcPesoCarga(carga.getPeso()) + Caminhao.getPesoDasCargasNoCaminhao())
                             < Caminhao.getPesoTotalSuportado()) {
@@ -325,7 +325,7 @@ public class FormPedidos extends javax.swing.JFrame {
                     qtdCarga++;
                 }
             }
-           
+            System.err.println("qtd carga "+qtdCarga);
             if (qtdCarga == 0) {
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), "Saiu para entrega");
                 JOptionPane.showMessageDialog(this, "Todas as cargas foram adicionadas ao caminhao com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -333,7 +333,7 @@ public class FormPedidos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, qtdCarga + " Carga(s) nao foram adicionadas ao caminhao  !", "Erro", JOptionPane.INFORMATION_MESSAGE);
                 pedidoDao.update(pedidoSelecionado.getIdPedido(), "Enviado parcialmente");
             }
-             preencherTabelaPedido();
+            preencherTabelaPedido();
         } catch (Exception ex) {
             Logger.getLogger(FormPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }

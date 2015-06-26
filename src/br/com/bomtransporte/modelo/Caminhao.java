@@ -33,7 +33,7 @@ public class Caminhao {
     /**
      * Dimensão cúbica total do caminhão em centimetro.
      */
-    private static final Double dimensaoCubica = 15840.0;
+    private static final Double dimensaoCubica = 1584000.0;
 
     /**
      * total de dimensao cubica das cargas no caminhao.

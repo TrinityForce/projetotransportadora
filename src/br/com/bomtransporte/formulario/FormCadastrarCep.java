@@ -39,12 +39,14 @@ public class FormCadastrarCep extends javax.swing.JFrame {
     private void preencherJcbUF() {
         cidadeDao = new CidadeDao();
         try {
+
             List<Object> list = cidadeDao.listarUf();
             for (Object obj : list) {
                 cidade = (Cidade) obj;
                 jCB_UF.addItem(cidade.getUf());
 
             }
+
         } catch (Exception ex) {
             Logger.getLogger(FormCadastrarCep.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,6 +113,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         jCB_Cidade = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(512, 258));
 
         jLB_CEP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_CEP1.setText("CEP *");
@@ -231,6 +234,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTF_CepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_CepActionPerformed
@@ -276,7 +280,9 @@ public class FormCadastrarCep extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_SalvarActionPerformed
 
     private void jCB_UFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_UFItemStateChanged
+        jCB_Cidade.removeAllItems();
         preencherJcbCidade((String) jCB_UF.getSelectedItem());
+
 
     }//GEN-LAST:event_jCB_UFItemStateChanged
 
