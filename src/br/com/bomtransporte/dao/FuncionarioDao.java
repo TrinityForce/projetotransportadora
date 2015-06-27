@@ -181,7 +181,7 @@ public class FuncionarioDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("SELECT P.Nome, F.Cargo, F.idUsuario From Pessoa P INNER JOIN Funcionario F ON P.idPessoa = F.idPessoa INNER JOIN Usuario U ON F.idUsuario = U.idUsuario WHERE U.Email = ?");
+        stmt = con.prepareStatement("SELECT P.idPessoa, P.Nome, F.Cargo, F.idFuncionario, F.idUsuario From Pessoa P INNER JOIN Funcionario F ON P.idPessoa = F.idPessoa INNER JOIN Usuario U ON F.idUsuario = U.idUsuario WHERE U.Email = ?");
         stmt.setString(1, email);
         
         rs = stmt.executeQuery();
@@ -195,6 +195,8 @@ public class FuncionarioDao extends Conexao implements Dao {
             }
             funcionario.getUsuario().setIdUsuario(rs.getInt("F.idUsuario"));
             funcionario.setNome(rs.getString("P.nome"));
+            funcionario.setIdPessoa(rs.getInt("P.idPessoa"));
+            funcionario.setIdFuncionario(rs.getInt("F.idFuncionario"));
             funcionario.setCargo(rs.getString("F.cargo"));
         }
         close();
@@ -319,5 +321,33 @@ public class FuncionarioDao extends Conexao implements Dao {
         close();
 
         return funcionario;
+    }
+    
+    public boolean verificarUsuario(String usuario) throws Exception {
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("SELECT LOGIN FROM USUARIO WHERE LOGIN = ?");
+        stmt.setString(1, usuario);
+        rs = stmt.executeQuery();
+        if (rs != null && rs.next()) {
+            return true;
+        }
+        con.close();
+        return false;
+    }
+    
+    public boolean verificarEmail(String email) throws Exception {
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("SELECT EMAIL FROM USUARIO WHERE EMAIL = ?");
+        stmt.setString(1, email);
+        rs = stmt.executeQuery();
+        if (rs != null && rs.next()) {
+            return true;
+        }
+        con.close();
+        return false;
     }
 }

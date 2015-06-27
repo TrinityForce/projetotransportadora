@@ -4,6 +4,7 @@ import br.com.bomtransporte.formulario.FormDashAdmin;
 import br.com.bomtransporte.formulario.FormFuncionario;
 import br.com.bomtransporte.modelo.Funcionario;
 import java.security.MessageDigest;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.mail.EmailException;
@@ -87,18 +88,18 @@ public class FuncionarioRN {
 
     /**
      *
-     * @param obj
+     * @param f
      * @return
      */
-    public String gerarSenha(Object obj) {
+    public String gerarSenha(Funcionario f) {
         String senha;
-
-        Funcionario f = (Funcionario) obj;
-
+        Random r = new Random();
+        
         senha = f.getNome().substring(0, 3);
         senha += f.getIdPessoa();
         senha += f.getIdFuncionario();
         senha += f.getCargo().substring(0, 3);
+        senha += r.nextInt(999);
 
         return senha;
     }

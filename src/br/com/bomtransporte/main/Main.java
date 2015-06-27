@@ -2,6 +2,7 @@ package br.com.bomtransporte.main;
 
 import br.com.bomtransporte.formulario.FormBackground;
 import br.com.bomtransporte.formulario.FormLogin;
+import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 
 /**
  *
@@ -28,7 +29,5 @@ public class Main {
         }
         formBg.setVisible(true);
         formLogin.setVisible(true);
-
     }
-
 }

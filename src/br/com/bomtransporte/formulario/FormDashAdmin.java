@@ -235,7 +235,7 @@ public class FormDashAdmin extends javax.swing.JFrame {
 
         jLB_Nome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Nome.setText("NAME_PLACEHOLDER");
-        jPN_Background.add(jLB_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, 220, 40));
+        jPN_Background.add(jLB_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, 530, 40));
 
         jLB_BemVindo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_BemVindo.setText("Bem-Vindo(a)");

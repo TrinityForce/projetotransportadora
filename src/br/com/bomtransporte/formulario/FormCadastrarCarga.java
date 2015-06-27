@@ -616,7 +616,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
         jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLB_Descricao4.setText("(VALORES EM CENTÍMETROS)");
-        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, -1, -1));
+        jPN_Carga.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 250, -1, -1));
 
         jLB_Quantidade1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Quantidade1.setText("Quantidade");
@@ -677,7 +677,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 0, 51));
         jLabel3.setText("Todos os campos obrigatórios.");
-        jPN_Carga.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, -1, -1));
+        jPN_Carga.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 250, 40));
 
         jTB_Pedido.addTab("Cadastrar Carga", jPN_Carga);
 

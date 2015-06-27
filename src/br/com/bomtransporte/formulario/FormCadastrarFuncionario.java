@@ -90,10 +90,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
      * @param str
      * @return
      */
-    public String capitalize(String str){
+    public String capitalize(String str) {
         return WordUtils.capitalizeFully(str.trim());
     }
-    
+
     private void preencherTabela() {
 
         ArrayList dados = new ArrayList();
@@ -404,13 +404,20 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                     funcionario.setCargo(capitalize(cargo));
                     funcionario.getUsuario().setEmail(email.trim());
 
-                    funcionarioDao.inserir(funcionario);
+                    if (!funcionarioDao.verificarEmail(email.trim())) {
+                        if (!funcionarioDao.verificarUsuario(login.trim())) {
+                            funcionarioDao.inserir(funcionario);
+                            desabilitarCampos();
+                            limparCampos();
+                            preencherTabela();
 
-                    desabilitarCampos();
-                    limparCampos();
-                    preencherTabela();
-
-                    JOptionPane.showMessageDialog(this, "Funcionário incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Funcionário incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "LOGIN JÁ ESTÁ CADASTRADO NO SISTEMA.", "LOGIN JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "E-MAIL JÁ ESTÁ CADASTRADO NO SISTEMA.", "E-MAIL JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(this, "E-mail inválido, por favor corrigir", "E-MAIL INVÁLIDO", JOptionPane.ERROR_MESSAGE);
                 }

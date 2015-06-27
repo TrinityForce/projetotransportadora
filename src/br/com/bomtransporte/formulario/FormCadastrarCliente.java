@@ -454,14 +454,14 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                         cliente.setTelefone2(telefone2);
                         cliente.setCelular(celular);
                         
-                        if(!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2)))){
+                       if(!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2)))){
                             clienteDao.inserir(cliente);
                             JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                             limparCamposCep();
                             limparCamposCliente();
                         }else{
                             JOptionPane.showMessageDialog(this, "CPF JÁ ESTÁ CADASTRADO NO SISTEMA.", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
-                        }
+                        } 
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
                     }

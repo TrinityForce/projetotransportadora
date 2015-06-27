@@ -95,18 +95,20 @@ public class FormRecuperarSenha extends javax.swing.JFrame {
                 if (funcionario != null) {
                     FuncionarioRN funcionarioRN = new FuncionarioRN();
                     String novaSenha = funcionarioRN.gerarSenha(funcionario);
-                    funcionarioDao.alterarSenha(funcionario, FuncionarioRN.criptografarMd5(novaSenha), true);
+                    funcionarioDao.alterarSenha(funcionario, novaSenha, true);
                     funcionarioRN.enviarEmail(email, funcionario.getCargo(), novaSenha);
-                    JOptionPane.showMessageDialog(this, "E-mail com nova senha enviado com sucesso!");
+                    JOptionPane.showMessageDialog(this, "E-MAIL COM NOVA SENHA ENVIADO COM SUCESSO!","SENHA ENVIADA",JOptionPane.INFORMATION_MESSAGE);
+                    FormLogin formLogin = new FormLogin();
+                    formLogin.setVisible(true);
                     dispose();
                 } else {
-                    exibirMensagem(jLB_Mensagem, "E-mail não encontrado.");
+                    exibirMensagem(jLB_Mensagem, "E-MAIL NÃO CADASTRADO NO SISTEMA.");
                 }
             } else {
-                exibirMensagem(jLB_Mensagem, "Email inválido.");
+                exibirMensagem(jLB_Mensagem, "E-MAIL INVÁLIDO. POR FAVOR CORRIGIR.");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado, por favor tente novamente. " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "ERRO INESPERADO. POR FAVOR TENTE NOVAMENTE.\n" + e.getMessage());
         }
     }//GEN-LAST:event_jBT_AlterarSenhaActionPerformed
 
