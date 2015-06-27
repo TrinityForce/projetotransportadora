@@ -24,9 +24,25 @@ public class Pedido {
     private Integer idPedido_Cli;
     private Integer idPrecoDistania;
 
+    /**
+     *
+     */
     public Pedido() {
     }
 
+    /**
+     *
+     * @param idPedido
+     * @param protocolo
+     * @param dataVenda
+     * @param desconto
+     * @param statusPedido
+     * @param numero
+     * @param complemento
+     * @param idEnderecoCorreios
+     * @param idPedido_Cli
+     * @param idPrecoDistania
+     */
     public Pedido(Integer idPedido, String protocolo, Date dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli, Integer idPrecoDistania) {
         this.idPedido = idPedido;
         this.protocolo = protocolo;
@@ -40,58 +56,114 @@ public class Pedido {
         this.idPrecoDistania = idPrecoDistania;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdPedido() {
         return idPedido;
     }
 
+    /**
+     *
+     * @param idPedido
+     */
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getProtocolo() {
         return protocolo;
     }
 
+    /**
+     *
+     * @param protocolo
+     */
     public void setProtocolo(String protocolo) {
         this.protocolo = protocolo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getDesconto() {
         return desconto;
     }
 
+    /**
+     *
+     * @param desconto
+     */
     public void setDesconto(Integer desconto) {
         this.desconto = desconto;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStatusPedido() {
         return statusPedido;
     }
 
+    /**
+     *
+     * @param statusPedido
+     */
     public void setStatusPedido(String statusPedido) {
         this.statusPedido = statusPedido;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNumero() {
         return numero;
     }
 
+    /**
+     *
+     * @param numero
+     */
     public void setNumero(String numero) {
         this.numero = numero;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getComplemento() {
         return complemento;
     }
 
+    /**
+     *
+     * @param complemento
+     */
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdEnderecoCorreios() {
         return idEnderecoCorreios;
     }
 
+    /**
+     *
+     * @param idEnderecoCorreios
+     */
     public void setIdEnderecoCorreios(Integer idEnderecoCorreios) {
         this.idEnderecoCorreios = idEnderecoCorreios;
     }
@@ -110,18 +182,34 @@ public class Pedido {
         this.idPedido_Cli = idPedido_Cli;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdPrecoDistania() {
         return idPrecoDistania;
     }
 
+    /**
+     *
+     * @param idPrecoDistania
+     */
     public void setIdPrecoDistania(Integer idPrecoDistania) {
         this.idPrecoDistania = idPrecoDistania;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getDataVenda() {
         return dataVenda;
     }
 
+    /**
+     *
+     * @param dataVenda
+     */
     public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
     }

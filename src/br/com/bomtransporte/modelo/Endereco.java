@@ -18,10 +18,27 @@ public class Endereco {
     private String logracompl;
     private String bairro;
 
+    /**
+     *
+     */
     public Endereco() {
     }
 
-
+    /**
+     *
+     * @param id
+     * @param uf
+     * @param cidade_id
+     * @param nomeCidade
+     * @param nomeslog
+     * @param nomeclog
+     * @param bairro_id
+     * @param logradouro
+     * @param cep
+     * @param uf_cod
+     * @param logracompl
+     * @param bairro
+     */
     public Endereco(Integer id, String uf, Integer cidade_id, String nomeCidade, String nomeslog, String nomeclog, Integer bairro_id, String logradouro, String cep, Integer uf_cod, String logracompl, String bairro) {
         this.id = id;
         this.uf = uf;
@@ -193,10 +210,18 @@ public class Endereco {
         this.bairro = bairro;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNomeCidade() {
         return nomeCidade;
     }
 
+    /**
+     *
+     * @param nomeCidade
+     */
     public void setNomeCidade(String nomeCidade) {
         this.nomeCidade = nomeCidade;
     }

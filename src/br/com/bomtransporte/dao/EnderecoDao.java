@@ -14,6 +14,12 @@ import java.util.List;
  */
 public class EnderecoDao extends Conexao implements Dao {
 
+    /**
+     *
+     * @param cep
+     * @return
+     * @throws Exception
+     */
     public Endereco retornarEndereco(String cep) throws Exception {
 
         Endereco endereco = null;
@@ -60,6 +66,12 @@ public class EnderecoDao extends Conexao implements Dao {
         return endereco;
     }
 
+    /**
+     *
+     * @param idCliente
+     * @return
+     * @throws Exception
+     */
     public Endereco retornarEnderecoPorId(Integer idCliente) throws Exception {
 
         Endereco endereco = null;
@@ -91,6 +103,12 @@ public class EnderecoDao extends Conexao implements Dao {
         return endereco;
     }
 
+    /**
+     *
+     * @param idPedido
+     * @return
+     * @throws Exception
+     */
     public Endereco retornarEnderecoPorIdPedido(Integer idPedido) throws Exception {
         Endereco endereco = null;
 
@@ -126,6 +144,12 @@ public class EnderecoDao extends Conexao implements Dao {
         return endereco;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws Exception
+     */
     public Integer insertReturnId(Object obj) throws Exception {
         Integer idEndereco = null;
         Endereco endereco = (Endereco) obj;
@@ -146,6 +170,11 @@ public class EnderecoDao extends Conexao implements Dao {
         return idEndereco;
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
         Endereco endereco = (Endereco) obj;
@@ -192,16 +221,31 @@ public class EnderecoDao extends Conexao implements Dao {
 
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
         List<Object> listaEndereco = new ArrayList();

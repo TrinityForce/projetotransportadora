@@ -17,6 +17,15 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author JhonattanSouza_
  */
 public class Relatorios {
+
+    /**
+     *
+     * @param relat
+     * @param lista
+     * @param parametros
+     * @throws JRException
+     * @throws Exception
+     */
     public static void gerarRelatorio(String relat, List lista, Map parametros) throws JRException, Exception {
         JasperDesign design = JRXmlLoader.load(relat);
         JasperReport relatorio = JasperCompileManager.compileReport(design);

@@ -12,6 +12,9 @@ import javax.swing.JFrame;
 public class FormBackground extends javax.swing.JFrame {
     private final MainBackground mbg;
 
+    /**
+     *
+     */
     public FormBackground() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -44,6 +47,10 @@ public class FormBackground extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         /* Set the WINDOWS look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

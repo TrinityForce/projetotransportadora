@@ -33,6 +33,9 @@ public class FormPedidos extends javax.swing.JFrame {
     private Carga carga;
     private CargaDao cargaDao;
 
+    /**
+     *
+     */
     public FormPedidos() {
         initComponents();
         preencherTabelaPedido();

@@ -12,21 +12,41 @@ import java.util.List;
  */
 public class CidadeDao extends Conexao implements Dao {
     
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
         List<Object> listaCidade = new ArrayList();
@@ -51,6 +71,11 @@ public class CidadeDao extends Conexao implements Dao {
         return listaCidade;
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public List<Object> listarUf() throws Exception {
         List<Object> listaCidade = new ArrayList();
         Cidade cidade = null;
@@ -71,6 +96,12 @@ public class CidadeDao extends Conexao implements Dao {
         return listaCidade;
     }
     
+    /**
+     *
+     * @param uf
+     * @return
+     * @throws Exception
+     */
     public List<String> listarCidadePorUF(String uf) throws Exception {
         List<String> list = new ArrayList();
         inicializarAtributos();

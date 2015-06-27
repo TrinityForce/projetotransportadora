@@ -8,6 +8,9 @@ import br.com.bomtransporte.modelo.FuncionarioSingleton;
  */
 public class FormAdministrador extends javax.swing.JFrame {
 
+    /**
+     *
+     */
     public FormAdministrador() {
         initComponents();
         jLB_Nome.setText(FuncionarioSingleton.getFuncionario().getNome());

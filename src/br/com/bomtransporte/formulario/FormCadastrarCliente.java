@@ -126,6 +126,11 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
 
     }
     
+    /**
+     *
+     * @param str
+     * @return
+     */
     public String capitalize(String str){
         return WordUtils.capitalizeFully(str.trim());
     }

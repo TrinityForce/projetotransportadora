@@ -13,6 +13,11 @@ import java.util.List;
  */
 public class ClienteDao extends Conexao implements Dao {
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
 
@@ -68,6 +73,11 @@ public class ClienteDao extends Conexao implements Dao {
         }
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
 
@@ -107,11 +117,21 @@ public class ClienteDao extends Conexao implements Dao {
         }
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
 
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
 
@@ -158,6 +178,13 @@ public class ClienteDao extends Conexao implements Dao {
 
     }
 
+    /**
+     *
+     * @param query
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     public List<Object> consultarCliente(String query) throws SQLException, Exception {
 
         List<Object> listaCliente = new ArrayList<>();
@@ -205,6 +232,13 @@ public class ClienteDao extends Conexao implements Dao {
 
     }
 
+    /**
+     *
+     * @param query
+     * @return
+     * @throws SQLException
+     * @throws Exception
+     */
     public List<Object> consultarClientePeloCpf(String query) throws SQLException, Exception {
 
         List<Object> listaCliente = new ArrayList<>();
@@ -250,6 +284,12 @@ public class ClienteDao extends Conexao implements Dao {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
     public Cliente consultarPorId(Integer id) throws Exception {
         Cliente cliente = null;
 
@@ -283,6 +323,12 @@ public class ClienteDao extends Conexao implements Dao {
         return cliente;
     }
 
+    /**
+     *
+     * @param nome
+     * @return
+     * @throws Exception
+     */
     public Integer verificarExiste(String nome) throws Exception {
         Integer idCliente = null;
         inicializarAtributos();
@@ -305,6 +351,12 @@ public class ClienteDao extends Conexao implements Dao {
 
     }
 
+    /**
+     *
+     * @param cpf
+     * @return
+     * @throws Exception
+     */
     public boolean verificarCPF(String cpf) throws Exception {
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
@@ -319,6 +371,12 @@ public class ClienteDao extends Conexao implements Dao {
         return false;
     }
 
+    /**
+     *
+     * @param idCliente
+     * @return
+     * @throws Exception
+     */
     public String ConsultarUF(Integer idCliente) throws Exception {
         String uf = null;
 

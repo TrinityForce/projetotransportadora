@@ -9,9 +9,18 @@ public class Cidade {
     private String nome;
     private String uf;
 
+    /**
+     *
+     */
     public Cidade() {
     }
 
+    /**
+     *
+     * @param idCidade
+     * @param nome
+     * @param uf
+     */
     public Cidade(Integer idCidade, String nome, String uf) {
         this.idCidade = idCidade;
         this.nome = nome;

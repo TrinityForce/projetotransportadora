@@ -3,10 +3,19 @@ package br.com.bomtransporte.modelo;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ *
+ * @author JhonattanSouza_
+ */
 public class ModeloTabela extends AbstractTableModel{
     private ArrayList linhas = null;
     private String[] colunas = null; 
     
+    /**
+     *
+     * @param lin
+     * @param col
+     */
     public ModeloTabela(ArrayList lin, String[] col) {
         this.linhas = lin;
         this.colunas= col;

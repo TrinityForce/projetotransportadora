@@ -73,6 +73,11 @@ public class Validacao {
         }
     }
 
+    /**
+     *
+     * @param list
+     * @return
+     */
     public static boolean verificarCamposVazios(List<String> list) {
         Boolean vazio = true;
         if (list != null && !list.isEmpty()) {

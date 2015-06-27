@@ -15,6 +15,11 @@ import java.util.List;
  */
 public class FuncionarioDao extends Conexao implements Dao {
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
         try {
@@ -58,6 +63,11 @@ public class FuncionarioDao extends Conexao implements Dao {
         }
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
         try {
@@ -92,6 +102,11 @@ public class FuncionarioDao extends Conexao implements Dao {
         }
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
         Funcionario funcionario = (Funcionario) obj;
@@ -107,6 +122,11 @@ public class FuncionarioDao extends Conexao implements Dao {
         close();
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
         List<Object> listaFuncionarios = new ArrayList();
@@ -148,6 +168,12 @@ public class FuncionarioDao extends Conexao implements Dao {
         return listaFuncionarios;
     }
 
+    /**
+     *
+     * @param email
+     * @return
+     * @throws Exception
+     */
     public Funcionario consultarEmail(String email) throws Exception {
         Funcionario funcionario = null;
 
@@ -175,6 +201,13 @@ public class FuncionarioDao extends Conexao implements Dao {
         return funcionario;
     }
 
+    /**
+     *
+     * @param obj
+     * @param novaSenha
+     * @param flag
+     * @throws Exception
+     */
     public void alterarSenha(Object obj, String novaSenha, Boolean flag) throws Exception {
         Funcionario funcionario = (Funcionario) obj;
 
@@ -191,6 +224,12 @@ public class FuncionarioDao extends Conexao implements Dao {
         close();
     }
 
+    /**
+     *
+     * @param query
+     * @return
+     * @throws Exception
+     */
     public List<Object> consultarFuncionarioPorNome(String query) throws Exception {
         List<Object> listaFuncionarios = new ArrayList();
 
@@ -224,7 +263,12 @@ public class FuncionarioDao extends Conexao implements Dao {
         return listaFuncionarios;
     }
     
-     public void alterarSenha(Object obj) throws Exception {
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
+    public void alterarSenha(Object obj) throws Exception {
         Funcionario funcionario = (Funcionario) obj;
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
@@ -235,6 +279,13 @@ public class FuncionarioDao extends Conexao implements Dao {
         close();
     }
 
+    /**
+     *
+     * @param login
+     * @param senha
+     * @return
+     * @throws Exception
+     */
     public Funcionario autenticar(String login, String senha) throws Exception {
         Funcionario funcionario = null;
 

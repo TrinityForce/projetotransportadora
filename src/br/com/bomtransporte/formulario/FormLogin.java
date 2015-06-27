@@ -12,6 +12,9 @@ import javax.swing.JOptionPane;
  */
 public class FormLogin extends javax.swing.JFrame {
 
+    /**
+     *
+     */
     public FormLogin() {
         initComponents();
         this.getRootPane().setDefaultButton(jBT_Autenticar);
@@ -197,6 +200,10 @@ public class FormLogin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jLB_EsqueceuSenhaMouseReleased
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

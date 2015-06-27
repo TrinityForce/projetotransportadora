@@ -18,27 +18,52 @@ import java.util.List;
  */
 public class PrecoPesoDao extends Conexao implements Dao {
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-        public List<PrecoPeso> listarTodosAtivados() throws Exception{
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public List<PrecoPeso> listarTodosAtivados() throws Exception{
         List<PrecoPeso> listaPeso = new ArrayList<>();
         PrecoPeso precoPeso;
         

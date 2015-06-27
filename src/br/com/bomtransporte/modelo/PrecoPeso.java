@@ -19,9 +19,21 @@ public class PrecoPeso {
     private String dataDesativado;
     private String funcionarioQueDesativou;
 
+    /**
+     *
+     */
     public PrecoPeso() {
     }
 
+    /**
+     *
+     * @param idPrecoPeso
+     * @param peso
+     * @param valor
+     * @param ativado
+     * @param dataDesativado
+     * @param funcionarioQueDesativou
+     */
     public PrecoPeso(Integer idPrecoPeso, String peso, Double valor, Boolean ativado, String dataDesativado, String funcionarioQueDesativou) {
         this.idPrecoPeso = idPrecoPeso;
         this.peso = peso;
@@ -31,50 +43,98 @@ public class PrecoPeso {
         this.funcionarioQueDesativou = funcionarioQueDesativou;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdPrecoPeso() {
         return idPrecoPeso;
     }
 
+    /**
+     *
+     * @param idPrecoPeso
+     */
     public void setIdPrecoPeso(Integer idPrecoPeso) {
         this.idPrecoPeso = idPrecoPeso;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPeso() {
         return peso;
     }
 
+    /**
+     *
+     * @param peso
+     */
     public void setPeso(String peso) {
         this.peso = peso;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getValor() {
         return valor;
     }
 
+    /**
+     *
+     * @param valor
+     */
     public void setValor(Double valor) {
         this.valor = valor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getAtivado() {
         return ativado;
     }
 
+    /**
+     *
+     * @param ativado
+     */
     public void setAtivado(Boolean ativado) {
         this.ativado = ativado;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDataDesativado() {
         return dataDesativado;
     }
 
+    /**
+     *
+     * @param dataDesativado
+     */
     public void setDataDesativado(String dataDesativado) {
         this.dataDesativado = dataDesativado;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFuncionarioQueDesativou() {
         return funcionarioQueDesativou;
     }
 
+    /**
+     *
+     * @param funcionarioQueDesativou
+     */
     public void setFuncionarioQueDesativou(String funcionarioQueDesativou) {
         this.funcionarioQueDesativou = funcionarioQueDesativou;
     }

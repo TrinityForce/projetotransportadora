@@ -7,6 +7,12 @@ import java.util.InputMismatchException;
  * @author JhonattanSouza_
  */
 public class ClienteRN {
+
+    /**
+     *
+     * @param cpf
+     * @return
+     */
     public static boolean validarCPF(String cpf) {
         String tempCpf;
         tempCpf = cpf.replace(".", "");

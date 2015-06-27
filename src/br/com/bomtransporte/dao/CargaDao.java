@@ -7,8 +7,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author JhonattanSouza_
+ */
 public class CargaDao extends Conexao implements Dao {
 
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws Exception
+     */
     public Integer insertGetKey(Object obj) throws Exception {
         Carga carga = (Carga) obj;
 
@@ -40,7 +50,6 @@ public class CargaDao extends Conexao implements Dao {
                 con.rollback();
                 System.out.println("Connection rollback...");
             }
-            e.printStackTrace();
 
         } finally {
             if (con != null && !con.isClosed()) {
@@ -50,6 +59,11 @@ public class CargaDao extends Conexao implements Dao {
         return null;
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
         Carga carga = (Carga) obj;
@@ -70,6 +84,11 @@ public class CargaDao extends Conexao implements Dao {
         con.close();
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
         Carga carga = (Carga) obj;
@@ -86,6 +105,11 @@ public class CargaDao extends Conexao implements Dao {
         con.close();
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
         List<Object> listaCargas = new ArrayList<>();
@@ -112,6 +136,12 @@ public class CargaDao extends Conexao implements Dao {
         return listaCargas;
     }
 
+    /**
+     *
+     * @param idPedido_cli
+     * @return
+     * @throws Exception
+     */
     public List<Object> listarCargas(Integer idPedido_cli) throws Exception {
         List<Object> listaCargas = new ArrayList<>();
         inicializarAtributos();
@@ -141,6 +171,13 @@ public class CargaDao extends Conexao implements Dao {
         return listaCargas;
     }
 
+    /**
+     *
+     * @param idPedido_cli
+     * @param status
+     * @return
+     * @throws Exception
+     */
     public List<Object> listarCargasPorStatus(Integer idPedido_cli, String status) throws Exception {
         List<Object> listaCargas = new ArrayList<>();
         inicializarAtributos();
@@ -172,6 +209,11 @@ public class CargaDao extends Conexao implements Dao {
         return listaCargas;
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

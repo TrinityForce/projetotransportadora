@@ -20,9 +20,18 @@ public class Funcionario extends Pessoa {
      */
     private Usuario usuario;
 
+    /**
+     *
+     */
     public Funcionario() {
     }
 
+    /**
+     *
+     * @param idFuncionario
+     * @param cargo
+     * @param usuario
+     */
     public Funcionario(Integer idFuncionario, String cargo, Usuario usuario) {
         this.idFuncionario = idFuncionario;
         this.cargo = cargo;

@@ -17,9 +17,25 @@ public class Carga {
     private Double dimensaoCubica;
     private String status;
 
+    /**
+     *
+     */
     public Carga() {
     }
 
+    /**
+     *
+     * @param idCarga
+     * @param descricao
+     * @param peso
+     * @param quantidade
+     * @param idPedido
+     * @param idPedido_Cli
+     * @param idPrecoPeso
+     * @param valor
+     * @param dimensaoCubica
+     * @param status
+     */
     public Carga(Integer idCarga, String descricao, String peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli, Integer idPrecoPeso, Double valor, Double dimensaoCubica, String status) {
         this.idCarga = idCarga;
         this.descricao = descricao;
@@ -89,42 +105,82 @@ public class Carga {
         this.quantidade = quantidade;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdPedido() {
         return idPedido;
     }
 
+    /**
+     *
+     * @param idPedido
+     */
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdPedido_Cli() {
         return idPedido_Cli;
     }
 
+    /**
+     *
+     * @param idPedido_Cli
+     */
     public void setIdPedido_Cli(Integer idPedido_Cli) {
         this.idPedido_Cli = idPedido_Cli;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getIdPrecoPeso() {
         return idPrecoPeso;
     }
 
+    /**
+     *
+     * @param idPrecoPeso
+     */
     public void setIdPrecoPeso(Integer idPrecoPeso) {
         this.idPrecoPeso = idPrecoPeso;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getValor() {
         return valor;
     }
 
+    /**
+     *
+     * @param valor
+     */
     public void setValor(Double valor) {
         this.valor = valor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Double getDimensaoCubica() {
         return dimensaoCubica;
     }
 
+    /**
+     *
+     * @param dimensaoCubica
+     */
     public void setDimensaoCubica(Double dimensaoCubica) {
         this.dimensaoCubica = dimensaoCubica;
     }

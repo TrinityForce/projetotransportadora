@@ -3,6 +3,10 @@ package br.com.bomtransporte.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *
+ * @author JhonattanSouza_
+ */
 public class ValidarEmail {
 
     private Pattern pattern;
@@ -12,6 +16,9 @@ public class ValidarEmail {
             = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
+    /**
+     *
+     */
     public ValidarEmail() {
         pattern = Pattern.compile(EMAIL_PATTERN);
     }

@@ -12,10 +12,20 @@ public class PrecoDistancia {
     private String dataDesativado;
     private String funcionarioQueDesativou;
 
+    /**
+     *
+     */
     public PrecoDistancia() {
     }
 
-    
+    /**
+     *
+     * @param idPrecoDistancia
+     * @param valor
+     * @param origemDestinoUf
+     * @param ativado
+     * @param funcionarioQueDesativou
+     */
     public PrecoDistancia(Integer idPrecoDistancia, Double valor, String origemDestinoUf, Boolean ativado, String funcionarioQueDesativou) {
         this.idPrecoDistancia = idPrecoDistancia;
         this.valor = valor;

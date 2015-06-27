@@ -16,9 +16,24 @@ public class Cliente extends Pessoa {
     private String  celular;
     private Integer idContato;
 
+    /**
+     *
+     */
     public Cliente() {
     }
 
+    /**
+     *
+     * @param idCliente
+     * @param cpf
+     * @param idEndereco
+     * @param numeroCasa
+     * @param complemento
+     * @param telefone
+     * @param telefone2
+     * @param celular
+     * @param idContato
+     */
     public Cliente(Integer idCliente, String cpf, Integer idEndereco, String numeroCasa, String complemento, String telefone, String telefone2, String celular, Integer idContato) {
         this.idCliente = idCliente;
         this.cpf = cpf;

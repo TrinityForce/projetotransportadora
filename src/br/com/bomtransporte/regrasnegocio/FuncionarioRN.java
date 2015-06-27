@@ -1,6 +1,6 @@
 package br.com.bomtransporte.regrasnegocio;
 
-import br.com.bomtransporte.formulario.FormAdministrador;
+import br.com.bomtransporte.formulario.FormDashAdmin;
 import br.com.bomtransporte.formulario.FormFuncionario;
 import br.com.bomtransporte.modelo.Funcionario;
 import java.security.MessageDigest;
@@ -24,7 +24,7 @@ public class FuncionarioRN {
     public static void chamarTela(Integer perfil, JFrame jframe) {
         switch (perfil) {
             case 1:
-                FormAdministrador formAdmin = new FormAdministrador();
+                FormDashAdmin formAdmin = new FormDashAdmin();
                 formAdmin.setVisible(true);
                 jframe.dispose();
                 break;
@@ -34,7 +34,8 @@ public class FuncionarioRN {
                 jframe.dispose();
                 break;
             default:
-                JOptionPane.showMessageDialog(jframe, "Você não tem acesso à este sistema. Entre em contato com o Administrador");
+                JOptionPane.showMessageDialog(jframe, "VOCÊ NÃO POSSUI ACESSO À ESTE SISTEMA. PARA MAIS INFORMAÇÕES"
+                        + "ENTRE EM CONTATO COM SEU ADMNISTRADOR.");
                 break;
         }
     }
@@ -59,6 +60,12 @@ public class FuncionarioRN {
         }
     }
 
+    /**
+     *
+     * @param usuarioEmail
+     * @param usuarioNome
+     * @param novaSenha
+     */
     public void enviarEmail(String usuarioEmail, String usuarioNome, String novaSenha) {
         try {
             SimpleEmail email = new SimpleEmail();
@@ -78,6 +85,11 @@ public class FuncionarioRN {
         }
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     public String gerarSenha(Object obj) {
         String senha;
 

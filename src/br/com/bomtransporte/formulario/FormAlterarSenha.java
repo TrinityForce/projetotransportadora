@@ -113,14 +113,16 @@ public class FormAlterarSenha extends javax.swing.JFrame {
                     if (confirmarSenha != null && confirmarSenha.trim().length() > 0) {
                         if (senhaNova.equals(confirmarSenha)) {
                             if (senhaAtual.equals(FuncionarioSingleton.getFuncionario().getUsuario().getSenha())) {
-                                Integer opt = JOptionPane.showConfirmDialog(this, "TEM CERTEZA DE QUE DESEJA ALTERAR A SENHA?");
+                                Integer opt = JOptionPane.showConfirmDialog(this, "TEM CERTEZA DE QUE DESEJA ALTERAR A SENHA?",
+                                        "ALTERAR SENHA", JOptionPane.YES_NO_OPTION);
                                 if (opt == JOptionPane.YES_OPTION) {
                                     funcionarioDao.alterarSenha(FuncionarioSingleton.getFuncionario(), senhaNova, false);
                                     JOptionPane.showMessageDialog(this, "Senha alterada com sucesso!");
-                                    FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), FormAlterarSenha.this);
+                                    FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(),
+                                            FormAlterarSenha.this);
                                     dispose();
-                                } else if (opt == JOptionPane.CANCEL_OPTION) {
-                                    dispose();
+                                } else if (opt == JOptionPane.NO_OPTION) {
+                                    exibirErro(jLB_Erro,"");
                                 }
                             } else {
                                 exibirErro(jLB_Erro, "Senha atual inválida.");

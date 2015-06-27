@@ -5,6 +5,7 @@ import br.com.bomtransporte.dao.FuncionarioDao;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Relatorios;
+import br.com.bomtransporte.util.Tela;
 import java.util.List;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
@@ -17,11 +18,13 @@ public class FormDashboardRelat extends javax.swing.JFrame {
     private List lista;
     private ClienteDao clienteDao;
     private FuncionarioDao funcionarioDao;
+    
     /**
      * Creates new form FormDashboardRelat
      */
     public FormDashboardRelat() {
         initComponents();
+        Tela.adicionarHover(jBT_Cli,jBT_Func,jBT_Relat,jBT_Relat1,jBT_Relat2,jBT_Relat3,jBT_Relat4,jBT_Vendas);
     }
 
     @SuppressWarnings("unchecked")
@@ -260,67 +263,67 @@ public class FormDashboardRelat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBT_CliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_CliMouseEntered
-        jBT_Cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_CliMouseEntered
 
     private void jBT_CliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_CliMouseExited
-        jBT_Cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_CliMouseExited
 
     private void jBT_FuncMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_FuncMouseEntered
-        jBT_Func.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Func.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_FuncMouseEntered
 
     private void jBT_FuncMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_FuncMouseExited
-        jBT_Func.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Func.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_FuncMouseExited
 
     private void jBT_VendasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_VendasMouseEntered
-        jBT_Vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_VendasMouseEntered
 
     private void jBT_VendasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_VendasMouseExited
-        jBT_Vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_VendasMouseExited
 
     private void jBT_RelatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_RelatMouseEntered
-        jBT_Relat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Relat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_RelatMouseEntered
 
     private void jBT_RelatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_RelatMouseExited
-        jBT_Relat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Relat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_RelatMouseExited
 
     private void jBT_Relat1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat1MouseEntered
-        jBT_Relat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Relat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_Relat1MouseEntered
 
     private void jBT_Relat1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat1MouseExited
-        jBT_Relat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Relat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_Relat1MouseExited
 
     private void jBT_Relat2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat2MouseEntered
-        jBT_Relat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Relat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_Relat2MouseEntered
 
     private void jBT_Relat2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat2MouseExited
-        jBT_Relat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Relat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_Relat2MouseExited
 
     private void jBT_Relat3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat3MouseEntered
-        jBT_Relat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Relat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_Relat3MouseEntered
 
     private void jBT_Relat3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat3MouseExited
-        jBT_Relat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Relat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_Relat3MouseExited
 
     private void jBT_Relat4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat4MouseEntered
-        jBT_Relat4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
+//        jBT_Relat4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png")));
     }//GEN-LAST:event_jBT_Relat4MouseEntered
 
     private void jBT_Relat4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_Relat4MouseExited
-        jBT_Relat4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
+//        jBT_Relat4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png")));
     }//GEN-LAST:event_jBT_Relat4MouseExited
 
     private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased

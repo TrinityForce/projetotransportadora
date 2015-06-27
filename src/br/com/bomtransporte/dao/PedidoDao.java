@@ -16,6 +16,12 @@ import java.util.List;
  */
 public class PedidoDao extends Conexao implements Dao {
 
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws Exception
+     */
     public Integer insertGetKey(Object obj) throws Exception {
         Pedido pedido = (Pedido) obj;
 
@@ -67,6 +73,14 @@ public class PedidoDao extends Conexao implements Dao {
         return null;
     }
 
+    /**
+     *
+     * @param idCliente
+     * @param idPedido
+     * @param idPrecoDistancia
+     * @return
+     * @throws Exception
+     */
     public Integer inserirPedidoCli(Integer idCliente, Integer idPedido,
             Integer idPrecoDistancia) throws Exception {
         Integer pedidoKey = null;
@@ -108,6 +122,11 @@ public class PedidoDao extends Conexao implements Dao {
         return pedidoKey;
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void alterar(Object obj) throws Exception {
         Pedido pedido = (Pedido) obj;
@@ -131,10 +150,20 @@ public class PedidoDao extends Conexao implements Dao {
         con.close();
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void excluir(Object obj) throws Exception {
     }
 
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<Object> listar() throws Exception {
         List<Object> listaPedidos = new ArrayList<>();
@@ -162,10 +191,21 @@ public class PedidoDao extends Conexao implements Dao {
         return listaPedidos;
     }
 
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     @Override
     public void inserir(Object obj) throws Exception {
     }
 
+    /**
+     *
+     * @param idCliente
+     * @return
+     * @throws Exception
+     */
     public List<Object> listarPedidos(Integer idCliente) throws Exception {
         List<Object> listaPedidos = new ArrayList<>();
 
@@ -196,6 +236,12 @@ public class PedidoDao extends Conexao implements Dao {
         return listaPedidos;
     }
 
+    /**
+     *
+     * @param idPedido
+     * @return
+     * @throws Exception
+     */
     public Object buscarPedido(Integer idPedido) throws Exception {
         Pedido pedido = null;
 
@@ -230,6 +276,14 @@ public class PedidoDao extends Conexao implements Dao {
         return pedido;
     }
 
+    /**
+     *
+     * @param idCliente
+     * @param dataInicial
+     * @param dataFinal
+     * @return
+     * @throws Exception
+     */
     public List<Object> buscarPedidoPelaData(Integer idCliente, Date dataInicial, Date dataFinal) throws Exception {
         List<Object> listaPedidos = new ArrayList<>();
         System.out.println("data init " + Datas.convertFromJAVADateToSQLDate(dataInicial));
@@ -266,6 +320,12 @@ public class PedidoDao extends Conexao implements Dao {
         return listaPedidos;
     }
 
+    /**
+     *
+     * @param idPedido
+     * @param statusPedido
+     * @throws Exception
+     */
     public void update(Integer idPedido, String statusPedido) throws Exception {
 
         inicializarAtributos();
@@ -282,6 +342,12 @@ public class PedidoDao extends Conexao implements Dao {
 
     }
 
+    /**
+     *
+     * @param status
+     * @return
+     * @throws Exception
+     */
     public List<Object> listarPedidos(String status) throws Exception {
         List<Object> listaPedidos = new ArrayList<>();
 
@@ -312,6 +378,12 @@ public class PedidoDao extends Conexao implements Dao {
         return listaPedidos;
     }
 
+    /**
+     *
+     * @param idPedido
+     * @return
+     * @throws Exception
+     */
     public Double retornarDimensaoTotal(Integer idPedido) throws Exception {
         Double dimensaoTotal = 0.0;
 

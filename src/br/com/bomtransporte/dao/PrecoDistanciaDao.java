@@ -10,6 +10,12 @@ import java.util.List;
  * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
  */
 public class PrecoDistanciaDao extends Conexao{
+
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     public void inserir(Object obj) throws Exception {
         PrecoDistancia precoDistancia = (PrecoDistancia) obj;
         
@@ -28,6 +34,11 @@ public class PrecoDistanciaDao extends Conexao{
         close();
     }
     
+    /**
+     *
+     * @param obj
+     * @throws Exception
+     */
     public void alterarExcluir(Object obj) throws Exception {
         PrecoDistancia precoDistancia = (PrecoDistancia) obj;
 
@@ -46,7 +57,12 @@ public class PrecoDistanciaDao extends Conexao{
             close();
     }
 
-    
+    /**
+     *
+     * @param origemDestino
+     * @return
+     * @throws Exception
+     */
     public PrecoDistancia verificarSeExiste(String origemDestino) throws Exception {   
         PrecoDistancia pd = null;
         
@@ -67,7 +83,11 @@ public class PrecoDistanciaDao extends Conexao{
         return pd;
     }
     
-    
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public List<PrecoDistancia> listarTodosAtivados() throws Exception{
         List<PrecoDistancia> listaPreco = new ArrayList<>();
         PrecoDistancia precoDistancia;
@@ -90,6 +110,11 @@ public class PrecoDistanciaDao extends Conexao{
         return listaPreco;
     }
     
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public PrecoDistancia retornarPrecoDistancia() throws Exception{
         PrecoDistancia precoDistancia = null;
         

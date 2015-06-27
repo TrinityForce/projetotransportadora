@@ -47,6 +47,9 @@ public class Caminhao {
 
     private static String rota;
 
+    /**
+     *
+     */
     public Caminhao() {
     }
 
@@ -85,34 +88,66 @@ public class Caminhao {
         return dimensaoCubica;
     }
 
+    /**
+     *
+     * @return
+     */
     public static List<Integer> getListaCarga() {
         return listaCarga;
     }
 
+    /**
+     *
+     * @param listaCarga
+     */
     public static void setListaCarga(List<Integer> listaCarga) {
         Caminhao.listaCarga = listaCarga;
     }
 
+    /**
+     *
+     * @return
+     */
     public static String getRota() {
         return rota;
     }
 
+    /**
+     *
+     * @param rota
+     */
     public static void setRota(String rota) {
         Caminhao.rota = rota;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Double getPesoDasCargasNoCaminhao() {
         return pesoDasCargasNoCaminhao;
     }
 
+    /**
+     *
+     * @param pesoDasCargasNoCaminhao
+     */
     public static void setPesoDasCargasNoCaminhao(Double pesoDasCargasNoCaminhao) {
         Caminhao.pesoDasCargasNoCaminhao += pesoDasCargasNoCaminhao;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Double getDimensaoCubicaPreenchida() {
         return dimensaoCubicaPreenchida;
     }
 
+    /**
+     *
+     * @param dimensaoCubicaPreenchida
+     */
     public static void setDimensaoCubicaPreenchida(Double dimensaoCubicaPreenchida) {
         Caminhao.dimensaoCubicaPreenchida += dimensaoCubicaPreenchida;
     }

@@ -85,6 +85,11 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jTF_Nome.setEnabled(false);
     }
 
+    /**
+     *
+     * @param str
+     * @return
+     */
     public String capitalize(String str){
         return WordUtils.capitalizeFully(str.trim());
     }

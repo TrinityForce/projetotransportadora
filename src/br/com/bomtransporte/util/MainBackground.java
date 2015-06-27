@@ -3,8 +3,18 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author JhonattanSouza_
+ */
 public class MainBackground extends JDesktopPane{
     private final Image imagem;
+
+    /**
+     *
+     * @param imagem
+     */
     public MainBackground(String imagem) {
         this.imagem = new ImageIcon(imagem).getImage();
     }

@@ -11,6 +11,9 @@ public final class JTFSomenteNumeros extends JTextField {
 
     private int maximoCaracteres = -1;
 
+    /**
+     *
+     */
     public JTFSomenteNumeros() {
         super();
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -21,6 +24,10 @@ public final class JTFSomenteNumeros extends JTextField {
         });
     }
 
+    /**
+     *
+     * @param maximo
+     */
     public JTFSomenteNumeros(int maximo) {
         super();
         setMaximoCaracteres(maximo);
@@ -43,10 +50,18 @@ public final class JTFSomenteNumeros extends JTextField {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMaximoCaracteres() {
         return maximoCaracteres;
     }
 
+    /**
+     *
+     * @param maximoCaracteres
+     */
     public void setMaximoCaracteres(int maximoCaracteres) {
         this.maximoCaracteres = maximoCaracteres;
     }

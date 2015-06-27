@@ -36,11 +36,28 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    public static Integer idCliente, ativarAba, idPedido_CliSelecionado,
-            idPedidoSelecionado;
+    public static Integer idCliente,
+
+    /**
+     *
+     */
+    ativarAba,
+
+    /**
+     *
+     */
+    idPedido_CliSelecionado,
+
+    /**
+     *
+     */
+    idPedidoSelecionado;
     private String statusPedidoSelecionado;
     private Boolean pesquisarPedidoPelaData = false;
 
+    /**
+     *
+     */
     public FormClientePedido() {
         initComponents();
         preencherTabela();
@@ -70,7 +87,13 @@ public class FormClientePedido extends javax.swing.JFrame {
     }
 
     //verifica se a string so contem numeros e retorna true
-    public static boolean isNumeric(String string) {
+
+    /**
+     *
+     * @param string
+     * @return
+     */
+        public static boolean isNumeric(String string) {
         return string.matches("^[-+]?\\d+(\\.\\d+)?$");
     }
 
@@ -735,6 +758,10 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_RelatorioActionPerformed
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String args[]) {
         /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
