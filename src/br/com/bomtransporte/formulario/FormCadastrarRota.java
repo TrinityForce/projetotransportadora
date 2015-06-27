@@ -208,11 +208,12 @@ public class FormCadastrarRota extends javax.swing.JFrame {
                     pdd.inserir(precoDistancia);
                     JOptionPane.showMessageDialog(this, "ROTA CADASTRADA COM SUCESSO!");
                     preencherComboPreco();
+                    jFTF_Valor.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Rota já cadastrada no banco, para alterar o valor vá para lá ->");
+                    JOptionPane.showMessageDialog(this, "ROTA JÁ CADASTRADA NO SISTEMA!\n, PARA ALTERAR O VALOR REALIZE A EXCLUSÃO DA ROTA ATUAL E CADASTRE NOVAMENTE COM O NOVO PREÇO.");
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Campos Necessários Vazios.");
+                JOptionPane.showMessageDialog(this, "CAMPOS NECESSÁRIOS VAZIOS.");
             }
         }catch(NumberFormatException nex){
             JOptionPane.showMessageDialog(this, "CAMPO VALOR VAZIO", "CAMPO VAZIO", JOptionPane.ERROR_MESSAGE);

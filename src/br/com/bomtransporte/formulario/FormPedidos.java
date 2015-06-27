@@ -4,8 +4,10 @@ import br.com.bomtransporte.dao.CargaDao;
 import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.modelo.Caminhao;
 import br.com.bomtransporte.modelo.Carga;
+import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
+import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Calc;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -127,10 +129,10 @@ public class FormPedidos extends javax.swing.JFrame {
         jSP_Pedidos = new javax.swing.JScrollPane();
         jTB_Pedidos = new javax.swing.JTable();
         jCB_Rotas = new javax.swing.JComboBox();
+        jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Status1 = new javax.swing.JLabel();
         jCB_Status = new javax.swing.JComboBox();
         jBT_AlterarStatusPedido = new javax.swing.JButton();
-        jBT_Voltar = new javax.swing.JButton();
         jLB_Status = new javax.swing.JLabel();
         jBT_AdicionarPedidoNoCaminhao = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
@@ -159,11 +161,25 @@ public class FormPedidos extends javax.swing.JFrame {
         jPN_Background.add(jSP_Pedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 700, 320));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
-        jPN_Background.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 190, 40));
+        jPN_Background.add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 190, 40));
 
-        jLB_Status1.setText("rotas");
-        jPN_Background.add(jLB_Status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, -1, -1));
+        jLB_Fechar4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLB_Fechar4.setForeground(new java.awt.Color(255, 255, 255));
+        jLB_Fechar4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLB_Fechar4.setText("X");
+        jLB_Fechar4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLB_Fechar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLB_Fechar4MouseReleased(evt);
+            }
+        });
+        jPN_Background.add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
+        jLB_Status1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Status1.setText("Rota:");
+        jPN_Background.add(jLB_Status1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+
+        jCB_Status.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada" }));
         jCB_Status.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -175,7 +191,7 @@ public class FormPedidos extends javax.swing.JFrame {
                 jCB_StatusActionPerformed(evt);
             }
         });
-        jPN_Background.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 190, 40));
+        jPN_Background.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 40));
 
         jBT_AlterarStatusPedido.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarStatusPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -186,31 +202,22 @@ public class FormPedidos extends javax.swing.JFrame {
                 jBT_AlterarStatusPedidoActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 220, 70));
+        jPN_Background.add(jBT_AlterarStatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 220, 70));
 
-        jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/retornar-icon.png"))); // NOI18N
-        jBT_Voltar.setText("Voltar");
-        jBT_Voltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_VoltarActionPerformed(evt);
-            }
-        });
-        jPN_Background.add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, -1, 60));
-
+        jLB_Status.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Status.setText("Status:");
-        jPN_Background.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        jPN_Background.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
         jBT_AdicionarPedidoNoCaminhao.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarPedidoNoCaminhao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AdicionarPedidoNoCaminhao.setText("Add ao caminhao");
+        jBT_AdicionarPedidoNoCaminhao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/add-icon.png"))); // NOI18N
+        jBT_AdicionarPedidoNoCaminhao.setText("<html>Adicionar Carga <br/>ao Caminhão</html>");
         jBT_AdicionarPedidoNoCaminhao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AdicionarPedidoNoCaminhaoActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_AdicionarPedidoNoCaminhao, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, 220, 70));
+        jPN_Background.add(jBT_AdicionarPedidoNoCaminhao, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 220, 70));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/relat-background.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -275,12 +282,7 @@ public class FormPedidos extends javax.swing.JFrame {
         preencherTabelaPedido();
     }//GEN-LAST:event_jCB_StatusItemStateChanged
 
-    private void jBT_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VoltarActionPerformed
-
-    }//GEN-LAST:event_jBT_VoltarActionPerformed
-
     private void jBT_AdicionarPedidoNoCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarPedidoNoCaminhaoActionPerformed
-
         /* 
          *quantidade de cargas que nao se foi possivel adicionar ao caminhao
          */
@@ -343,6 +345,10 @@ public class FormPedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_StatusActionPerformed
 
+    private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
+        FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
+    }//GEN-LAST:event_jLB_Fechar4MouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -378,10 +384,10 @@ public class FormPedidos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AdicionarPedidoNoCaminhao;
     private javax.swing.JButton jBT_AlterarStatusPedido;
-    private javax.swing.JButton jBT_Voltar;
     private javax.swing.JComboBox jCB_Rotas;
     private javax.swing.JComboBox jCB_Status;
     private javax.swing.JLabel jLB_Background;
+    private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JLabel jLB_Status;
     private javax.swing.JLabel jLB_Status1;
     private javax.swing.JPanel jPN_Background;

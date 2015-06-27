@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.CidadeDao;
@@ -15,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
+ * @author Gustavo Carvalho
  */
 public class FormCadastrarCep extends javax.swing.JFrame {
 
@@ -71,15 +65,9 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         EnderecoDao enderecoDao = new EnderecoDao();
         try {
             Endereco endereco = enderecoDao.retornarEndereco(cep);
-            if (endereco != null) {
-
-                return true;
-            } else {
-
-                return false;
-            }
+            return endereco != null;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Um erro ocorreu ao verificar o cep: " + ex.getMessage(), "ERRO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERRO INESPERADO, POR FAVOR CONTATE O ADMINISTRADOR DO SISTEMA.\n" + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.INFORMATION_MESSAGE);
         }
         return false;
     }
@@ -111,30 +99,43 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         jBT_Salvar = new javax.swing.JButton();
         jCB_UF = new javax.swing.JComboBox();
         jCB_Cidade = new javax.swing.JComboBox();
+        jBT_Voltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(512, 258));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jLB_Background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 150, -1, -1));
 
         jLB_CEP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_CEP1.setText("CEP *");
+        getContentPane().add(jLB_CEP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
 
         jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTF_CepActionPerformed(evt);
             }
         });
+        getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 47, 180, 30));
+        getContentPane().add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 180, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Logradouro");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        getContentPane().add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 395, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel17.setText("UF");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 85, 30, 40));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Cidade");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, 40));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Bairro");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -145,6 +146,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                 jBT_SalvarActionPerformed(evt);
             }
         });
+        getContentPane().add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
 
         jCB_UF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
         jCB_UF.addItemListener(new java.awt.event.ItemListener() {
@@ -152,86 +154,21 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                 jCB_UFItemStateChanged(evt);
             }
         });
+        getContentPane().add(jCB_UF, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 88, 72, 40));
 
         jCB_Cidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        getContentPane().add(jCB_Cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 280, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLB_CEP1)
-                                        .addGap(55, 55, 55)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jCB_UF, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(51, 51, 51)
-                                                .addComponent(jLabel16))
-                                            .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jCB_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jBT_Salvar)))
-                .addGap(0, 20, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 327, Short.MAX_VALUE)
-                    .addComponent(jLB_Background1)
-                    .addGap(0, 196, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLB_CEP1)
-                            .addComponent(jTF_Cep, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
-                            .addComponent(jTF_Bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCB_Cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(jCB_UF, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTF_Logradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jBT_Salvar)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 129, Short.MAX_VALUE)
-                    .addComponent(jLB_Background1)
-                    .addGap(0, 129, Short.MAX_VALUE)))
-        );
+        jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/retornar-icon.png"))); // NOI18N
+        jBT_Voltar.setText("Voltar");
+        jBT_Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_VoltarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, -1, 60));
 
         pack();
         setLocationRelativeTo(null);
@@ -263,18 +200,18 @@ public class FormCadastrarCep extends javax.swing.JFrame {
 
                     enderecoDao.inserir(endereco);
 
-                    JOptionPane.showMessageDialog(this, "CEP incluido com sucesso!", "SUCESSO",
+                    JOptionPane.showMessageDialog(this, "CEP INCLUÍDO COM SUCESSO!", "SUCESSO",
                             JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e) {
                     Logger.getLogger(FormCadastrarCep.class.getName()).log(Level.SEVERE, null, e);
 
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Este cep ja esta cadastrado no sistema!",
-                        "CEP JA ESTA CADASTRADO", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ESTE CEP JÁ ESTÁ CADASTRADO NO SISTEMA.!",
+                        "CEP JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Campos necessários em branco.", "CAMPOS EM BRANCO",
+            JOptionPane.showMessageDialog(this, "CAMPOS NECESSÁRIOS EM BRANCO.", "CAMPOS EM BRANCO",
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBT_SalvarActionPerformed
@@ -282,9 +219,11 @@ public class FormCadastrarCep extends javax.swing.JFrame {
     private void jCB_UFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_UFItemStateChanged
         jCB_Cidade.removeAllItems();
         preencherJcbCidade((String) jCB_UF.getSelectedItem());
-
-
     }//GEN-LAST:event_jCB_UFItemStateChanged
+
+    private void jBT_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VoltarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBT_VoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,19 +241,16 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormCadastrarCep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormCadastrarCep.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FormCadastrarCep().setVisible(true);
             }
@@ -323,6 +259,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_Salvar;
+    private javax.swing.JButton jBT_Voltar;
     private javax.swing.JComboBox jCB_Cidade;
     private javax.swing.JComboBox jCB_UF;
     private javax.swing.JLabel jLB_Background1;

@@ -2,6 +2,7 @@ package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.util.MainBackground;
 import java.awt.GridLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 /**
@@ -15,9 +16,10 @@ public class FormBackground extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLayout(new GridLayout());
-        mbg = new MainBackground("src/br/com/bomtransporte/imagem/background.jpg");
+        mbg = new MainBackground("src/br/com/bomtransporte/imagem/intro-bg.jpg");
         getContentPane().add(mbg);
         mbg.setVisible(true);
+        this.setIconImage(new ImageIcon("src/br/com/bomtransporte/imagem/icones/transito-icon.png").getImage()); 
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +27,7 @@ public class FormBackground extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Pedidos e Fretes - BomTransporte");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -38,6 +41,7 @@ public class FormBackground extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {

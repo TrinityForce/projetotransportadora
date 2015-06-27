@@ -28,7 +28,9 @@ public class FormFuncionario extends javax.swing.JFrame {
 
         jLB_BemVindo = new javax.swing.JLabel();
         jLB_Nome = new javax.swing.JLabel();
+        jBT_EnviarPedidos = new javax.swing.JButton();
         jBT_Cliente = new javax.swing.JButton();
+        jBT_Relatorios = new javax.swing.JButton();
         jBT_AlterarSenha = new javax.swing.JButton();
         jBT_Pedido = new javax.swing.JButton();
         jBT_Sair = new javax.swing.JButton();
@@ -49,6 +51,17 @@ public class FormFuncionario extends javax.swing.JFrame {
         jLB_Nome.setText("NAME_PLACEHOLDER");
         getContentPane().add(jLB_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, 40));
 
+        jBT_EnviarPedidos.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_EnviarPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_EnviarPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/transito-icon.png"))); // NOI18N
+        jBT_EnviarPedidos.setText("Enviar Pedidos");
+        jBT_EnviarPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_EnviarPedidosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBT_EnviarPedidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 360, 290, 100));
+
         jBT_Cliente.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Cliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_Cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/cliente-icon.png"))); // NOI18N
@@ -59,6 +72,17 @@ public class FormFuncionario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jBT_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 290, 100));
+
+        jBT_Relatorios.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Relatorios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Relatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/relat-icon.png"))); // NOI18N
+        jBT_Relatorios.setText("Gerar Relatórios");
+        jBT_Relatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_RelatoriosActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jBT_Relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 240, 290, 100));
 
         jBT_AlterarSenha.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarSenha.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -139,6 +163,18 @@ public class FormFuncionario extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jBT_LogoutActionPerformed
 
+    private void jBT_RelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_RelatoriosActionPerformed
+        FormDashboardRelat formDash = new FormDashboardRelat();
+        formDash.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBT_RelatoriosActionPerformed
+
+    private void jBT_EnviarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_EnviarPedidosActionPerformed
+        FormPedidos formPedidos = new FormPedidos();
+        formPedidos.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jBT_EnviarPedidosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -176,8 +212,10 @@ public class FormFuncionario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AlterarSenha;
     private javax.swing.JButton jBT_Cliente;
+    private javax.swing.JButton jBT_EnviarPedidos;
     private javax.swing.JButton jBT_Logout;
     private javax.swing.JButton jBT_Pedido;
+    private javax.swing.JButton jBT_Relatorios;
     private javax.swing.JButton jBT_Sair;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_BemVindo;
