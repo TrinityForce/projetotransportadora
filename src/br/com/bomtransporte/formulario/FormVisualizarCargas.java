@@ -79,9 +79,11 @@ public class FormVisualizarCargas extends javax.swing.JFrame {
         jPN_Background = new javax.swing.JPanel();
         jSP_Tabela = new javax.swing.JScrollPane();
         jTB_Cargas = new javax.swing.JTable();
+        jLB_Fechar5 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -100,14 +102,32 @@ public class FormVisualizarCargas extends javax.swing.JFrame {
         ));
         jSP_Tabela.setViewportView(jTB_Cargas);
 
-        jPN_Background.add(jSP_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 740, 400));
-        jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        jPN_Background.add(jSP_Tabela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 540, 240));
 
-        getContentPane().add(jPN_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        jLB_Fechar5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLB_Fechar5.setForeground(new java.awt.Color(255, 255, 255));
+        jLB_Fechar5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLB_Fechar5.setText("X");
+        jLB_Fechar5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLB_Fechar5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLB_Fechar5MouseReleased(evt);
+            }
+        });
+        jPN_Background.add(jLB_Fechar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 20, 20));
+
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cep-bg.png"))); // NOI18N
+        jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 300));
+
+        getContentPane().add(jPN_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 300));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLB_Fechar5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar5MouseReleased
+        dispose();
+    }//GEN-LAST:event_jLB_Fechar5MouseReleased
 
     /**
      * @param args the command line arguments
@@ -142,6 +162,8 @@ public class FormVisualizarCargas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLB_Background;
+    private javax.swing.JLabel jLB_Fechar4;
+    private javax.swing.JLabel jLB_Fechar5;
     private javax.swing.JPanel jPN_Background;
     private javax.swing.JScrollPane jSP_Tabela;
     private javax.swing.JTable jTB_Cargas;

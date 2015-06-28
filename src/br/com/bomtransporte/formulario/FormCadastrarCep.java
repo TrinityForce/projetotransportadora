@@ -81,7 +81,6 @@ public class FormCadastrarCep extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLB_Background1 = new javax.swing.JLabel();
         jLB_CEP1 = new javax.swing.JLabel();
         jTF_Cep = new javax.swing.JTextField();
         try{ 
@@ -100,42 +99,44 @@ public class FormCadastrarCep extends javax.swing.JFrame {
         jCB_UF = new javax.swing.JComboBox();
         jCB_Cidade = new javax.swing.JComboBox();
         jBT_Voltar = new javax.swing.JButton();
+        jLB_Background1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(600, 300));
+        setMinimumSize(new java.awt.Dimension(600, 300));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(512, 258));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jLB_Background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(419, 150, -1, -1));
 
         jLB_CEP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_CEP1.setText("CEP *");
-        getContentPane().add(jLB_CEP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jLB_CEP1.setText("CEP");
+        getContentPane().add(jLB_CEP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTF_CepActionPerformed(evt);
             }
         });
-        getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 47, 180, 30));
-        getContentPane().add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 180, 30));
+        getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 180, 30));
+        getContentPane().add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 190, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Logradouro");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
-        getContentPane().add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 395, 30));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
+        getContentPane().add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 395, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel17.setText("UF");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 85, 30, 40));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 30, 40));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Cidade");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, 40));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, -1, 40));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Bairro");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, -1, -1));
 
         jBT_Salvar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Salvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -146,7 +147,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                 jBT_SalvarActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+        getContentPane().add(jBT_Salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, -1, -1));
 
         jCB_UF.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
         jCB_UF.addItemListener(new java.awt.event.ItemListener() {
@@ -154,10 +155,10 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                 jCB_UFItemStateChanged(evt);
             }
         });
-        getContentPane().add(jCB_UF, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 88, 72, 40));
+        getContentPane().add(jCB_UF, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 72, 40));
 
         jCB_Cidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        getContentPane().add(jCB_Cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 280, 40));
+        getContentPane().add(jCB_Cidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 280, 40));
 
         jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -168,7 +169,10 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                 jBT_VoltarActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, -1, 60));
+        getContentPane().add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, 60));
+
+        jLB_Background1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cep-bg.png"))); // NOI18N
+        getContentPane().add(jLB_Background1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 300));
 
         pack();
         setLocationRelativeTo(null);
