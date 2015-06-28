@@ -171,10 +171,39 @@ public class FormClientePedido extends javax.swing.JFrame {
             } else {
                 listaPedido = pedidoDao.listarPedidos(idCliente);
             }
+
             if (listaPedido != null && listaPedido.size() > 0) {
                 for (Object pedidoAtual : listaPedido) {
                     Pedido pedido = (Pedido) pedidoAtual;
-                    dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+
+                    switch (jCB_Status.getSelectedIndex()) {
+                        case 0:
+                            dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+                            break;
+                        case 1:
+                            if (pedido.getStatusPedido().equals("Aguardando")) {
+                                dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+                            }
+                            break;
+                        case 2:
+                            if (pedido.getStatusPedido().equals("Saiu para entrega")) {
+                                dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+                            }
+
+                            break;
+                        case 3:
+                            if (pedido.getStatusPedido().equals("Entregue")) {
+                                dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+                            }
+
+                            break;
+                        case 4:
+                            if (pedido.getStatusPedido().equals("Carga extraviada")) {
+                                dados.add(new Object[]{pedido.getIdPedido(), pedido.getProtocolo(), pedido.getDataVenda(), pedido.getDesconto(), pedido.getStatusPedido()});
+                            }
+
+                    }
+
                 }
             }
 
@@ -344,6 +373,8 @@ public class FormClientePedido extends javax.swing.JFrame {
         jCB_AnoInicial = new javax.swing.JComboBox();
         jCB_AnoFinal = new javax.swing.JComboBox();
         jBT_ListarTodos = new javax.swing.JButton();
+        jLB_Status = new javax.swing.JLabel();
+        jCB_Status = new javax.swing.JComboBox();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -507,10 +538,10 @@ public class FormClientePedido extends javax.swing.JFrame {
 
         jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao4.setText("Total:");
-        jPN_CadastrarPedido.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        jPN_CadastrarPedido.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, -1, -1));
 
         jTF_Total.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_CadastrarPedido.add(jTF_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 430, 160, 30));
+        jPN_CadastrarPedido.add(jTF_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 160, 30));
 
         jBT_PesquisarPedidoPelaData.setBackground(new java.awt.Color(0, 0, 0));
         jBT_PesquisarPedidoPelaData.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -562,7 +593,25 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_ListarTodosActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_ListarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 160, 80));
+        jPN_CadastrarPedido.add(jBT_ListarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 130, 60));
+
+        jLB_Status.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Status.setText("Status:");
+        jPN_CadastrarPedido.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
+
+        jCB_Status.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
+        jCB_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada" }));
+        jCB_Status.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCB_StatusItemStateChanged(evt);
+            }
+        });
+        jCB_Status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCB_StatusActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 190, 40));
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 
@@ -652,10 +701,9 @@ public class FormClientePedido extends javax.swing.JFrame {
         }
         //cria uma list com os status do pedido
         List<String> optionList = new ArrayList<>();
-
         optionList.add("Saiu para entrega");
         optionList.add("Entregue");
-        optionList.add("Extraviado");
+        optionList.add("Carga extraviada");
 
         //mostra somente as opcoes necessarias de acordo com a regra de negocio
         switch (statusPedidoSelecionado) {
@@ -665,9 +713,10 @@ public class FormClientePedido extends javax.swing.JFrame {
             case "Saiu para entrega":
                 optionList.remove(0);
                 break;
-            case "Extraviado":
-                optionList.remove(2);
-                break;
+            case "Carga extraviada":
+                JOptionPane.showMessageDialog(this, "A carga sumiu", "Carga extraviada", JOptionPane.INFORMATION_MESSAGE);
+
+                return;
             default:
                 JOptionPane.showMessageDialog(this, "Esse pedido já foi entregue!", "PEDIDO ENTREGUE", JOptionPane.INFORMATION_MESSAGE);
                 return;
@@ -733,6 +782,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jBT_ListarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ListarTodosActionPerformed
         pesquisarPedidoPelaData = false;
+        jCB_Status.setSelectedIndex(0);
         preencherTabelaPedido();
     }//GEN-LAST:event_jBT_ListarTodosActionPerformed
 
@@ -745,6 +795,14 @@ public class FormClientePedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ERRO INESPERADO, POR FAVOR CONTATE O ADMINISTRADOR DO SISTEMA.\n" + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jBT_RelatorioActionPerformed
+
+    private void jCB_StatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_StatusItemStateChanged
+        preencherTabelaPedido();
+    }//GEN-LAST:event_jCB_StatusItemStateChanged
+
+    private void jCB_StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCB_StatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCB_StatusActionPerformed
 
     /**
      *
@@ -796,9 +854,11 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JComboBox jCB_AnoInicial;
     private javax.swing.JComboBox jCB_DataFinal;
     private javax.swing.JComboBox jCB_DataInicial;
+    private javax.swing.JComboBox jCB_Status;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Descricao4;
     private javax.swing.JLabel jLB_Fechar4;
+    private javax.swing.JLabel jLB_Status;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
