@@ -199,6 +199,7 @@ public class FormCadastrarCep extends javax.swing.JFrame {
                     endereco.setUf(campos.get(4));
 
                     enderecoDao.inserir(endereco);
+                    this.dispose();
 
                     JOptionPane.showMessageDialog(this, "CEP INCLUÍDO COM SUCESSO!", "SUCESSO",
                             JOptionPane.INFORMATION_MESSAGE);

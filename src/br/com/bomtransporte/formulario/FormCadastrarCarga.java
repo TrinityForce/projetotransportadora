@@ -53,6 +53,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
      */
     public FormCadastrarCarga() {
         initComponents();
+        Tela.desabilitarBotoes(jBT_AdicionarCarga, jBT_CadastrarCep);
+        desabilitarCampos(jTF_Bairro, jTF_NomeCidade, jTF_Logradouro, jTF_Uf);
+        jTB_Pedido.setEnabledAt(1, false);
+        jLB_ErroCep.setVisible(false);
         idPedido = FormClientePedido.idPedido_CliSelecionado;
         idCliente = FormClientePedido.idCliente;
         idPedido_CliSelecionado = FormClientePedido.idPedido_CliSelecionado;
@@ -60,10 +64,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         preencherComboPreco();
         preencherComboPeso();
         verificarAba();
-        desabilitarCampos(jTF_Bairro, jTF_NomeCidade, jTF_Logradouro, jTF_Uf);
-        jTB_Pedido.setEnabledAt(1, false);
-        jLB_ErroCep.setVisible(false);
-        Tela.desabilitarBotoes(jBT_AdicionarCarga, jBT_CadastrarCep);
+
     }
 
     private void verificarAba() {
@@ -248,6 +249,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jTF_Uf.setText(endereco.getUf());
                 jTF_NomeCidade.setText(endereco.getNomeCidade());
                 idEndereco = endereco.getId();
+                Tela.desabilitarBotoes(jBT_CadastrarCep);
                 return true;
             } else {
                 jLB_ErroCep.setText("CEP Não Encontrado.");
@@ -751,7 +753,12 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     }//GEN-LAST:event_jTF_CepActionPerformed
 
     private void jBT_VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VerificarActionPerformed
-        verificarCep();
+        if (!jTF_Cep.getText().contains(" ")) {
+            verificarCep();
+        } else {
+            JOptionPane.showMessageDialog(this, "O cep esta em branco !", "CAMPO VAZIO", JOptionPane.INFORMATION_MESSAGE);
+            Tela.desabilitarBotoes(jBT_CadastrarCep);
+        }
     }//GEN-LAST:event_jBT_VerificarActionPerformed
 
     private void jTF_CpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_CpfActionPerformed

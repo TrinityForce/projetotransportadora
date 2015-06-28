@@ -8,6 +8,7 @@ import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.regrasnegocio.ClienteRN;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
+import br.com.bomtransporte.util.Tela;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -28,7 +29,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
     public FormCadastrarCliente() {
         initComponents();
         desabilitarCampos();
-        desabilitarBotao(jBT_Salvar);
+        Tela.desabilitarBotoes(jBT_Salvar, jBT_CadastrarCep);
         jLB_ErroCep.setVisible(false);
     }
 
@@ -77,7 +78,8 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
             } else {
                 jLB_ErroCep.setText("CEP não encontrado.");
                 jLB_ErroCep.setVisible(true);
-                limparCamposCep();
+                Tela.habilitarBotoes(jBT_CadastrarCep);
+
                 return false;
             }
         } catch (Exception ex) {
@@ -125,13 +127,13 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jTF_Telefone2.setText("");
 
     }
-    
+
     /**
      *
      * @param str
      * @return
      */
-    public String capitalize(String str){
+    public String capitalize(String str) {
         return WordUtils.capitalizeFully(str.trim());
     }
 
@@ -151,7 +153,6 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
 //        }
 //        return vazio;
 //    }
-    
     private boolean verificarCamposVazios(List<String> list) {
         Boolean vazio = true;
         if (list != null && !list.isEmpty()) {
@@ -181,6 +182,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
         jBT_Salvar = new javax.swing.JButton();
         jBT_Verificar = new javax.swing.JButton();
         jTF_Nome = new javax.swing.JTextField();
+        jBT_CadastrarCep = new javax.swing.JButton();
         jTF_Cpf = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("###.###.###-##"); 
@@ -292,6 +294,16 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
             }
         });
         jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 210, 30));
+
+        jBT_CadastrarCep.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_CadastrarCep.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jBT_CadastrarCep.setText("Cadastrar CEP");
+        jBT_CadastrarCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_CadastrarCepActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_CadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 120, 30));
         jPN_Background.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 210, 30));
         jPN_Background.add(jTF_Telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 30));
         jPN_Background.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 210, 30));
@@ -453,15 +465,15 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
                         cliente.setDataCadastro(Datas.dataAtual());
                         cliente.setTelefone2(telefone2);
                         cliente.setCelular(celular);
-                        
-                       if(!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2)))){
+
+                        if (!clienteDao.verificarCPF(ajustarCpf(listaCampos.get(2)))) {
                             clienteDao.inserir(cliente);
                             JOptionPane.showMessageDialog(this, "Cliente " + listaCampos.get(0) + " incluido com sucesso!", "SUCESSO", JOptionPane.INFORMATION_MESSAGE);
                             limparCamposCep();
                             limparCamposCliente();
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(this, "CPF JÁ ESTÁ CADASTRADO NO SISTEMA.", "CPF JÁ CADASTRADO", JOptionPane.ERROR_MESSAGE);
-                        } 
+                        }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Erro Inesperado. Por favor tente novamente" + ex.getMessage(), "ERRO INESPERADO", JOptionPane.ERROR_MESSAGE);
                     }
@@ -483,12 +495,22 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_NovoActionPerformed
 
     private void jBT_VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VerificarActionPerformed
-        verificarCep();
+        if (!jTF_Cep.getText().contains(" ")) {
+            verificarCep();
+        } else {
+            JOptionPane.showMessageDialog(this, "O cep esta em branco !", "CAMPO VAZIO", JOptionPane.INFORMATION_MESSAGE);
+
+        }
     }//GEN-LAST:event_jBT_VerificarActionPerformed
 
     private void jLB_FecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_FecharMouseReleased
         FuncionarioRN.chamarTela(FuncionarioSingleton.getFuncionario().getUsuario().getIdPerfil(), this);
     }//GEN-LAST:event_jLB_FecharMouseReleased
+
+    private void jBT_CadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarCepActionPerformed
+        FormCadastrarCep formCep = new FormCadastrarCep();
+        formCep.setVisible(true);
+    }//GEN-LAST:event_jBT_CadastrarCepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,6 +545,7 @@ public class FormCadastrarCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBT_CadastrarCep;
     private javax.swing.JButton jBT_Novo;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;

@@ -36,7 +36,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    public static Integer idCliente,ativarAba,idPedido_CliSelecionado,idPedidoSelecionado;
+    public static Integer idCliente, ativarAba, idPedido_CliSelecionado, idPedidoSelecionado;
     private String statusPedidoSelecionado;
     private Boolean pesquisarPedidoPelaData = false;
 
@@ -72,13 +72,12 @@ public class FormClientePedido extends javax.swing.JFrame {
     }
 
     //verifica se a string so contem numeros e retorna true
-
     /**
      *
      * @param string
      * @return
      */
-        public static boolean isNumeric(String string) {
+    public static boolean isNumeric(String string) {
         return string.matches("^[-+]?\\d+(\\.\\d+)?$");
     }
 
@@ -96,8 +95,13 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Date getJcbFinalDate() {
         Integer finalMonth = jCB_DataFinal.getSelectedIndex() + 1;
         Integer finalYear = (Integer) jCB_AnoFinal.getSelectedItem();
+        Date finalDate;
 
-        Date finalDate = Datas.parseDate("0" + finalMonth + " 21 " + finalYear);
+        if (finalMonth > 9) {
+            finalDate = Datas.parseDate(finalMonth + " 21 " + finalYear);
+        } else {
+            finalDate = Datas.parseDate("0" + finalMonth + " 21 " + finalYear);
+        }
 
         System.out.println("final jdbc date " + finalDate);
 
@@ -736,7 +740,7 @@ public class FormClientePedido extends javax.swing.JFrame {
         try {
             clienteDao = new ClienteDao();
             List lista = clienteDao.listar();
-            Relatorios.gerarRelatorio("relatoriocliente.jrxml",lista,null);
+            Relatorios.gerarRelatorio("relatoriocliente.jrxml", lista, null);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "ERRO INESPERADO, POR FAVOR CONTATE O ADMINISTRADOR DO SISTEMA.\n" + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.INFORMATION_MESSAGE);
         }
