@@ -60,6 +60,8 @@ public class FuncionarioDao extends Conexao implements Dao {
             close();
         } catch (SQLException sqlex) {
             con.rollback();
+        }finally{
+            close();
         }
     }
 
@@ -99,6 +101,8 @@ public class FuncionarioDao extends Conexao implements Dao {
             close();
         } catch (SQLException sqlex) {
             con.rollback();
+        }finally{
+            close();
         }
     }
 

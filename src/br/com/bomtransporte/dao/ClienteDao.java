@@ -124,7 +124,17 @@ public class ClienteDao extends Conexao implements Dao {
      */
     @Override
     public void excluir(Object obj) throws Exception {
+        Cliente cliente = (Cliente) obj;
 
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE IDCLIENTE = ?;");
+        stmt.setInt(1, cliente.getIdCliente());
+        stmt.execute();
+
+        close();
     }
 
     /**

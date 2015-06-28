@@ -36,22 +36,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    public static Integer idCliente,
-
-    /**
-     *
-     */
-    ativarAba,
-
-    /**
-     *
-     */
-    idPedido_CliSelecionado,
-
-    /**
-     *
-     */
-    idPedidoSelecionado;
+    public static Integer idCliente,ativarAba,idPedido_CliSelecionado,idPedidoSelecionado;
     private String statusPedidoSelecionado;
     private Boolean pesquisarPedidoPelaData = false;
 
@@ -328,7 +313,6 @@ public class FormClientePedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLayeredPane1 = new javax.swing.JLayeredPane();
         jTB_CliPedido = new javax.swing.JTabbedPane();
         jPN_PesquisarCliente = new javax.swing.JPanel();
         jSC_Tabela = new javax.swing.JScrollPane();
@@ -812,7 +796,6 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Descricao4;
     private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPN_CadastrarPedido;
     private javax.swing.JPanel jPN_PesquisarCliente;
     private javax.swing.JScrollPane jSC_Tabela;

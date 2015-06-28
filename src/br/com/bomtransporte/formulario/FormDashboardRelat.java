@@ -2,6 +2,7 @@ package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.ClienteDao;
 import br.com.bomtransporte.dao.FuncionarioDao;
+import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Relatorios;
@@ -18,6 +19,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
     private List lista;
     private ClienteDao clienteDao;
     private FuncionarioDao funcionarioDao;
+    private PedidoDao pedidoDao;
     
     /**
      * Creates new form FormDashboardRelat
@@ -201,6 +203,9 @@ public class FormDashboardRelat extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jBT_VendasMouseExited(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jBT_VendasMouseReleased(evt);
+            }
         });
         jPN_Background.add(jBT_Vendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 150, 150));
 
@@ -353,6 +358,18 @@ public class FormDashboardRelat extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "ERRO INESPERADO: " + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.WARNING_MESSAGE);
         }    
     }//GEN-LAST:event_jBT_FuncMouseReleased
+
+    private void jBT_VendasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_VendasMouseReleased
+        try {
+            pedidoDao = new PedidoDao();
+            lista = pedidoDao.listar();
+            Relatorios.gerarRelatorio("relatoriopedidos.jrxml",lista,null);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(this, "ERRO INESPERADO: " + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "ERRO INESPERADO: " + ex.getMessage(), "ERRO INESPERADO.", JOptionPane.WARNING_MESSAGE);
+        }    
+    }//GEN-LAST:event_jBT_VendasMouseReleased
 
     /**
      * @param args the command line arguments
