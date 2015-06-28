@@ -6,15 +6,15 @@ package br.com.bomtransporte.modelo;
  */
 public class Veiculo {
     private Integer idVeiculo;
-    private String nomeVeiculo;
+    private String tipoVeiculo;
     private String status;
 
     public Veiculo() {
     }
 
-    public Veiculo(Integer idVeiculo, String nomeVeiculo, String status) {
+    public Veiculo(Integer idVeiculo, String tipoVeiculo, String status) {
         this.idVeiculo = idVeiculo;
-        this.nomeVeiculo = nomeVeiculo;
+        this.tipoVeiculo = tipoVeiculo;
         this.status = status;
     }
 
@@ -50,15 +50,15 @@ public class Veiculo {
     /**
      * @return the nomeVeiculo
      */
-    public String getNomeVeiculo() {
-        return nomeVeiculo;
+    public String tipoVeiculo() {
+        return tipoVeiculo;
     }
 
     /**
      * @param nomeVeiculo the nomeVeiculo to set
      */
-    public void setNomeVeiculo(String nomeVeiculo) {
-        this.nomeVeiculo = nomeVeiculo;
+    public void tipoVeiculo(String nomeVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
     }
     
     

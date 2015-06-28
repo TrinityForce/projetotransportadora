@@ -715,7 +715,6 @@ public class FormClientePedido extends javax.swing.JFrame {
                 break;
             case "Carga extraviada":
                 JOptionPane.showMessageDialog(this, "A carga sumiu", "Carga extraviada", JOptionPane.INFORMATION_MESSAGE);
-
                 return;
             default:
                 JOptionPane.showMessageDialog(this, "Esse pedido já foi entregue!", "PEDIDO ENTREGUE", JOptionPane.INFORMATION_MESSAGE);

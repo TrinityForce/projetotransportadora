@@ -8,6 +8,7 @@ import br.com.bomtransporte.modelo.Cliente;
 import br.com.bomtransporte.regrasnegocio.ClienteRN;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Datas;
+import br.com.bomtransporte.util.Tela;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -27,6 +28,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
      */
     public FormAlterarCliente() {
         initComponents();
+        Tela.desabilitarBotoes(jBT_CadastrarCep);
         desabilitarCamposCep();
         preencherCampos();
         jLB_ErroCep.setVisible(false);
@@ -108,11 +110,12 @@ public class FormAlterarCliente extends javax.swing.JFrame {
                 jTF_NomeCidade.setText(endereco.getNomeCidade());
                 desabilitarCamposCep();
                 idEndereco = endereco.getId();
+                Tela.desabilitarBotoes(jBT_CadastrarCep);
                 return true;
             } else {
                 jLB_ErroCep.setText("CEP não encontrado.");
                 jLB_ErroCep.setVisible(true);
-                limparCamposCep();
+                Tela.habilitarBotoes(jBT_CadastrarCep);
                 return false;
             }
         } catch (Exception ex) {
@@ -160,13 +163,13 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jTF_Telefone2.setText("");
 
     }
-    
+
     /**
      *
      * @param str
      * @return
      */
-    public String capitalize(String str){
+    public String capitalize(String str) {
         return WordUtils.capitalizeFully(str.trim());
     }
 
@@ -205,6 +208,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
+        jBT_CadastrarCep = new javax.swing.JButton();
         jTF_Telefone = new javax.swing.JTextField();
         try{ 
             javax.swing.text.MaskFormatter telefone= new javax.swing.text.MaskFormatter("(##)####-####"); 
@@ -294,6 +298,16 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         });
         jPN_Background.add(jTF_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 210, 30));
         jPN_Background.add(jTF_Cpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 210, 30));
+
+        jBT_CadastrarCep.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_CadastrarCep.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jBT_CadastrarCep.setText("Cadastrar CEP");
+        jBT_CadastrarCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_CadastrarCepActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_CadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 120, 30));
         jPN_Background.add(jTF_Telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 30));
         jPN_Background.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 210, 30));
         jPN_Background.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 200, 30));
@@ -450,7 +464,12 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_SalvarActionPerformed
 
     private void jBT_VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VerificarActionPerformed
-        verificarCep();
+        if (!jTF_Cep.getText().contains(" ")) {
+            verificarCep();
+        } else {
+            JOptionPane.showMessageDialog(this, "O cep esta em branco !", "CAMPO VAZIO", JOptionPane.INFORMATION_MESSAGE);
+            Tela.desabilitarBotoes(jBT_CadastrarCep);
+        }
     }//GEN-LAST:event_jBT_VerificarActionPerformed
 
     private void jLB_FecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_FecharMouseReleased
@@ -458,6 +477,11 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         formCli.setVisible(true);
         dispose();
     }//GEN-LAST:event_jLB_FecharMouseReleased
+
+    private void jBT_CadastrarCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarCepActionPerformed
+        FormCadastrarCep formCep = new FormCadastrarCep();
+        formCep.setVisible(true);
+    }//GEN-LAST:event_jBT_CadastrarCepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,6 +517,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBT_CadastrarCep;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JButton jBT_Verificar;
     private javax.swing.JLabel jLB_Background;

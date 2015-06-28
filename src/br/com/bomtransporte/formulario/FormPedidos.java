@@ -73,7 +73,7 @@ public class FormPedidos extends javax.swing.JFrame {
         veiculoDao = new VeiculoDao();
         String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
         List<Object> listaPedido = null;
-        final List<Object> listaSelecionada;
+         final List<Object> listaSelecionada;
         try {
             pedidoDao = new PedidoDao();
             switch (jCB_Status.getSelectedIndex()) {
@@ -91,6 +91,7 @@ public class FormPedidos extends javax.swing.JFrame {
                     break;
                 case 4:
                     listaPedido = pedidoDao.listarPedidos("Carga Extraviada");
+                    break;
             }
 
             listaSelecionada = listaPedido;

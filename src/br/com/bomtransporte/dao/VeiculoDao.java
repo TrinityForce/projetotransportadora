@@ -19,8 +19,8 @@ public class VeiculoDao extends Conexao implements Dao{
         
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
         
-        stmt = con.prepareStatement("INSERT INTO VEICULO(NOMEVEICULO,STATUS)VALUES(?,?)");
-        stmt.setString(1, veiculo.getNomeVeiculo());
+        stmt = con.prepareStatement("INSERT INTO VEICULO(tipoVeiculo,STATUS)VALUES(?,?)");
+        stmt.setString(1, veiculo.tipoVeiculo());
         stmt.setString(2, veiculo.getStatus());
         
         stmt.execute();
@@ -56,7 +56,7 @@ public class VeiculoDao extends Conexao implements Dao{
         while (rs.next()) {
             Veiculo v = new Veiculo();
             v.setIdVeiculo(rs.getInt("idVeiculo"));
-            v.setNomeVeiculo(rs.getString("nomeVeiculo"));
+            v.tipoVeiculo(rs.getString("tipoVeiculo"));
             v.setStatus(rs.getString("status"));
             listaVeiculos.add(v);
         }
