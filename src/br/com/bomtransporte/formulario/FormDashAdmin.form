@@ -50,7 +50,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Administrar&lt;br/&gt;Funcion&#xe1;rios&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -67,7 +67,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Cadastrar&lt;br/&gt;Clientes&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -84,7 +84,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Alterar&lt;br/&gt;Senha&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -101,7 +101,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Gerar&lt;br/&gt;Relat&#xf3;rios&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -118,7 +118,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Enviar&lt;br/&gt;Pedidos&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -135,7 +135,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Gerenciar&lt;br/&gt;Peso/Volumes&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -152,7 +152,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Pesquisar Clientes&lt;br/&gt;Cadastrar Pedidos&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -169,7 +169,7 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Administrar&lt;br/&gt;Rotas e Valores&lt;/html&gt;"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -184,7 +184,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/funcionario-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -199,7 +199,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/cliente-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -214,7 +214,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/senha-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -229,7 +229,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/relat-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -244,7 +244,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/caminhao-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -259,7 +259,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/peso-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -274,7 +274,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/pesquisar-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -289,7 +289,7 @@
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/money-icon.png"/>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Constraints>
@@ -312,7 +312,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -338,7 +338,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -364,7 +364,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -390,7 +390,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -416,7 +416,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -442,7 +442,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -468,7 +468,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -494,7 +494,7 @@
               </Border>
             </Property>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -545,7 +545,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Sair do Sistema"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>
@@ -570,7 +570,7 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Logout"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor em Forma de M&#xe3;o"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
           <Events>

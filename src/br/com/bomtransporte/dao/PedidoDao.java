@@ -138,7 +138,7 @@ public class PedidoDao extends Conexao implements Dao {
                 + " SET pc.idPrecoDistancia = ?, p.desconto = ?,"
                 + " p.statusPedido = ?, pe.numero = ?,pe.complemento = ?"
                 + " WHERE p.idPedido = ?; ");
-        stmt.setInt(1, pedido.getIdPrecoDistania());
+        stmt.setInt(1, pedido.getIdPrecoDistancia());
         stmt.setInt(2, pedido.getDesconto());
         stmt.setString(3, pedido.getStatusPedido());
         stmt.setString(4, pedido.getNumero());
@@ -160,8 +160,7 @@ public class PedidoDao extends Conexao implements Dao {
 
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
     @Override
     public List<Object> listar() throws Exception {
@@ -171,7 +170,9 @@ public class PedidoDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("SELECT * FROM Pedido P inner join Pedido_Cli  PC on P.idPedido = PC.idPedido;");
+        stmt = con.prepareStatement("SELECT * FROM Pedido P"
+                + "  inner join Pedido_Cli  PC on P.idPedido = PC.idPedido"
+                + "  join PrecoDistancia pd on pd.idPrecoDistancia = pc.idPrecoDistancia ;");
 
         rs = stmt.executeQuery();
 
@@ -183,6 +184,7 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setDesconto(rs.getInt("P.desconto"));
             pedido.setStatusPedido(rs.getString("P.statusPedido"));
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            pedido.setDestinoUF(rs.getString("pd.origemDestinoUF"));
             listaPedidos.add(pedido);
         }
 
@@ -213,7 +215,8 @@ public class PedidoDao extends Conexao implements Dao {
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
         stmt = con.prepareStatement("SELECT * FROM Pedido P "
-                + "inner join Pedido_Cli  PC on P.idPedido = PC.idPedido"
+                + " inner join Pedido_Cli  PC on P.idPedido = PC.idPedido"
+                + " join PrecoDistancia pd on pd.idPrecoDistancia = pc.idPrecoDistancia "
                 + " where idCliente = ?;");
         stmt.setInt(1, idCliente);
 
@@ -227,7 +230,8 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setDesconto(rs.getInt("P.desconto"));
             pedido.setStatusPedido(rs.getString("P.statusPedido"));
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
-            pedido.setIdPrecoDistania(rs.getInt("PC.idPrecoDistancia"));
+            pedido.setIdPrecoDistancia(rs.getInt("PC.idPrecoDistancia"));
+            pedido.setDestinoUF(rs.getString("pd.origemDestinoUF"));
             listaPedidos.add(pedido);
         }
 
@@ -265,7 +269,7 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setNumero(rs.getString("pe.numero"));
             pedido.setIdPedido_Cli(rs.getInt("pc.idPedido_Cli"));
             pedido.setComplemento(rs.getString("pe.complemento"));
-            pedido.setIdPrecoDistania(rs.getInt("pc.idPrecoDistancia"));
+            pedido.setIdPrecoDistancia(rs.getInt("pc.idPrecoDistancia"));
 
             return pedido;
         }
@@ -355,8 +359,9 @@ public class PedidoDao extends Conexao implements Dao {
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
         stmt = con.prepareStatement("SELECT * FROM Pedido P "
-                + " inner join Pedido_Cli  PC on P.idPedido = PC.idPedido "
-                + " where P.statusPedido = ?;");
+                + "  join Pedido_Cli  PC on P.idPedido = PC.idPedido "
+                + "  join PrecoDistancia pd on pd.idPrecoDistancia = PC.idPrecoDistancia "
+                + "  where P.statusPedido = ?;");
         stmt.setString(1, status);
 
         rs = stmt.executeQuery();
@@ -369,7 +374,8 @@ public class PedidoDao extends Conexao implements Dao {
             pedido.setDesconto(rs.getInt("P.desconto"));
             pedido.setStatusPedido(rs.getString("P.statusPedido"));
             pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
-            pedido.setIdPrecoDistania(rs.getInt("PC.idPrecoDistancia"));
+            pedido.setIdPrecoDistancia(rs.getInt("PC.idPrecoDistancia"));
+            pedido.setDestinoUF(rs.getString("pd.origemDestinoUF"));
             listaPedidos.add(pedido);
         }
 

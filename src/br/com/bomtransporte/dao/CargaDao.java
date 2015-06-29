@@ -72,12 +72,13 @@ public class CargaDao extends Conexao implements Dao {
 
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("UPDATE CARGA SET descricao = ? , idPrecoPeso = ?, quantidade = ?, status = ? where idCarga = ?");
+        stmt = con.prepareStatement("UPDATE CARGA SET descricao = ? , idPrecoPeso = ?, quantidade = ?, idVeiculo=?, status = ? where idCarga = ?");
         stmt.setString(1, carga.getDescricao());
         stmt.setInt(2, carga.getIdPrecoPeso());
         stmt.setInt(3, carga.getQuantidade());
-        stmt.setString(4, carga.getStatus());
-        stmt.setInt(5, carga.getIdCarga());
+        stmt.setInt(4, carga.getIdVeiculo());
+        stmt.setString(5, carga.getStatus());
+        stmt.setInt(6, carga.getIdCarga());
 
         stmt.execute();
 
@@ -107,8 +108,7 @@ public class CargaDao extends Conexao implements Dao {
 
     /**
      *
-     * @return
-     * @throws Exception
+     * @return @throws Exception
      */
     @Override
     public List<Object> listar() throws Exception {

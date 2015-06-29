@@ -5,19 +5,25 @@ package br.com.bomtransporte.modelo;
  * @author JhonattanSouza_
  */
 public class Veiculo {
+
     private Integer idVeiculo;
     private String tipoVeiculo;
     private String status;
+    private String destino;
+    private Double totalPreenchido;
+    private Double pesoPreenchido;
 
     public Veiculo() {
     }
 
-    public Veiculo(Integer idVeiculo, String tipoVeiculo, String status) {
+    public Veiculo(Integer idVeiculo, String tipoVeiculo, String status, String destino, Double totalPreenchido, Double pesoPreenchido) {
         this.idVeiculo = idVeiculo;
         this.tipoVeiculo = tipoVeiculo;
         this.status = status;
+        this.destino = destino;
+        this.totalPreenchido = totalPreenchido;
+        this.pesoPreenchido = pesoPreenchido;
     }
-
 
     /**
      * @return the idVeiculo
@@ -60,6 +66,37 @@ public class Veiculo {
     public void tipoVeiculo(String nomeVeiculo) {
         this.tipoVeiculo = tipoVeiculo;
     }
-    
-    
+
+    public String getTipoVeiculo() {
+        return tipoVeiculo;
+    }
+
+    public void setTipoVeiculo(String tipoVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public Double getTotalPreenchido() {
+        return totalPreenchido;
+    }
+
+    public void setTotalPreenchido(Double totalPreenchido) {
+        this.totalPreenchido = totalPreenchido;
+    }
+
+    public Double getPesoPreenchido() {
+        return pesoPreenchido;
+    }
+
+    public void setPesoPreenchido(Double pesoPreenchido) {
+        this.pesoPreenchido  = pesoPreenchido;
+    }
+
 }

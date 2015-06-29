@@ -16,6 +16,7 @@ public class Carga {
     private Double valor;
     private Double dimensaoCubica;
     private String status;
+    private Integer idVeiculo;
 
     /**
      *
@@ -36,7 +37,7 @@ public class Carga {
      * @param dimensaoCubica
      * @param status
      */
-    public Carga(Integer idCarga, String descricao, String peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli, Integer idPrecoPeso, Double valor, Double dimensaoCubica, String status) {
+    public Carga(Integer idCarga, String descricao, String peso, Integer quantidade, Integer idPedido, Integer idPedido_Cli, Integer idPrecoPeso, Double valor, Double dimensaoCubica, String status, Integer idVeiculo) {
         this.idCarga = idCarga;
         this.descricao = descricao;
         this.peso = peso;
@@ -47,6 +48,7 @@ public class Carga {
         this.valor = valor;
         this.dimensaoCubica = dimensaoCubica;
         this.status = status;
+        this.idVeiculo = idVeiculo;
     }
 
     /**
@@ -197,6 +199,14 @@ public class Carga {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getIdVeiculo() {
+        return idVeiculo;
+    }
+
+    public void setIdVeiculo(Integer idVeiculo) {
+        this.idVeiculo = idVeiculo;
     }
 
 }

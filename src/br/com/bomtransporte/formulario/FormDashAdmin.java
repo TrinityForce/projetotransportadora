@@ -312,19 +312,25 @@ public class FormDashAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_RelatoriosMouseReleased
 
     private void jBT_PedidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_PedidosMouseReleased
-        VeiculoDao vDao = new VeiculoDao();
-        try {
-            if (vDao.listarVeiculosAtivos() == null || vDao.listarVeiculosAtivos().size() <= 0) {
-                JOptionPane.showMessageDialog(this, "TODOS OS VEÍCULOS EM ROTA. NÃO É POSSÍVEL ENVIAR NOVOS PEDIDOS PARA ENTREGA.\n"
-                        + "AGUARDE UM VEÍCULO RETORNAR E TENTE NOVAMENTE","VEÍCULO EM ROTA",JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                FormPedidos formPedidos = new FormPedidos();
-                formPedidos.setVisible(true);
-                dispose();
-            }
-        } catch (Exception ex) {
-            
-        }
+
+        FormPedidos formPedidos = new FormPedidos();
+        formPedidos.setVisible(true);
+        dispose();
+
+//        VeiculoDao vDao = new VeiculoDao();
+//        try {
+//            if (vDao.listarVeiculosAtivos() == null || vDao.listarVeiculosAtivos().size() <= 0) {
+//                JOptionPane.showMessageDialog(this, "TODOS OS VEÍCULOS EM ROTA. NÃO É POSSÍVEL ENVIAR NOVOS PEDIDOS PARA ENTREGA.\n"
+//                        + "AGUARDE UM VEÍCULO RETORNAR E TENTE NOVAMENTE", "VEÍCULO EM ROTA", JOptionPane.INFORMATION_MESSAGE);
+//            } else {
+//                FormPedidos formPedidos = new FormPedidos();
+//                formPedidos.setVisible(true);
+//                dispose();
+//            }
+//        } catch (Exception ex) {
+//
+//        }
+
     }//GEN-LAST:event_jBT_PedidosMouseReleased
 
     private void jBT_VolumesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_VolumesMouseReleased

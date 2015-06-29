@@ -93,4 +93,9 @@ public class Validacao {
         return vazio;
     }
 
+    public static String retornarDestinoUF(String str) {
+
+        String destino = str.substring(Math.max(str.length() - 2, 0));
+        return destino;
+    }
 }

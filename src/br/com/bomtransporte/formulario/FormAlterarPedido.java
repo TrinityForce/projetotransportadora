@@ -110,7 +110,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jTF_Desconto.setText(String.valueOf(pedido.getDesconto()));
                 jTF_Protocolo.setText((pedido.getProtocolo()));
                 jTF_Numero.setText(pedido.getNumero());
-                idPrecoDistanciaInteger = pedido.getIdPrecoDistania();
+                idPrecoDistanciaInteger = pedido.getIdPrecoDistancia();
 
                 endereco = enderecoDao.retornarEnderecoPorIdPedido(idPedidoSelecionado);
                 jTF_Cep.setText(endereco.getCep());
@@ -434,7 +434,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                     pedido.setNumero(listaCampos.get(2));
                     pedido.setDesconto(Integer.valueOf(listaCampos.get(3)));
                     pedido.setStatusPedido((String) jCB_StatusPedido.getSelectedItem());
-                    pedido.setIdPrecoDistania(Integer.valueOf(String.valueOf(jCB_Rotas.getSelectedItem()).substring(0, 1)));
+                    pedido.setIdPrecoDistancia(Integer.valueOf(String.valueOf(jCB_Rotas.getSelectedItem()).substring(0, 1)));
 
                     pedidoDao.alterar(pedido);
 

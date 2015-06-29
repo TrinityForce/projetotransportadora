@@ -8,12 +8,16 @@ import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
 import br.com.bomtransporte.modelo.Pedido;
+import br.com.bomtransporte.modelo.Veiculo;
 import br.com.bomtransporte.regrasnegocio.FuncionarioRN;
 import br.com.bomtransporte.util.Calc;
+import br.com.bomtransporte.util.Validacao;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.lang.Math.E;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +31,7 @@ import javax.swing.ListSelectionModel;
  * @author Romildo
  */
 public class FormPedidos extends javax.swing.JFrame {
+
     public static Integer idPedido;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
@@ -46,19 +51,19 @@ public class FormPedidos extends javax.swing.JFrame {
         verificarVeiculos();
     }
 
-    private void verificarVeiculos(){
-        try{
+    private void verificarVeiculos() {
+        try {
             veiculoDao = new VeiculoDao();
-            if(veiculoDao.listarVeiculosAtivos() == null || veiculoDao.listarVeiculosAtivos().size() <= 0){
+            if (veiculoDao.listarVeiculosAtivos() == null || veiculoDao.listarVeiculosAtivos().size() <= 0) {
                 jLB_Mensagem.setText("Veículos Disponíveis na Garagem: 0");
-            }else{
+            } else {
                 jLB_Mensagem.setText("Veículos Disponíveis na Garagem: " + veiculoDao.listarVeiculosAtivos().size());
             }
-        }catch(Exception ex){
-            
-        }   
+        } catch (Exception ex) {
+
+        }
     }
-    
+
     private void desabilitarBotao(JButton bt) {
         bt.setEnabled(false);
     }
@@ -73,7 +78,7 @@ public class FormPedidos extends javax.swing.JFrame {
         veiculoDao = new VeiculoDao();
         String[] colunas = new String[]{"ID", "PROTOCOLO", "DATA VENDA", "DESCONTO", "STATUS"};
         List<Object> listaPedido = null;
-         final List<Object> listaSelecionada;
+        final List<Object> listaSelecionada;
         try {
             pedidoDao = new PedidoDao();
             switch (jCB_Status.getSelectedIndex()) {
@@ -130,7 +135,7 @@ public class FormPedidos extends javax.swing.JFrame {
                         statusPedidoSelecionado = pedidoSelecionado.getStatusPedido();
                         idPedido = pedidoSelecionado.getIdPedido_Cli();
                         habilitarBotao(jBT_VisualizarCargas);
-                        if(veiculoDao.listarVeiculosAtivos().size() > 0 && veiculoDao.listarVeiculosAtivos() != null){
+                        if (veiculoDao.listarVeiculosAtivos().size() > 0 && veiculoDao.listarVeiculosAtivos() != null) {
                             habilitarBotao(jBT_AdicionarPedidoNoCaminhao);
                         }
                     } catch (Exception ex) {
@@ -143,6 +148,7 @@ public class FormPedidos extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -260,53 +266,120 @@ public class FormPedidos extends javax.swing.JFrame {
          */
         Integer qtdCarga = 0;
 
+        //quantidade de veiculos que tem o mesmo destino que a carga
+        Integer cont = 0;
+
         cargaDao = new CargaDao();
 
         try {
-            List<Object> list = cargaDao.listarCargasPorStatus(pedidoSelecionado.getIdPedido_Cli(), "Aguardando");
+            //lista com todas as cargas do pedido com status "aguardando"
+            List<Object> listCarga = cargaDao.listarCargasPorStatus(pedidoSelecionado.getIdPedido_Cli(), "Aguardando");
+            //lista com todos os veiculos ativos (status:arguardando)
+            List<Object> listVeiculo = veiculoDao.listarVeiculosAtivos();
 
             //para o metodo caso nao tenha nenhuma carga com status aguardando
-            if (list == null || list.isEmpty()) {
+            if (listCarga == null || listCarga.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Nao ha nenhuma carga para ser enviada",
                         "Erro", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            for (Object carga1 : list) {
-                carga = (Carga) carga1;
 
-                //verifica se o caminhao pode comportar a dimensao cubica da carga 
-                if (carga.getDimensaoCubica() + Caminhao.getDimensaoCubicaPreenchida()< Caminhao.getDimensaoCubica()) {
-                    //verifica se o caminhao pode comportar o peso da carga
-                    if ((Calc.calcPesoCarga(carga.getPeso()) + Caminhao.getPesoDasCargasNoCaminhao())
-                            < Caminhao.getPesoTotalSuportado()) {
+            //para o metodo caso nao tenha nenhum caminhao  com status aguardando
+            if (listVeiculo == null || listVeiculo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nao ha nenhum caminhao ativo!",
+                        "Erro", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 
-                        //seta o peso da carga no caminhao
-                        Caminhao.setPesoDasCargasNoCaminhao(Calc.calcPesoCarga(carga.getPeso()));
-                        Caminhao.setDimensaoCubicaPreenchida(carga.getDimensaoCubica());
-                        carga.setStatus("Saiu para entrega");
-
-                        //altera o status da carga
-                        cargaDao.alterar(carga);
-                        System.out.println("total peso no caminhao " + Caminhao.getPesoDasCargasNoCaminhao());
-                    } else {
-                        JOptionPane.showMessageDialog(this, "O limite de peso do caminhao foi atingido",
-                                "Erro", JOptionPane.INFORMATION_MESSAGE);
-                        System.out.println("cami peso " + Caminhao.getPesoDasCargasNoCaminhao());
-                        return;
+            //verifica se tem algum veiculo que vai para o mesmo destino do pedido
+            for (Object v : listVeiculo) {
+                Veiculo veiculo;
+                veiculo = (Veiculo) v;
+                if (veiculo.getDestino() != null) {
+                    if (veiculo.getDestino().equals(Validacao.retornarDestinoUF(pedidoSelecionado.getDestinoUF()))) {
+                        cont++;
                     }
-                } else {
-                    //aumenta o valor para cada carga que nao foi enviada para o caminhao
-                    qtdCarga++;
                 }
+                if (veiculo.getDestino() == null) {
+                    cont++;
+                }
+
             }
-            System.err.println("qtd carga "+qtdCarga);
-            if (qtdCarga == 0) {
-                pedidoDao.update(pedidoSelecionado.getIdPedido(), "Saiu para entrega");
-                JOptionPane.showMessageDialog(this, "Todas as cargas foram adicionadas ao caminhao com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, qtdCarga + " Carga(s) nao foram adicionadas ao caminhao  !", "Erro", JOptionPane.INFORMATION_MESSAGE);
-                pedidoDao.update(pedidoSelecionado.getIdPedido(), "Enviado parcialmente");
+            //se nao tiver nenhum veiculo que vai para o mesmo destino do pedido mostra a msg de erro
+            if (cont == 0) {
+                JOptionPane.showMessageDialog(this, "Nao ha nenhum veiculo que vai para este destino",
+                        "Erro", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
+
+            //percorre a lista de carga
+            for (Object v : listVeiculo) {
+
+                Veiculo veiculo = (Veiculo) v;
+
+                for (Iterator<Object> iter = listCarga.iterator(); iter.hasNext();) {
+                    carga = (Carga) iter.next();
+
+                    //verifica se o caminhao pode comportar a dimensao cubica da carga 
+                    if (carga.getDimensaoCubica() + veiculo.getTotalPreenchido() < Caminhao.getDimensaoCubica()) {
+                        //verifica se o caminhao pode comportar o peso da carga
+                        if ((Calc.calcPesoCarga(carga.getPeso()) + veiculo.getPesoPreenchido())
+                                < Caminhao.getPesoTotalSuportado()) {
+
+                            carga.setIdVeiculo(veiculo.getIdVeiculo());
+                            carga.setStatus("Saiu para entrega");
+
+                            veiculo.setPesoPreenchido(Calc.calcPesoCarga(carga.getPeso()) + veiculo.getPesoPreenchido());
+                            veiculo.setTotalPreenchido(carga.getDimensaoCubica() + veiculo.getTotalPreenchido());
+
+                            cargaDao.alterar(carga);
+                            veiculoDao = new VeiculoDao();
+                            veiculoDao.alterar(veiculo);
+                            pedidoDao.update(pedidoSelecionado.getIdPedido(), "Saiu para entrega");
+                            System.out.println("id do veiculo " + veiculo.getIdVeiculo());
+                            System.out.println("bagulho concluido com sucesso");
+
+                        }
+                    }
+
+                }
+
+            }
+
+//            //verifica se o caminhao pode comportar a dimensao cubica da carga 
+//            if (carga.getDimensaoCubica() + Caminhao.getDimensaoCubicaPreenchida() < Caminhao.getDimensaoCubica()) {
+//                //verifica se o caminhao pode comportar o peso da carga
+//                if ((Calc.calcPesoCarga(carga.getPeso()) + Caminhao.getPesoDasCargasNoCaminhao())
+//                        < Caminhao.getPesoTotalSuportado()) {
+//
+//                    //seta o peso da carga no caminhao
+//                    Caminhao.setPesoDasCargasNoCaminhao(Calc.calcPesoCarga(carga.getPeso()));
+//                    Caminhao.setDimensaoCubicaPreenchida(carga.getDimensaoCubica());
+//                    carga.setStatus("Saiu para entrega");
+//
+//                    //altera o status da carga
+//                    cargaDao.alterar(carga);
+//                    System.out.println("total peso no caminhao " + Caminhao.getPesoDasCargasNoCaminhao());
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "O limite de peso do caminhao foi atingido",
+//                            "Erro", JOptionPane.INFORMATION_MESSAGE);
+//                    System.out.println("cami peso " + Caminhao.getPesoDasCargasNoCaminhao());
+//                    return;
+//
+//                }
+//            } else {
+//                //aumenta o valor para cada carga que nao foi enviada para o caminhao
+//                qtdCarga++;
+//            }
+//       System.err.println("qtd carga " + qtdCarga);
+//            
+//        if (qtdCarga == 0) {
+//            pedidoDao.update(pedidoSelecionado.getIdPedido(), "Saiu para entrega");
+//            JOptionPane.showMessageDialog(this, "Todas as cargas foram adicionadas ao caminhao com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+//        } else {
+//            JOptionPane.showMessageDialog(this, qtdCarga + " Carga(s) nao foram adicionadas ao caminhao  !", "Erro", JOptionPane.INFORMATION_MESSAGE);
+//            pedidoDao.update(pedidoSelecionado.getIdPedido(), "Enviado parcialmente");
+//        }
             preencherTabelaPedido();
         } catch (Exception ex) {
             Logger.getLogger(FormPedidos.class.getName()).log(Level.SEVERE, null, ex);
@@ -340,10 +413,12 @@ public class FormPedidos extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormPedidos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

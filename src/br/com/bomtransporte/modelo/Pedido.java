@@ -22,7 +22,8 @@ public class Pedido {
     private String complemento;
     private Integer idEnderecoCorreios;
     private Integer idPedido_Cli;
-    private Integer idPrecoDistania;
+    private Integer idPrecoDistancia;
+    private String destinoUF;
 
     /**
      *
@@ -42,8 +43,9 @@ public class Pedido {
      * @param idEnderecoCorreios
      * @param idPedido_Cli
      * @param idPrecoDistania
+     * @param destinoUF
      */
-    public Pedido(Integer idPedido, String protocolo, Date dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli, Integer idPrecoDistania) {
+    public Pedido(Integer idPedido, String protocolo, Date dataVenda, Integer desconto, String statusPedido, String numero, String complemento, Integer idEnderecoCorreios, Integer idPedido_Cli, Integer idPrecoDistancia, String destinoUF) {
         this.idPedido = idPedido;
         this.protocolo = protocolo;
         this.dataVenda = dataVenda;
@@ -53,7 +55,8 @@ public class Pedido {
         this.complemento = complemento;
         this.idEnderecoCorreios = idEnderecoCorreios;
         this.idPedido_Cli = idPedido_Cli;
-        this.idPrecoDistania = idPrecoDistania;
+        this.idPrecoDistancia = idPrecoDistancia;
+        this.destinoUF = destinoUF;
     }
 
     /**
@@ -186,16 +189,16 @@ public class Pedido {
      *
      * @return
      */
-    public Integer getIdPrecoDistania() {
-        return idPrecoDistania;
+    public Integer getIdPrecoDistancia() {
+        return idPrecoDistancia;
     }
 
     /**
      *
-     * @param idPrecoDistania
+     * @param idPrecoDistancia
      */
-    public void setIdPrecoDistania(Integer idPrecoDistania) {
-        this.idPrecoDistania = idPrecoDistania;
+    public void setIdPrecoDistancia(Integer idPrecoDistancia) {
+        this.idPrecoDistancia = idPrecoDistancia;
     }
 
     /**
@@ -212,6 +215,14 @@ public class Pedido {
      */
     public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
+    }
+
+    public String getDestinoUF() {
+        return destinoUF;
+    }
+
+    public void setDestinoUF(String destinoUF) {
+        this.destinoUF = destinoUF;
     }
 
 }
