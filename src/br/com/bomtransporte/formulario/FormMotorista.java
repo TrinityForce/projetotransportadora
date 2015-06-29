@@ -1,7 +1,19 @@
 package br.com.bomtransporte.formulario;
 
+import br.com.bomtransporte.dao.PedidoDao;
+import br.com.bomtransporte.dao.VeiculoDao;
+import br.com.bomtransporte.modelo.Funcionario;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
+import br.com.bomtransporte.modelo.ModeloTabela;
+import br.com.bomtransporte.modelo.Veiculo;
 import br.com.bomtransporte.util.Tela;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -12,10 +24,69 @@ public class FormMotorista extends javax.swing.JFrame {
     /**
      * Creates new form FormMotorista
      */
+    private VeiculoDao veiculoDao;
+    private Veiculo veiculoSelecionado;
+
     public FormMotorista() {
         initComponents();
-        jLB_Nome.setText(FuncionarioSingleton.getFuncionario().getNome());
-        Tela.adicionarHover(jBT_Senha);
+//        jLB_Nome.setText(FuncionarioSingleton.getFuncionario().getNome());
+        preencherTabelaVeiculo();
+
+    }
+
+    private void preencherTabelaVeiculo() {
+
+        ArrayList dados = new ArrayList();
+        veiculoDao = new VeiculoDao();
+        String[] colunas = new String[]{"ID", "TIPO", "STATUS", "DESTINO"};
+
+        try {
+            final List<Object> listaVeiculo = veiculoDao.listarVeiculosAtivos();
+
+            if (listaVeiculo != null && listaVeiculo.size() > 0) {
+                for (Object veiculoAtual : listaVeiculo) {
+                    Veiculo veiculo = (Veiculo) veiculoAtual;
+                    dados.add(new Object[]{veiculo.getIdVeiculo(), veiculo.getTipoVeiculo(), veiculo.getStatus(), veiculo.getDestino()});
+                }
+            }
+
+            ModeloTabela modTabela = new ModeloTabela(dados, colunas);
+            jTB_veiculo.setModel(modTabela);
+            jTB_veiculo.getColumnModel().getColumn(0).setPreferredWidth(100);
+            jTB_veiculo.getColumnModel().getColumn(0).setResizable(false);
+            jTB_veiculo.getColumnModel().getColumn(1).setPreferredWidth(280);
+            jTB_veiculo.getColumnModel().getColumn(1).setResizable(false);
+            jTB_veiculo.getColumnModel().getColumn(2).setPreferredWidth(150);
+            jTB_veiculo.getColumnModel().getColumn(2).setResizable(false);
+            jTB_veiculo.getColumnModel().getColumn(3).setPreferredWidth(160);
+            jTB_veiculo.getColumnModel().getColumn(3).setResizable(false);
+
+            jTB_veiculo.getTableHeader().setReorderingAllowed(false);
+            jTB_veiculo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            jTB_veiculo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+            jTB_veiculo.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    try {
+                        List<Object> lista = veiculoDao.listarVeiculosAtivos();
+                        veiculoSelecionado = (Veiculo) lista.
+                                get(jTB_veiculo.convertRowIndexToModel(jTB_veiculo.getSelectedRow()));
+
+                        //     if (veiculoDao.listarVeiculosAtivos().size() > 0 && veiculoDao.listarVeiculosAtivos() != null) {}
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(FormMotorista.this, "Erro genérico1: " + ex.getMessage());
+                        ex.printStackTrace(System.err);
+                    }
+                }
+
+            });
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -28,15 +99,12 @@ public class FormMotorista extends javax.swing.JFrame {
     private void initComponents() {
 
         jPN_Background = new javax.swing.JPanel();
-        jLB_Legenda3 = new javax.swing.JLabel();
-        jLB_Icon3 = new javax.swing.JLabel();
-        jBT_StatusPedido = new javax.swing.JLabel();
-        jLB_Legenda2 = new javax.swing.JLabel();
-        jLB_Icon2 = new javax.swing.JLabel();
-        jBT_Senha = new javax.swing.JLabel();
         jLB_Nome = new javax.swing.JLabel();
         jLB_BemVindo = new javax.swing.JLabel();
+        jBT_AlterarStatusVeiculo = new javax.swing.JButton();
         jBT_Sair = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTB_veiculo = new javax.swing.JTable();
         jBT_Logout = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
 
@@ -48,48 +116,6 @@ public class FormMotorista extends javax.swing.JFrame {
 
         jPN_Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLB_Legenda3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Legenda3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLB_Legenda3.setText("<html>Check-in<br/>Pedidos</html>");
-        jLB_Legenda3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPN_Background.add(jLB_Legenda3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 270, 150, 60));
-
-        jLB_Icon3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/senha-icon.png"))); // NOI18N
-        jLB_Icon3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPN_Background.add(jLB_Icon3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 50, 60));
-
-        jBT_StatusPedido.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_StatusPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
-        jBT_StatusPedido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jBT_StatusPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBT_StatusPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jBT_StatusPedidoMouseReleased(evt);
-            }
-        });
-        jPN_Background.add(jBT_StatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 150, 150));
-
-        jLB_Legenda2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Legenda2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLB_Legenda2.setText("<html>Alterar<br/>Senha</html>");
-        jLB_Legenda2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPN_Background.add(jLB_Legenda2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 150, 60));
-
-        jLB_Icon2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/senha-icon.png"))); // NOI18N
-        jLB_Icon2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPN_Background.add(jLB_Icon2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 50, 60));
-
-        jBT_Senha.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Senha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
-        jBT_Senha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jBT_Senha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBT_Senha.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                jBT_SenhaMouseReleased(evt);
-            }
-        });
-        jPN_Background.add(jBT_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 150, 150));
-
         jLB_Nome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Nome.setText("NAME_PLACEHOLDER");
         jPN_Background.add(jLB_Nome, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 500, 220, 40));
@@ -98,29 +124,55 @@ public class FormMotorista extends javax.swing.JFrame {
         jLB_BemVindo.setText("Bem-Vindo(a)");
         jPN_Background.add(jLB_BemVindo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, -1, 40));
 
+        jBT_AlterarStatusVeiculo.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_AlterarStatusVeiculo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_AlterarStatusVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
+        jBT_AlterarStatusVeiculo.setText("Alterar Status");
+        jBT_AlterarStatusVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_AlterarStatusVeiculoActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_AlterarStatusVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 220, 80));
+
         jBT_Sair.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Sair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jBT_Sair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/sair-icon.png"))); // NOI18N
         jBT_Sair.setText("Sair do Sistema");
-        jBT_Sair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBT_Sair.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBT_Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_SairActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 180, -1));
+        jPN_Background.add(jBT_Sair, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 180, -1));
+
+        jTB_veiculo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTB_veiculo);
+
+        jPN_Background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 700, 160));
 
         jBT_Logout.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Logout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jBT_Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/logout-icon.png"))); // NOI18N
         jBT_Logout.setText("Logout");
-        jBT_Logout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBT_Logout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jBT_Logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_LogoutActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 440, 130, -1));
+        jPN_Background.add(jBT_Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 480, 130, -1));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/menu-principal-background.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
@@ -130,12 +182,6 @@ public class FormMotorista extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBT_SenhaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_SenhaMouseReleased
-        FormAlterarSenha formSenha = new FormAlterarSenha();
-        formSenha.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jBT_SenhaMouseReleased
 
     private void jBT_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_SairActionPerformed
         System.exit(0);
@@ -147,9 +193,63 @@ public class FormMotorista extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jBT_LogoutActionPerformed
 
-    private void jBT_StatusPedidoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBT_StatusPedidoMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBT_StatusPedidoMouseReleased
+    private void jBT_AlterarStatusVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarStatusVeiculoActionPerformed
+        //verifica se o statusPedidoSelecionado e nulo
+        if (veiculoSelecionado.getStatus() == null || veiculoSelecionado.getStatus().trim().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o veiculo!\n O status do veiculo esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        List<String> tot = new ArrayList<>();
+        tot.add("Aguardando");
+        tot.add("Em rota");
+        tot.add("desativado");
+        
+        //cria uma list com os status do veiculo
+        List<String> optionList = new ArrayList<>();
+        optionList.add("Aguardando");
+        optionList.add("Em rota");
+        optionList.add("desativado");
+
+        //mostra somente as opcoes necessarias de acordo com a regra de negocio
+        switch (veiculoSelecionado.getStatus()) {
+            case "Aguardando":
+                optionList.remove(2);
+                optionList.remove(0);
+
+                break;
+            case "Em rota":
+                optionList.remove(2);
+                optionList.remove(1);
+
+                break;
+            case "desativado":
+                optionList.remove(2);
+                optionList.remove(1);
+
+                return;
+
+        }
+
+        Object[] options = optionList.toArray();
+
+        //pega o status que o usuario selecionou
+        Object value = JOptionPane.showInputDialog(this, "Escolha uma das opcoes",
+                "Mudar status do pedido", JOptionPane.QUESTION_MESSAGE, null,
+                options,
+                options[0]);
+        int index = optionList.indexOf(value);
+
+        //atualiza o status no banco
+        if (tot.get(index) != null) {
+            try {
+                veiculoDao.updateStatus(tot.get(index), veiculoSelecionado.getIdVeiculo());
+                preencherTabelaVeiculo();
+            } catch (Exception ex) {
+              JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco: " + 
+                        ex.getMessage(), "Erro", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jBT_AlterarStatusVeiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,17 +282,14 @@ public class FormMotorista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBT_AlterarStatusVeiculo;
     private javax.swing.JButton jBT_Logout;
     private javax.swing.JButton jBT_Sair;
-    private javax.swing.JLabel jBT_Senha;
-    private javax.swing.JLabel jBT_StatusPedido;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_BemVindo;
-    private javax.swing.JLabel jLB_Icon2;
-    private javax.swing.JLabel jLB_Icon3;
-    private javax.swing.JLabel jLB_Legenda2;
-    private javax.swing.JLabel jLB_Legenda3;
     private javax.swing.JLabel jLB_Nome;
     private javax.swing.JPanel jPN_Background;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTB_veiculo;
     // End of variables declaration//GEN-END:variables
 }

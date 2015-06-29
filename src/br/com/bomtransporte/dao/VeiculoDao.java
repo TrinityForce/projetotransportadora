@@ -40,7 +40,7 @@ public class VeiculoDao extends Conexao implements Dao {
         stmt.setDouble(2, veiculo.getPesoPreenchido());
         stmt.setInt(3, veiculo.getIdVeiculo());
         stmt.execute();
-        
+
         close();
     }
 
@@ -78,5 +78,19 @@ public class VeiculoDao extends Conexao implements Dao {
         close();
 
         return listaVeiculos;
+    }
+
+    public void updateStatus(String str, Integer id) throws Exception {
+
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement(" update veiculo set status = ? where idVeiculo = ?;");
+        stmt.setString(1, str);
+        stmt.setInt(2, id);
+
+        stmt.execute();
+
+        close();
     }
 }
