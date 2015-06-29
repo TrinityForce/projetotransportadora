@@ -51,7 +51,29 @@ public class VeiculoDao extends Conexao implements Dao {
 
     @Override
     public List<Object> listar() throws Exception {
-        return null;
+        List<Object> listaVeiculos = new ArrayList<>();
+
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("SELECT * FROM VEICULO;");
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Veiculo v = new Veiculo();
+            v.setIdVeiculo(rs.getInt("idVeiculo"));
+            v.setTipoVeiculo(rs.getString("tipoVeiculo"));
+            v.setStatus(rs.getString("status"));
+            v.setDestino(rs.getString("destino"));
+            v.setPesoPreenchido(rs.getDouble("pesoPreenchido"));
+            v.setTotalPreenchido(rs.getDouble("totalPreenchido"));
+            listaVeiculos.add(v);
+        }
+
+        close();
+
+        return listaVeiculos;
     }
 
     public List<Object> listarVeiculosAtivos() throws Exception {
@@ -93,4 +115,5 @@ public class VeiculoDao extends Conexao implements Dao {
 
         close();
     }
+
 }

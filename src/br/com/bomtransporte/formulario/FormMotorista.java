@@ -1,7 +1,10 @@
 package br.com.bomtransporte.formulario;
 
+import br.com.bomtransporte.dao.CargaDao;
 import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.dao.VeiculoDao;
+import static br.com.bomtransporte.formulario.FormVeiculoCargas.idVeiculoSelecionado;
+import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.Funcionario;
 import br.com.bomtransporte.modelo.FuncionarioSingleton;
 import br.com.bomtransporte.modelo.ModeloTabela;
@@ -11,6 +14,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -34,18 +39,37 @@ public class FormMotorista extends javax.swing.JFrame {
 
     }
 
-    private void preencherTabelaVeiculo() {
+    private void setarPedidoEntregue(Integer idPedidoCli) throws Exception {
+        CargaDao cargaDao = new CargaDao();
+        Integer cont = 0;
+
+        List<Object> listaCargas = cargaDao.listarCargas(idPedidoCli);
+        for (Object cargaAtual1 : listaCargas) {
+            Carga carga = (Carga) cargaAtual1;
+            if (!carga.getStatus().equals("Entregue")) {
+                cont++;
+
+            }
+        }
+        if (cont == 0) {
+            PedidoDao pedidoDao = new PedidoDao();
+            pedidoDao.updateIdPedidoCli(idPedidoCli, "Entregue");
+        }
+    }
+
+    private  void preencherTabelaVeiculo() {
 
         ArrayList dados = new ArrayList();
         veiculoDao = new VeiculoDao();
         String[] colunas = new String[]{"ID", "TIPO", "STATUS", "DESTINO"};
 
         try {
-            final List<Object> listaVeiculo = veiculoDao.listarVeiculosAtivos();
+            final List<Object> listaVeiculo = veiculoDao.listar();
 
             if (listaVeiculo != null && listaVeiculo.size() > 0) {
                 for (Object veiculoAtual : listaVeiculo) {
                     Veiculo veiculo = (Veiculo) veiculoAtual;
+
                     dados.add(new Object[]{veiculo.getIdVeiculo(), veiculo.getTipoVeiculo(), veiculo.getStatus(), veiculo.getDestino()});
                 }
             }
@@ -58,7 +82,7 @@ public class FormMotorista extends javax.swing.JFrame {
             jTB_veiculo.getColumnModel().getColumn(1).setResizable(false);
             jTB_veiculo.getColumnModel().getColumn(2).setPreferredWidth(150);
             jTB_veiculo.getColumnModel().getColumn(2).setResizable(false);
-            jTB_veiculo.getColumnModel().getColumn(3).setPreferredWidth(160);
+            jTB_veiculo.getColumnModel().getColumn(3).setPreferredWidth(150);
             jTB_veiculo.getColumnModel().getColumn(3).setResizable(false);
 
             jTB_veiculo.getTableHeader().setReorderingAllowed(false);
@@ -70,9 +94,10 @@ public class FormMotorista extends javax.swing.JFrame {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     try {
-                        List<Object> lista = veiculoDao.listarVeiculosAtivos();
+                        List<Object> lista = veiculoDao.listar();
                         veiculoSelecionado = (Veiculo) lista.
                                 get(jTB_veiculo.convertRowIndexToModel(jTB_veiculo.getSelectedRow()));
+                        System.err.println(veiculoSelecionado.getIdVeiculo());
 
                         //     if (veiculoDao.listarVeiculosAtivos().size() > 0 && veiculoDao.listarVeiculosAtivos() != null) {}
                     } catch (Exception ex) {
@@ -127,13 +152,13 @@ public class FormMotorista extends javax.swing.JFrame {
         jBT_AlterarStatusVeiculo.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AlterarStatusVeiculo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jBT_AlterarStatusVeiculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
-        jBT_AlterarStatusVeiculo.setText("Alterar Status");
+        jBT_AlterarStatusVeiculo.setText("Check in");
         jBT_AlterarStatusVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_AlterarStatusVeiculoActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_AlterarStatusVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 220, 80));
+        jPN_Background.add(jBT_AlterarStatusVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 220, 80));
 
         jBT_Sair.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Sair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -160,7 +185,7 @@ public class FormMotorista extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTB_veiculo);
 
-        jPN_Background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 700, 160));
+        jPN_Background.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 700, 230));
 
         jBT_Logout.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Logout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -199,11 +224,45 @@ public class FormMotorista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao acessar o veiculo!\n O status do veiculo esta em branco.", "Erro", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        List<String> tot = new ArrayList<>();
-        tot.add("Aguardando");
-        tot.add("Em rota");
-        tot.add("desativado");
-        
+
+        if (veiculoSelecionado.getStatus().equals("Em rota")) {
+
+            int result = JOptionPane.showConfirmDialog(this,
+                    "Todas as cargas foram entregues com sucesso?", null, JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                CargaDao cargaDao = new CargaDao();
+                final List<Object> listaCarga;
+                try {
+                    listaCarga = cargaDao.listarCargasDoVeiculo(veiculoSelecionado.getIdVeiculo());
+
+                    if (listaCarga != null && listaCarga.size() > 0) {
+                        for (Object cargaAtual : listaCarga) {
+                            Carga carga = (Carga) cargaAtual;
+
+                            if (carga.getStatus().equals("Saiu para entrega")) {
+                                carga.setStatus("Entregue");
+
+                            }
+                            setarPedidoEntregue(carga.getIdPedido_Cli());
+
+                        }
+
+                    }
+                    veiculoDao.updateStatus("Aguardando", veiculoSelecionado.getIdVeiculo());
+
+                } catch (Exception ex) {
+                    Logger.getLogger(FormMotorista.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                FormVeiculoCargas.idVeiculoSelecionado = veiculoSelecionado.getIdVeiculo();
+                FormVeiculoCargas formV = new FormVeiculoCargas();
+                formV.setVisible(true);
+
+            }
+            return;
+        }
+
         //cria uma list com os status do veiculo
         List<String> optionList = new ArrayList<>();
         optionList.add("Aguardando");
@@ -217,11 +276,7 @@ public class FormMotorista extends javax.swing.JFrame {
                 optionList.remove(0);
 
                 break;
-            case "Em rota":
-                optionList.remove(2);
-                optionList.remove(1);
 
-                break;
             case "desativado":
                 optionList.remove(2);
                 optionList.remove(1);
@@ -240,13 +295,13 @@ public class FormMotorista extends javax.swing.JFrame {
         int index = optionList.indexOf(value);
 
         //atualiza o status no banco
-        if (tot.get(index) != null) {
+        if (optionList.get(index) != null) {
             try {
-                veiculoDao.updateStatus(tot.get(index), veiculoSelecionado.getIdVeiculo());
+                veiculoDao.updateStatus(optionList.get(index), veiculoSelecionado.getIdVeiculo());
                 preencherTabelaVeiculo();
             } catch (Exception ex) {
-              JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco: " + 
-                        ex.getMessage(), "Erro", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao atualizar o status no banco: "
+                        + ex.getMessage(), "Erro", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_jBT_AlterarStatusVeiculoActionPerformed

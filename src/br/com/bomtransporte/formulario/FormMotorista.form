@@ -79,14 +79,14 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/bomtransporte/imagem/icones/alterar-icon.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Alterar Status"/>
+            <Property name="text" type="java.lang.String" value="Check in"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBT_AlterarStatusVeiculoActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="70" y="180" width="220" height="80"/>
+              <AbsoluteConstraints x="280" y="120" width="220" height="80"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -121,7 +121,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="50" y="310" width="700" height="160"/>
+              <AbsoluteConstraints x="50" y="210" width="700" height="230"/>
             </Constraint>
           </Constraints>
 

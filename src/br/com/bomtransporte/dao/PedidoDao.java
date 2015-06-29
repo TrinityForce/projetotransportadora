@@ -405,4 +405,22 @@ public class PedidoDao extends Conexao implements Dao {
         }
         return dimensaoTotal;
     }
+
+    public void updateIdPedidoCli(Integer idPedido_Cli, String statusPedido) throws Exception {
+
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("UPDATE Pedido  "
+                + " join Pedido_Cli pc on p.idPedido= pc.idPedido"
+                + " SET statusPedido = ? WHERE pc.idPedido_Cli = ?;");
+        stmt.setString(1, statusPedido);
+        stmt.setInt(2, idPedido_Cli);
+
+        stmt.execute();
+
+        con.close();
+
+    }
+
 }

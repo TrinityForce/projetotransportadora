@@ -218,4 +218,59 @@ public class CargaDao extends Conexao implements Dao {
     public void inserir(Object obj) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-}
+
+    public List<Object> listarCargasDoVeiculo(Integer idVeiculo) throws Exception {
+        List<Object> listaCargas = new ArrayList<>();
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement(" select * from carga c"
+                + "  join veiculo v on v.idVeiculo = c.idVeiculo"
+                + "  where c.idVeiculo = ? and c.status = 'Saiu para entrega';");
+        stmt.setInt(1, idVeiculo);
+
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Carga carga = new Carga();
+            carga.setIdCarga(rs.getInt("c.idCarga"));
+            carga.setDescricao(rs.getString("c.descricao"));
+            carga.setQuantidade(rs.getInt("c.quantidade"));
+            carga.setDimensaoCubica(rs.getDouble("c.dimensaoCubica"));
+            carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
+            carga.setIdPrecoPeso(rs.getInt("c.idPrecoPeso"));
+            carga.setStatus(rs.getString("c.status"));
+            carga.setIdPedido_Cli(rs.getInt("c.idPedido_Cli"));
+            listaCargas.add(carga);
+        }
+
+        con.close();
+        return listaCargas;
+    }
+
+    public void updateStatusDaCarga(String str, Integer idCarga) throws Exception {
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("update Carga set status=? where idCarga=?;");
+        stmt.setString(1, str);
+        stmt.setInt(2, idCarga);
+
+        stmt.execute();
+        close();
+
+    }
+
+    public void updateIdVeiculo(Integer idCarga) throws Exception {
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("update Carga set idVeiculo= null where idCarga=?;");
+
+        stmt.setInt(1, idCarga);
+
+        stmt.execute();
+        close();
+    }
+    }
