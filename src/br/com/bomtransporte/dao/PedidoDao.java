@@ -411,7 +411,7 @@ public class PedidoDao extends Conexao implements Dao {
         inicializarAtributos();
         con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-        stmt = con.prepareStatement("UPDATE Pedido  "
+        stmt = con.prepareStatement("UPDATE Pedido p  "
                 + " join Pedido_Cli pc on p.idPedido= pc.idPedido"
                 + " SET statusPedido = ? WHERE pc.idPedido_Cli = ?;");
         stmt.setString(1, statusPedido);

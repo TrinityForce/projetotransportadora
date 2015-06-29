@@ -57,7 +57,7 @@ public class FormMotorista extends javax.swing.JFrame {
         }
     }
 
-    private  void preencherTabelaVeiculo() {
+    private void preencherTabelaVeiculo() {
 
         ArrayList dados = new ArrayList();
         veiculoDao = new VeiculoDao();
@@ -225,6 +225,27 @@ public class FormMotorista extends javax.swing.JFrame {
             return;
         }
 
+        //verifica se tem alguma carga naquele veiculo
+        try {
+            CargaDao cd = new CargaDao();
+            Integer cont = 0;
+
+            List<Object> listaC = cd.listarCargasDoVeiculo(veiculoSelecionado.getIdVeiculo());
+            for (Object cAtual : listaC) {
+                Carga carga = (Carga) cAtual;
+                if (carga.getStatus().equals("Saiu para entrega")) {
+                    cont++;
+                }
+            }
+            if (cont == 0) {
+                JOptionPane.showMessageDialog(this, "Nao ha nenhuma carga neste veiculo!", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(FormMotorista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         if (veiculoSelecionado.getStatus().equals("Em rota")) {
 
             int result = JOptionPane.showConfirmDialog(this,
@@ -240,7 +261,7 @@ public class FormMotorista extends javax.swing.JFrame {
                             Carga carga = (Carga) cargaAtual;
 
                             if (carga.getStatus().equals("Saiu para entrega")) {
-                                carga.setStatus("Entregue");
+                                cargaDao.updateStatusDaCarga("Entregue", carga.getIdCarga());
 
                             }
                             setarPedidoEntregue(carga.getIdPedido_Cli());
@@ -249,6 +270,8 @@ public class FormMotorista extends javax.swing.JFrame {
 
                     }
                     veiculoDao.updateStatus("Aguardando", veiculoSelecionado.getIdVeiculo());
+                    preencherTabelaVeiculo();
+
 
                 } catch (Exception ex) {
                     Logger.getLogger(FormMotorista.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,6 +281,7 @@ public class FormMotorista extends javax.swing.JFrame {
                 FormVeiculoCargas.idVeiculoSelecionado = veiculoSelecionado.getIdVeiculo();
                 FormVeiculoCargas formV = new FormVeiculoCargas();
                 formV.setVisible(true);
+                dispose();
 
             }
             return;

@@ -296,11 +296,14 @@ public class FormPedidos extends javax.swing.JFrame {
                 Veiculo veiculo;
                 veiculo = (Veiculo) v;
                 if (veiculo.getDestino() != null) {
+
+                    System.err.println(Validacao.retornarDestinoUF(pedidoSelecionado.getDestinoUF()));
                     if (veiculo.getDestino().equals(Validacao.retornarDestinoUF(pedidoSelecionado.getDestinoUF()))) {
                         cont++;
                     }
                 }
                 if (veiculo.getDestino() == null) {
+                    veiculoDao.updateDestino(Validacao.retornarDestinoUF(pedidoSelecionado.getDestinoUF()), veiculo.getIdVeiculo());
                     cont++;
                 }
 

@@ -116,4 +116,17 @@ public class VeiculoDao extends Conexao implements Dao {
         close();
     }
 
+    public void updateDestino(String str, Integer id) throws Exception {
+
+        inicializarAtributos();
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement(" update veiculo set destino = ? where idVeiculo = ?;");
+        stmt.setString(1, str);
+        stmt.setInt(2, id);
+
+        stmt.execute();
+
+        close();
+    }
 }

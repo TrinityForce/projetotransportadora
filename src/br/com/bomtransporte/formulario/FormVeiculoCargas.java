@@ -109,6 +109,7 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
         jBT_CasaFechada = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBT_CargaExtraviada.setBackground(new java.awt.Color(0, 0, 0));
@@ -232,29 +233,28 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
 
                         final List<Object> listaCargaSaiuParaEntrega = cargaDao.listarCargasPorStatus(cargaSelecionada.getIdPedido_Cli(), "Saiu para entrega");
                         if (listaCargaAguardando == null || listaCargaAguardando.size() < 1) {
+
                             PedidoDao pedidoDao = new PedidoDao();
                             pedidoDao.update(cargaSelecionada.getIdPedido_Cli(), "Entregue");
                         }
 
                     }
                     JOptionPane.showMessageDialog(this, "Todas as cargas foram entregues com sucesso!");
+                    VeiculoDao veiculoDao = new VeiculoDao();
+                    veiculoDao.updateStatus("Aguardando", idVeiculoSelecionado);
                 }
 
             } catch (Exception ex) {
                 Logger.getLogger(FormVeiculoCargas.class.getName()).log(Level.SEVERE, null, ex);
                 ex.printStackTrace();
             }
-            VeiculoDao veiculoDao = new VeiculoDao();
-            try {
-                veiculoDao.updateStatus("Aguardando", idVeiculoSelecionado);
-            } catch (Exception ex) {
-                Logger.getLogger(FormVeiculoCargas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
 
+        }
+        FormMotorista fomM = new FormMotorista();
+        fomM.setVisible(true);
         dispose();
-        
-        
+
+
     }//GEN-LAST:event_jBT_VoltarActionPerformed
 
     /**
