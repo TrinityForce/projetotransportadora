@@ -71,10 +71,10 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
     private void verificarBotao(){
         if(FormClientePedido.ativarAlterar == 1){
             jBT_AlterarPedido.setVisible(true);
-            jBT_Salvar.setVisible(false);
+            jBT_ProximaTela.setVisible(false);
         }else{
             jBT_AlterarPedido.setVisible(false);
-            jBT_Salvar.setVisible(true);
+            jBT_ProximaTela.setVisible(true);
         }
     }
 
