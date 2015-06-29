@@ -68,6 +68,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     }
     
+    //Metódo que troca a tela.
     private void verificarBotao(){
         if(FormClientePedido.ativarAlterar == 1){
             jBT_AlterarPedido.setVisible(true);
