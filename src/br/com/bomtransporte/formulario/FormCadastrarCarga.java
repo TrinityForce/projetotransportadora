@@ -60,7 +60,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         idPedido = FormClientePedido.idPedido_CliSelecionado;
         idCliente = FormClientePedido.idCliente;
         idPedido_CliSelecionado = FormClientePedido.idPedido_CliSelecionado;
-        verificarBotao();
+
         preencherCampos();
         preencherComboPreco();
         preencherComboPeso();
@@ -68,16 +68,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     }
     
-    //Metódo que troca a tela.
-    private void verificarBotao(){
-        if(FormClientePedido.ativarAlterar == 1){
-            jBT_AlterarPedido.setVisible(true);
-            jBT_ProximaTela.setVisible(false);
-        }else{
-            jBT_AlterarPedido.setVisible(false);
-            jBT_ProximaTela.setVisible(true);
-        }
-    }
+
 
     private void verificarAba() {
 
@@ -266,7 +257,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             } else {
                 jLB_ErroCep.setText("CEP Não Encontrado.");
                 jLB_ErroCep.setVisible(true);
-                limparCamposCep();
+               
                 Tela.habilitarBotoes(jBT_CadastrarCep);
                 return false;
             }
@@ -326,7 +317,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         jPN_Pedido = new javax.swing.JPanel();
         jBT_ProximaTela = new javax.swing.JButton();
         jBT_Verificar = new javax.swing.JButton();
-        jBT_AlterarPedido = new javax.swing.JButton();
         jCB_Rotas = new javax.swing.JComboBox();
         jTF_NomeCliente = new javax.swing.JTextField();
         jTF_Cep = new javax.swing.JTextField();
@@ -410,7 +400,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jBT_ProximaTelaActionPerformed(evt);
             }
         });
-        jPN_Pedido.add(jBT_ProximaTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 170, 70));
+        jPN_Pedido.add(jBT_ProximaTela, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, 170, 70));
 
         jBT_Verificar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Verificar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -421,17 +411,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
             }
         });
         jPN_Pedido.add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 120, 30));
-
-        jBT_AlterarPedido.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_AlterarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_AlterarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar2-icon.png"))); // NOI18N
-        jBT_AlterarPedido.setText("Alterar");
-        jBT_AlterarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_AlterarPedidoActionPerformed(evt);
-            }
-        });
-        jPN_Pedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 170, 70));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {
@@ -893,10 +872,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_AdicionarCargaActionPerformed
 
-    private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
-
     private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
         FormClientePedido formCli = new FormClientePedido();
         formCli.setVisible(true);
@@ -954,7 +929,6 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AdicionarCarga;
-    private javax.swing.JButton jBT_AlterarPedido;
     private javax.swing.JButton jBT_CadastrarCep;
     private javax.swing.JButton jBT_ProximaTela;
     private javax.swing.JButton jBT_Salvar;

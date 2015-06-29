@@ -767,7 +767,7 @@ public class FormClientePedido extends javax.swing.JFrame {
 
     private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
         ativarAlterar = 1;
-        FormCadastrarCarga formCarga = new FormCadastrarCarga();
+        FormAlterarPedido formCarga = new FormAlterarPedido();
         formCarga.setVisible(true);
         dispose();
     }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
