@@ -98,8 +98,8 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private void preencherCampos() {
         if (FormClientePedido.idPedidoSelecionado != null) {
             PedidoDao pedidoDao = new PedidoDao();
-            Pedido pedido = new Pedido();
-            Endereco endereco = new Endereco();
+            Pedido pedido;
+            Endereco endereco;
             EnderecoDao enderecoDao = new EnderecoDao();
 
             try {
@@ -107,7 +107,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
 
                 jTF_Complemento.setText(pedido.getComplemento());
                 jTF_DataVenda.setText(String.valueOf(pedido.getDataVenda()));
-                jTF_Desconto.setText(String.valueOf(pedido.getDesconto()));
+                //jTF_Desconto.setText(String.valueOf(pedido.getDesconto()));
                 jTF_Protocolo.setText((pedido.getProtocolo()));
                 jTF_Numero.setText(pedido.getNumero());
                 idPrecoDistanciaInteger = pedido.getIdPrecoDistancia();
@@ -218,13 +218,17 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         } 
         catch (Exception e){ 
         }
-        jLabel1 = new javax.swing.JLabel();
-        jTF_Desconto = new javax.swing.JTextField();
         jTF_NomeCliente = new javax.swing.JTextField();
         jTF_Cpf = new javax.swing.JTextField();
         jTF_IdCliente = new javax.swing.JTextField();
         jTF_Protocolo = new javax.swing.JTextField();
         jTF_DataVenda = new javax.swing.JTextField();
+        jLB_Obrigatorio4 = new javax.swing.JLabel();
+        jLB_Obrigatorio5 = new javax.swing.JLabel();
+        jLB_Obrigatorio6 = new javax.swing.JLabel();
+        jLB_Obrigatorio7 = new javax.swing.JLabel();
+        jLB_Obrigatorio8 = new javax.swing.JLabel();
+        jLB_Obrigatorio3 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -232,7 +236,6 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLB_CEP1 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLB_Descricao8 = new javax.swing.JLabel();
         jLB_Descricao9 = new javax.swing.JLabel();
@@ -242,8 +245,8 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         jLB_ErroCep = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLB_Fechar4 = new javax.swing.JLabel();
+        jLB_Obrigatorio9 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -259,7 +262,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jBT_AlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 470, 220, 80));
+        getContentPane().add(jBT_Alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 220, 70));
 
         jBT_Verificar.setBackground(new java.awt.Color(0, 0, 0));
         jBT_Verificar.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -269,7 +272,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jBT_VerificarActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 330, 120, 30));
+        getContentPane().add(jBT_Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 120, 30));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_Rotas.addItemListener(new java.awt.event.ItemListener() {
@@ -282,7 +285,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jCB_RotasActionPerformed(evt);
             }
         });
-        getContentPane().add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, 170, -1));
+        getContentPane().add(jCB_Rotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 170, -1));
 
         jCB_StatusPedido.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_StatusPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -290,25 +293,26 @@ public class FormAlterarPedido extends javax.swing.JFrame {
                 jCB_StatusPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(jCB_StatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 170, -1));
-        getContentPane().add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 430, 330, 30));
-        getContentPane().add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 80, 30));
-        getContentPane().add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 550, 30));
-        getContentPane().add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 180, 30));
-        getContentPane().add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 180, 30));
-        getContentPane().add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 50, 30));
+        getContentPane().add(jCB_StatusPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 170, -1));
+
+        jTF_Complemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTF_ComplementoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTF_Complemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 420, 260, 30));
+        getContentPane().add(jTF_Numero, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 370, 80, 30));
+        getContentPane().add(jTF_Logradouro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 310, 30));
+        getContentPane().add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 200, 30));
+        getContentPane().add(jTF_NomeCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 180, 30));
+        getContentPane().add(jTF_Uf, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 370, 50, 30));
 
         jTF_Cep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTF_CepActionPerformed(evt);
             }
         });
-        getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 180, 30));
-
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setText("* - Campos Obrigatórios");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
-        getContentPane().add(jTF_Desconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, 30));
+        getContentPane().add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 180, 30));
 
         jTF_NomeCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_NomeCliente.setEnabled(false);
@@ -326,44 +330,70 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         jTF_IdCliente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTF_IdCliente.setEnabled(false);
         getContentPane().add(jTF_IdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 50, 30));
-        getContentPane().add(jTF_Protocolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 180, 30));
-        getContentPane().add(jTF_DataVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 180, 30));
+        getContentPane().add(jTF_Protocolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 180, 30));
+        getContentPane().add(jTF_DataVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, 180, 30));
+
+        jLB_Obrigatorio4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio4.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio4.setText("*");
+        getContentPane().add(jLB_Obrigatorio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 10, 20));
+
+        jLB_Obrigatorio5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio5.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio5.setText("*");
+        getContentPane().add(jLB_Obrigatorio5, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 380, 10, 20));
+
+        jLB_Obrigatorio6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio6.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio6.setText("*");
+        getContentPane().add(jLB_Obrigatorio6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 10, 20));
+
+        jLB_Obrigatorio7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio7.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio7.setText("*");
+        getContentPane().add(jLB_Obrigatorio7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, 10, 20));
+
+        jLB_Obrigatorio8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio8.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio8.setText("*");
+        getContentPane().add(jLB_Obrigatorio8, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 10, 20));
+
+        jLB_Obrigatorio3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio3.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio3.setText("*");
+        getContentPane().add(jLB_Obrigatorio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 10, 20));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Complemento");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 420, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Número");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 370, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Logradouro");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 380, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Bairro");
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, -1, -1));
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel16.setText("Cidade");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel17.setText("UF");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 480, -1, -1));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, -1, -1));
 
         jLB_CEP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_CEP1.setText("CEP *");
-        getContentPane().add(jLB_CEP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 330, -1, -1));
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel18.setText("Desconto");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+        jLB_CEP1.setText("CEP ");
+        getContentPane().add(jLB_CEP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel19.setText("Destino");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, -1, -1));
 
         jLB_Descricao8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Descricao8.setText("Nome Cliente");
@@ -379,20 +409,20 @@ public class FormAlterarPedido extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel20.setText("Protocolo");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel21.setText("Data");
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, -1, -1));
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
 
         jLB_ErroCep.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLB_ErroCep.setForeground(new java.awt.Color(255, 0, 0));
         jLB_ErroCep.setText("ERROR PLACEHOLDER");
-        getContentPane().add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, -1, -1));
+        getContentPane().add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel22.setText("Status");
-        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, -1, -1));
 
         jLB_Fechar4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLB_Fechar4.setForeground(new java.awt.Color(255, 255, 255));
@@ -406,11 +436,13 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         });
         getContentPane().add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
+        jLB_Obrigatorio9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Obrigatorio9.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio9.setText("* - Campos Obrigatórios");
+        getContentPane().add(jLB_Obrigatorio9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, 200, -1));
+
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterarpedido-bg.png"))); // NOI18N
         getContentPane().add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
-
-        jLabel3.setText("jLabel3");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 530, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -421,7 +453,7 @@ public class FormAlterarPedido extends javax.swing.JFrame {
         listaCampos.add(jTF_Cep.getText());
         listaCampos.add(jTF_Complemento.getText());
         listaCampos.add(jTF_Numero.getText());
-        listaCampos.add(jTF_Desconto.getText());
+        listaCampos.add("1");
         listaCampos.add(String.valueOf(idPedidoSelecionado));
 
         if (verificarCampos(listaCampos)) {
@@ -476,8 +508,14 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jCB_RotasItemStateChanged
 
     private void jLB_Fechar4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLB_Fechar4MouseReleased
+        FormClientePedido formCli = new FormClientePedido();
+        formCli.setVisible(true);
         dispose();
     }//GEN-LAST:event_jLB_Fechar4MouseReleased
+
+    private void jTF_ComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTF_ComplementoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTF_ComplementoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -528,25 +566,28 @@ public class FormAlterarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Descricao9;
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar4;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLB_Obrigatorio3;
+    private javax.swing.JLabel jLB_Obrigatorio4;
+    private javax.swing.JLabel jLB_Obrigatorio5;
+    private javax.swing.JLabel jLB_Obrigatorio6;
+    private javax.swing.JLabel jLB_Obrigatorio7;
+    private javax.swing.JLabel jLB_Obrigatorio8;
+    private javax.swing.JLabel jLB_Obrigatorio9;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTF_Bairro;
     private javax.swing.JTextField jTF_Cep;
     private javax.swing.JTextField jTF_Complemento;
     private javax.swing.JTextField jTF_Cpf;
     private javax.swing.JTextField jTF_DataVenda;
-    private javax.swing.JTextField jTF_Desconto;
     private javax.swing.JTextField jTF_IdCliente;
     private javax.swing.JTextField jTF_Logradouro;
     private javax.swing.JTextField jTF_NomeCidade;

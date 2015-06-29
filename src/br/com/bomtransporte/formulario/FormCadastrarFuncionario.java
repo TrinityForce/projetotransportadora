@@ -62,6 +62,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jPS_Senha.setEnabled(true);
         jRB_Administrador.setEnabled(true);
         jRB_Funcionario.setEnabled(true);
+        jRB_Motorista.setEnabled(true);
     }
 
     private void habilitarBotao(JButton bt) {
@@ -83,6 +84,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jBT_Alterar.setEnabled(false);
         jBT_Excluir.setEnabled(false);
         jTF_Nome.setEnabled(false);
+        jRB_Motorista.setEnabled(false);
     }
 
     /**
@@ -145,16 +147,17 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
                         jTF_Cargo.setText(funcionarioSelecionado.getCargo());
                         jTF_Email.setText(funcionarioSelecionado.getUsuario().getEmail());
                         jTF_Login.setText(funcionarioSelecionado.getUsuario().getLogin());
-                        jPS_Senha.setText("placeholder");
+                        jPS_Senha.setText("SENHA_PLACEHOLDER");
                         Integer idPerfil = funcionarioSelecionado.getUsuario().getIdPerfil();
                         idPessoa = funcionarioSelecionado.getIdPessoa();
                         idUsuario = funcionarioSelecionado.getUsuario().getIdUsuario();
                         idFuncionario = funcionarioSelecionado.getIdFuncionario();
                         if (idPerfil == 1) {
                             jRB_Administrador.setSelected(true);
-                        }
-                        if (idPerfil == 2) {
+                        }if (idPerfil == 2) {
                             jRB_Funcionario.setSelected(true);
+                        }if(idPerfil == 3){
+                            jRB_Motorista.setSelected(true);
                         }
 
                         habilitarCampos();
@@ -191,6 +194,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         jBT_Salvar = new javax.swing.JButton();
         jBT_Alterar = new javax.swing.JButton();
         jBT_Relatorio2 = new javax.swing.JButton();
+        jRB_Motorista = new javax.swing.JRadioButton();
         jRB_Administrador = new javax.swing.JRadioButton();
         jRB_Funcionario = new javax.swing.JRadioButton();
         jPS_Senha = new javax.swing.JPasswordField();
@@ -286,6 +290,11 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         });
         jPN_Background.add(jBT_Relatorio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 210, 70));
 
+        BG_Perfil.add(jRB_Motorista);
+        jRB_Motorista.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jRB_Motorista.setText("Motorista");
+        jPN_Background.add(jRB_Motorista, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, 30));
+
         BG_Perfil.add(jRB_Administrador);
         jRB_Administrador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Administrador.setText("Administrador");
@@ -294,7 +303,12 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         BG_Perfil.add(jRB_Funcionario);
         jRB_Funcionario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRB_Funcionario.setText("Funcionário");
-        jPN_Background.add(jRB_Funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 120, -1));
+        jRB_Funcionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRB_FuncionarioActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jRB_Funcionario, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 100, -1));
         jPN_Background.add(jPS_Senha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 250, 30));
 
         jTF_Email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -389,8 +403,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             if (Tela.verificarCampos(jPN_Background) && verificarRadio(jRB_Administrador, jRB_Funcionario)) {
                 ValidarEmail ve = new ValidarEmail();
                 if (ve.validar(email)) {
-                    idPerfil = (jRB_Administrador.isSelected()) ? 1 : 2;
-
+                    if(jRB_Administrador.isSelected())idPerfil = 1;
+                    else if(jRB_Funcionario.isSelected()) idPerfil = 2;
+                    else idPerfil = 3;
+                    
                     Funcionario funcionario = new Funcionario();
                     Usuario usuario = new Usuario();
 
@@ -440,7 +456,9 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
             if (Tela.verificarCampos(jPN_Background) && verificarRadio(jRB_Administrador, jRB_Funcionario)) {
                 ValidarEmail ve = new ValidarEmail();
                 if (ve.validar(email)) {
-                    idPerfil = (jRB_Administrador.isSelected()) ? 1 : 2;
+                    if(jRB_Administrador.isSelected())idPerfil = 1;
+                    else if(jRB_Funcionario.isSelected()) idPerfil = 2;
+                    else idPerfil = 3;
 
                     Funcionario funcionario = new Funcionario();
                     Usuario usuario = new Usuario();
@@ -506,6 +524,10 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBT_Relatorio2ActionPerformed
 
+    private void jRB_FuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRB_FuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRB_FuncionarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -541,8 +563,6 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Alterar;
     private javax.swing.JButton jBT_Excluir;
     private javax.swing.JButton jBT_Novo;
-    private javax.swing.JButton jBT_Relatorio;
-    private javax.swing.JButton jBT_Relatorio1;
     private javax.swing.JButton jBT_Relatorio2;
     private javax.swing.JButton jBT_Salvar;
     private javax.swing.JLabel jLB_Background;
@@ -558,6 +578,7 @@ public class FormCadastrarFuncionario extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPS_Senha;
     private javax.swing.JRadioButton jRB_Administrador;
     private javax.swing.JRadioButton jRB_Funcionario;
+    private javax.swing.JRadioButton jRB_Motorista;
     private javax.swing.JScrollPane jSP_TabelaFuncionario;
     private javax.swing.JTextField jTF_Cargo;
     private javax.swing.JTextField jTF_Email;

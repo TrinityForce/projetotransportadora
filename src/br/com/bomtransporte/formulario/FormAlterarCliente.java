@@ -248,7 +248,6 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jLB_Fechar = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLB_ErroCep = new javax.swing.JLabel();
-        jLB_Obrigatorio6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -258,6 +257,11 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLB_Obrigatorio7 = new javax.swing.JLabel();
+        jLB_Obrigatorio9 = new javax.swing.JLabel();
+        jLB_Obrigatorio10 = new javax.swing.JLabel();
+        jLB_Obrigatorio11 = new javax.swing.JLabel();
+        jLB_Obrigatorio8 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -307,7 +311,7 @@ public class FormAlterarCliente extends javax.swing.JFrame {
                 jBT_CadastrarCepActionPerformed(evt);
             }
         });
-        jPN_Background.add(jBT_CadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 120, 30));
+        jPN_Background.add(jBT_CadastrarCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 120, 30));
         jPN_Background.add(jTF_Telefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 210, 30));
         jPN_Background.add(jTF_Cep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 210, 30));
         jPN_Background.add(jTF_Bairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, 200, 30));
@@ -354,16 +358,12 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jLB_ErroCep.setText("ERROR_PLACEHOLDER");
         jPN_Background.add(jLB_ErroCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 160, 20));
 
-        jLB_Obrigatorio6.setForeground(new java.awt.Color(255, 0, 51));
-        jLB_Obrigatorio6.setText("* - Campos Obrigatórios");
-        jPN_Background.add(jLB_Obrigatorio6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 180, -1));
-
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel9.setText("Complemento");
         jPN_Background.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel10.setText("Número *");
+        jLabel10.setText("Número");
         jPN_Background.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -379,20 +379,45 @@ public class FormAlterarCliente extends javax.swing.JFrame {
         jPN_Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("CEP *");
+        jLabel5.setText("CEP");
         jPN_Background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Telefone *");
+        jLabel4.setText("Telefone");
         jPN_Background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("CPF *");
+        jLabel3.setText("CPF");
         jPN_Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nome *");
+        jLabel2.setText("Nome");
         jPN_Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+
+        jLB_Obrigatorio7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Obrigatorio7.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio7.setText("* - Campos Obrigatórios");
+        jPN_Background.add(jLB_Obrigatorio7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 500, 200, -1));
+
+        jLB_Obrigatorio9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio9.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio9.setText("*");
+        jPN_Background.add(jLB_Obrigatorio9, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 10, 20));
+
+        jLB_Obrigatorio10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio10.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio10.setText("*");
+        jPN_Background.add(jLB_Obrigatorio10, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 10, 20));
+
+        jLB_Obrigatorio11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio11.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio11.setText("*");
+        jPN_Background.add(jLB_Obrigatorio11, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, 10, 20));
+
+        jLB_Obrigatorio8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLB_Obrigatorio8.setForeground(new java.awt.Color(255, 0, 0));
+        jLB_Obrigatorio8.setText("*");
+        jPN_Background.add(jLB_Obrigatorio8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 10, 20));
 
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/alterar-cliente-bg.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -523,7 +548,11 @@ public class FormAlterarCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_ErroCep;
     private javax.swing.JLabel jLB_Fechar;
-    private javax.swing.JLabel jLB_Obrigatorio6;
+    private javax.swing.JLabel jLB_Obrigatorio10;
+    private javax.swing.JLabel jLB_Obrigatorio11;
+    private javax.swing.JLabel jLB_Obrigatorio7;
+    private javax.swing.JLabel jLB_Obrigatorio8;
+    private javax.swing.JLabel jLB_Obrigatorio9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

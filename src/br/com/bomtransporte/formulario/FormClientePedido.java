@@ -36,7 +36,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private Cliente clienteSelecionado;
     private PedidoDao pedidoDao;
     private Pedido pedidoSelecionado;
-    public static Integer idCliente, ativarAba, idPedido_CliSelecionado, idPedidoSelecionado;
+    public static Integer idCliente, ativarAba, idPedido_CliSelecionado, idPedidoSelecionado, ativarAlterar;
     private String statusPedidoSelecionado;
     private Boolean pesquisarPedidoPelaData = false;
 
@@ -375,6 +375,9 @@ public class FormClientePedido extends javax.swing.JFrame {
         jBT_ListarTodos = new javax.swing.JButton();
         jLB_Status = new javax.swing.JLabel();
         jCB_Status = new javax.swing.JComboBox();
+        jBT_Relatorio1 = new javax.swing.JButton();
+        jLB_Descricao5 = new javax.swing.JLabel();
+        jLB_Descricao6 = new javax.swing.JLabel();
         jLB_Fechar4 = new javax.swing.JLabel();
         jLB_Background = new javax.swing.JLabel();
 
@@ -537,11 +540,11 @@ public class FormClientePedido extends javax.swing.JFrame {
         jPN_CadastrarPedido.add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, -1, 60));
 
         jLB_Descricao4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLB_Descricao4.setText("Total:");
-        jPN_CadastrarPedido.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, -1, -1));
+        jLB_Descricao4.setText("Data Final:");
+        jPN_CadastrarPedido.add(jLB_Descricao4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
 
         jTF_Total.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPN_CadastrarPedido.add(jTF_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 430, 160, 30));
+        jPN_CadastrarPedido.add(jTF_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 440, 160, 30));
 
         jBT_PesquisarPedidoPelaData.setBackground(new java.awt.Color(0, 0, 0));
         jBT_PesquisarPedidoPelaData.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -551,7 +554,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jBT_PesquisarPedidoPelaDataActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_PesquisarPedidoPelaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 80, 80));
+        jPN_CadastrarPedido.add(jBT_PesquisarPedidoPelaData, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 80, 80));
 
         jCB_DataFinal.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_DataFinal.addActionListener(new java.awt.event.ActionListener() {
@@ -559,7 +562,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_DataFinalActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_DataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 120, -1));
+        jPN_CadastrarPedido.add(jCB_DataFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 120, -1));
 
         jCB_DataInicial.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_DataInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -567,7 +570,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_DataInicialActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_DataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 120, -1));
+        jPN_CadastrarPedido.add(jCB_DataInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 120, -1));
 
         jCB_AnoInicial.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_AnoInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -575,7 +578,7 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_AnoInicialActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_AnoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 90, -1));
+        jPN_CadastrarPedido.add(jCB_AnoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 90, -1));
 
         jCB_AnoFinal.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_AnoFinal.addActionListener(new java.awt.event.ActionListener() {
@@ -583,21 +586,22 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_AnoFinalActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_AnoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 90, -1));
+        jPN_CadastrarPedido.add(jCB_AnoFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 90, -1));
 
         jBT_ListarTodos.setBackground(new java.awt.Color(0, 0, 0));
         jBT_ListarTodos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_ListarTodos.setText("Listar todos");
+        jBT_ListarTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/listar-icon.png"))); // NOI18N
+        jBT_ListarTodos.setText("<html>Listar<br>Todos</html>");
         jBT_ListarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_ListarTodosActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jBT_ListarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 130, 60));
+        jPN_CadastrarPedido.add(jBT_ListarTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 140, 60));
 
         jLB_Status.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Status.setText("Status:");
-        jPN_CadastrarPedido.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, -1));
+        jPN_CadastrarPedido.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, -1));
 
         jCB_Status.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada" }));
@@ -611,7 +615,26 @@ public class FormClientePedido extends javax.swing.JFrame {
                 jCB_StatusActionPerformed(evt);
             }
         });
-        jPN_CadastrarPedido.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 170, 190, 40));
+        jPN_CadastrarPedido.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, 220, 40));
+
+        jBT_Relatorio1.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Relatorio1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Relatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/relato-icon.png"))); // NOI18N
+        jBT_Relatorio1.setText("Gerar Relatório");
+        jBT_Relatorio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_Relatorio1ActionPerformed(evt);
+            }
+        });
+        jPN_CadastrarPedido.add(jBT_Relatorio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, -1, 60));
+
+        jLB_Descricao5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao5.setText("Total:");
+        jPN_CadastrarPedido.add(jLB_Descricao5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, -1, -1));
+
+        jLB_Descricao6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLB_Descricao6.setText("Data Inicial:");
+        jPN_CadastrarPedido.add(jLB_Descricao6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         jTB_CliPedido.addTab("Cadastrar Pedido", jPN_CadastrarPedido);
 
@@ -654,6 +677,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_ExcluirActionPerformed
 
     private void jBT_CadastrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_CadastrarPedidoActionPerformed
+        ativarAlterar = 0;        
         FormCadastrarCarga formCad = new FormCadastrarCarga();
         formCad.setVisible(true);
         dispose();
@@ -742,8 +766,10 @@ public class FormClientePedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jBT_AlterarStatusPedidoActionPerformed
 
     private void jBT_AlterarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AlterarPedidoActionPerformed
-        FormAlterarPedido formAltPedido = new FormAlterarPedido();
-        formAltPedido.setVisible(true);
+        ativarAlterar = 1;
+        FormCadastrarCarga formCarga = new FormCadastrarCarga();
+        formCarga.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jBT_AlterarPedidoActionPerformed
 
     private void jBT_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_VoltarActionPerformed
@@ -803,6 +829,10 @@ public class FormClientePedido extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCB_StatusActionPerformed
 
+    private void jBT_Relatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_Relatorio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBT_Relatorio1ActionPerformed
+
     /**
      *
      * @param args
@@ -848,6 +878,7 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JButton jBT_Pesquisar;
     private javax.swing.JButton jBT_PesquisarPedidoPelaData;
     private javax.swing.JButton jBT_Relatorio;
+    private javax.swing.JButton jBT_Relatorio1;
     private javax.swing.JButton jBT_Voltar;
     private javax.swing.JComboBox jCB_AnoFinal;
     private javax.swing.JComboBox jCB_AnoInicial;
@@ -856,6 +887,8 @@ public class FormClientePedido extends javax.swing.JFrame {
     private javax.swing.JComboBox jCB_Status;
     private javax.swing.JLabel jLB_Background;
     private javax.swing.JLabel jLB_Descricao4;
+    private javax.swing.JLabel jLB_Descricao5;
+    private javax.swing.JLabel jLB_Descricao6;
     private javax.swing.JLabel jLB_Fechar4;
     private javax.swing.JLabel jLB_Status;
     private javax.swing.JLabel jLabel1;

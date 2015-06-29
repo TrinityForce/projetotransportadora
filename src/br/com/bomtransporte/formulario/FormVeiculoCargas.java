@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.bomtransporte.formulario;
 
 import br.com.bomtransporte.dao.CargaDao;
@@ -10,7 +5,6 @@ import br.com.bomtransporte.dao.PedidoDao;
 import br.com.bomtransporte.dao.VeiculoDao;
 import br.com.bomtransporte.modelo.Carga;
 import br.com.bomtransporte.modelo.ModeloTabela;
-import br.com.bomtransporte.modelo.Veiculo;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -23,7 +17,7 @@ import javax.swing.ListSelectionModel;
 
 /**
  *
- * @author Gustavo Carvalho <gustavo.carvalho.costa@outlook.com>
+ * @author Gustavo Carvalho
  */
 public class FormVeiculoCargas extends javax.swing.JFrame {
 
@@ -48,7 +42,7 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
 
         ArrayList dados = new ArrayList();
         cargaDao = new CargaDao();
-        Carga carga = new Carga();
+        Carga carga;
         String[] colunas = new String[]{"ID", "DESCRICAO", "STATUS"};
 
         try {
@@ -94,7 +88,6 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -102,37 +95,19 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jBT_CargaExtraviada = new javax.swing.JButton();
-        jBT_Voltar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPN_Background = new javax.swing.JPanel();
+        jSP_Cargas = new javax.swing.JScrollPane();
         jTB_VeiculoCarga = new javax.swing.JTable();
         jBT_CasaFechada = new javax.swing.JButton();
+        jBT_Voltar = new javax.swing.JButton();
+        jBT_CargaExtraviada = new javax.swing.JButton();
+        jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jBT_CargaExtraviada.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_CargaExtraviada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_CargaExtraviada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
-        jBT_CargaExtraviada.setText("carga extraviada");
-        jBT_CargaExtraviada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_CargaExtraviadaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jBT_CargaExtraviada, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 220, 60));
-
-        jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/retornar-icon.png"))); // NOI18N
-        jBT_Voltar.setText("Voltar");
-        jBT_Voltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBT_VoltarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, -1, 60));
+        jPN_Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTB_VeiculoCarga.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,20 +120,47 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTB_VeiculoCarga);
+        jSP_Cargas.setViewportView(jTB_VeiculoCarga);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 570, 210));
+        jPN_Background.add(jSP_Cargas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 550, 170));
 
         jBT_CasaFechada.setBackground(new java.awt.Color(0, 0, 0));
         jBT_CasaFechada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jBT_CasaFechada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/alterar-icon.png"))); // NOI18N
-        jBT_CasaFechada.setText("Casa fechada");
+        jBT_CasaFechada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/casa-icon.png"))); // NOI18N
+        jBT_CasaFechada.setText("<html>Casa<br>Fechada</html>");
         jBT_CasaFechada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBT_CasaFechadaActionPerformed(evt);
             }
         });
-        getContentPane().add(jBT_CasaFechada, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 190, 60));
+        jPN_Background.add(jBT_CasaFechada, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 160, 60));
+
+        jBT_Voltar.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_Voltar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_Voltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/retornar-icon.png"))); // NOI18N
+        jBT_Voltar.setText("Voltar");
+        jBT_Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_VoltarActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_Voltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 160, 60));
+
+        jBT_CargaExtraviada.setBackground(new java.awt.Color(0, 0, 0));
+        jBT_CargaExtraviada.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBT_CargaExtraviada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/extraviado-icon.png"))); // NOI18N
+        jBT_CargaExtraviada.setText("<html>Carga<br>Extraviada</html>");
+        jBT_CargaExtraviada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_CargaExtraviadaActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_CargaExtraviada, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 160, -1));
+
+        jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/cep-bg.png"))); // NOI18N
+        jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 300));
+
+        getContentPane().add(jPN_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -246,7 +248,6 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
 
             } catch (Exception ex) {
                 Logger.getLogger(FormVeiculoCargas.class.getName()).log(Level.SEVERE, null, ex);
-                ex.printStackTrace();
             }
 
         }
@@ -261,31 +262,27 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+        /* Set the Windows look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormVeiculoCargas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormVeiculoCargas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormVeiculoCargas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormVeiculoCargas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new FormVeiculoCargas().setVisible(true);
             }
@@ -296,7 +293,9 @@ public class FormVeiculoCargas extends javax.swing.JFrame {
     private javax.swing.JButton jBT_CargaExtraviada;
     private javax.swing.JButton jBT_CasaFechada;
     private javax.swing.JButton jBT_Voltar;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLB_Background;
+    private javax.swing.JPanel jPN_Background;
+    private javax.swing.JScrollPane jSP_Cargas;
     private javax.swing.JTable jTB_VeiculoCarga;
     // End of variables declaration//GEN-END:variables
 }

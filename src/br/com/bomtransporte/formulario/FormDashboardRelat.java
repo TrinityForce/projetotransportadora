@@ -88,7 +88,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, 130, 30));
 
         jBT_Relat4.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Relat4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Relat4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Relat4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Relat4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Relat4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,7 +109,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 130, 30));
 
         jBT_Relat3.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Relat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Relat3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Relat3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Relat3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Relat3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,7 +130,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, 130, 30));
 
         jBT_Relat2.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Relat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Relat2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Relat2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Relat2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Relat2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,7 +151,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, -1, -1));
 
         jBT_Relat1.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Relat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Relat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Relat1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Relat1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Relat1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,7 +172,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, -1, -1));
 
         jBT_Relat.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Relat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Relat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Relat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Relat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Relat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,7 +193,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, -1));
 
         jBT_Vendas.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Vendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Vendas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Vendas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Vendas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,7 +218,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, -1, -1));
 
         jBT_Func.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Func.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Func.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Func.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Func.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Func.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -242,7 +242,7 @@ public class FormDashboardRelat extends javax.swing.JFrame {
         jPN_Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 130, 30));
 
         jBT_Cli.setBackground(new java.awt.Color(0, 0, 0));
-        jBT_Cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard.png"))); // NOI18N
+        jBT_Cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/btn-dashboard2.png"))); // NOI18N
         jBT_Cli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jBT_Cli.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBT_Cli.addMouseListener(new java.awt.event.MouseAdapter() {

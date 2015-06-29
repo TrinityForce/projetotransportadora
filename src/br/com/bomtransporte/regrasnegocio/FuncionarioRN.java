@@ -2,6 +2,7 @@ package br.com.bomtransporte.regrasnegocio;
 
 import br.com.bomtransporte.formulario.FormDashAdmin;
 import br.com.bomtransporte.formulario.FormFuncionario;
+import br.com.bomtransporte.formulario.FormMotorista;
 import br.com.bomtransporte.modelo.Funcionario;
 import java.security.MessageDigest;
 import java.util.Random;
@@ -32,6 +33,11 @@ public class FuncionarioRN {
             case 2:
                 FormFuncionario formFun = new FormFuncionario();
                 formFun.setVisible(true);
+                jframe.dispose();
+                break;
+            case 3:
+                FormMotorista formMoto = new FormMotorista();
+                formMoto.setVisible(true);
                 jframe.dispose();
                 break;
             default:

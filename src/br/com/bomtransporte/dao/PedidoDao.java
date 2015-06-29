@@ -422,5 +422,37 @@ public class PedidoDao extends Conexao implements Dao {
         con.close();
 
     }
+    
+    public List<Object> listarPedidosProtocolo(String protocolo) throws Exception {
+        List<Object> listaPedidos = new ArrayList<>();
+
+        inicializarAtributos();
+
+        con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+
+        stmt = con.prepareStatement("SELECT * FROM Pedido P "
+                + "  join Pedido_Cli  PC on P.idPedido = PC.idPedido "
+                + "  join PrecoDistancia pd on pd.idPrecoDistancia = PC.idPrecoDistancia "
+                + "  where P.protocolo = ?;");
+        stmt.setString(1, protocolo);
+
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Pedido pedido = new Pedido();
+            pedido.setIdPedido(rs.getInt("P.idPedido"));
+            pedido.setProtocolo(rs.getString("P.protocolo"));
+            pedido.setDataVenda(rs.getDate("P.dataVenda"));
+            pedido.setDesconto(rs.getInt("P.desconto"));
+            pedido.setStatusPedido(rs.getString("P.statusPedido"));
+            pedido.setIdPedido_Cli(rs.getInt("PC.idPedido_Cli"));
+            pedido.setIdPrecoDistancia(rs.getInt("PC.idPrecoDistancia"));
+            pedido.setDestinoUF(rs.getString("pd.origemDestinoUF"));
+            listaPedidos.add(pedido);
+        }
+
+        close();
+        return listaPedidos;
+    }
 
 }

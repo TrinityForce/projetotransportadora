@@ -60,11 +60,22 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
         idPedido = FormClientePedido.idPedido_CliSelecionado;
         idCliente = FormClientePedido.idCliente;
         idPedido_CliSelecionado = FormClientePedido.idPedido_CliSelecionado;
+        verificarBotao();
         preencherCampos();
         preencherComboPreco();
         preencherComboPeso();
         verificarAba();
 
+    }
+    
+    private void verificarBotao(){
+        if(FormClientePedido.ativarAlterar == 1){
+            jBT_AlterarPedido.setVisible(true);
+            jBT_Salvar.setVisible(false);
+        }else{
+            jBT_AlterarPedido.setVisible(false);
+            jBT_Salvar.setVisible(true);
+        }
     }
 
     private void verificarAba() {
@@ -419,7 +430,7 @@ public class FormCadastrarCarga extends javax.swing.JFrame {
                 jBT_AlterarPedidoActionPerformed(evt);
             }
         });
-        jPN_Pedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, 150, 70));
+        jPN_Pedido.add(jBT_AlterarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 170, 70));
 
         jCB_Rotas.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
         jCB_Rotas.addActionListener(new java.awt.event.ActionListener() {

@@ -14,8 +14,6 @@ import br.com.bomtransporte.util.Calc;
 import br.com.bomtransporte.util.Validacao;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import static java.lang.Math.E;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,6 +46,8 @@ public class FormPedidos extends javax.swing.JFrame {
         preencherTabelaPedido();
         desabilitarBotao(jBT_AdicionarPedidoNoCaminhao);
         desabilitarBotao(jBT_VisualizarCargas);
+        jBT_Protocolo.setVisible(false);
+        jTF_Protocolo.setVisible(false);
         verificarVeiculos();
     }
 
@@ -96,6 +96,9 @@ public class FormPedidos extends javax.swing.JFrame {
                     break;
                 case 4:
                     listaPedido = pedidoDao.listarPedidos("Carga Extraviada");
+                    break;
+                case 5:
+                    listaPedido = pedidoDao.listarPedidosProtocolo(jTF_Protocolo.getText());
                     break;
             }
 
@@ -148,7 +151,6 @@ public class FormPedidos extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro genérico2: " + e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -165,6 +167,8 @@ public class FormPedidos extends javax.swing.JFrame {
         jCB_Status = new javax.swing.JComboBox();
         jLB_Status = new javax.swing.JLabel();
         jBT_AdicionarPedidoNoCaminhao = new javax.swing.JButton();
+        jTF_Protocolo = new javax.swing.JTextField();
+        jBT_Protocolo = new javax.swing.JButton();
         jLB_Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -219,7 +223,7 @@ public class FormPedidos extends javax.swing.JFrame {
         jPN_Background.add(jLB_Fechar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 40, 40));
 
         jCB_Status.setFont(new java.awt.Font("Segoe WP SemiLight", 0, 18)); // NOI18N
-        jCB_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada" }));
+        jCB_Status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todos", "Aguardando", "Saiu para Entrega", "Entregue", "Carga Extraviada", "Protocolo" }));
         jCB_Status.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCB_StatusItemStateChanged(evt);
@@ -230,11 +234,11 @@ public class FormPedidos extends javax.swing.JFrame {
                 jCB_StatusActionPerformed(evt);
             }
         });
-        jPN_Background.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 190, 40));
+        jPN_Background.add(jCB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 190, 40));
 
         jLB_Status.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLB_Status.setText("Status:");
-        jPN_Background.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jPN_Background.add(jLB_Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
         jBT_AdicionarPedidoNoCaminhao.setBackground(new java.awt.Color(0, 0, 0));
         jBT_AdicionarPedidoNoCaminhao.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -247,6 +251,17 @@ public class FormPedidos extends javax.swing.JFrame {
         });
         jPN_Background.add(jBT_AdicionarPedidoNoCaminhao, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 220, 70));
 
+        jTF_Protocolo.setFont(new java.awt.Font("Segoe WP", 0, 14)); // NOI18N
+        jPN_Background.add(jTF_Protocolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 120, 40));
+
+        jBT_Protocolo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/icones/search-pequeno-icon.png"))); // NOI18N
+        jBT_Protocolo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBT_ProtocoloActionPerformed(evt);
+            }
+        });
+        jPN_Background.add(jBT_Protocolo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 70, 40));
+
         jLB_Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/bomtransporte/imagem/relat-background.png"))); // NOI18N
         jPN_Background.add(jLB_Background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
@@ -258,6 +273,13 @@ public class FormPedidos extends javax.swing.JFrame {
 
     private void jCB_StatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCB_StatusItemStateChanged
         preencherTabelaPedido();
+        if (jCB_Status.getSelectedIndex() == 5){
+            jBT_Protocolo.setVisible(true);
+            jTF_Protocolo.setVisible(true);
+        }else{
+            jBT_Protocolo.setVisible(false);
+            jTF_Protocolo.setVisible(false);
+        }
     }//GEN-LAST:event_jCB_StatusItemStateChanged
 
     private void jBT_AdicionarPedidoNoCaminhaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_AdicionarPedidoNoCaminhaoActionPerformed
@@ -339,9 +361,9 @@ public class FormPedidos extends javax.swing.JFrame {
                             veiculoDao = new VeiculoDao();
                             veiculoDao.alterar(veiculo);
                             pedidoDao.update(pedidoSelecionado.getIdPedido(), "Saiu para entrega");
-                            System.out.println("id do veiculo " + veiculo.getIdVeiculo());
-                            System.out.println("bagulho concluido com sucesso");
-
+//                            System.out.println("id do veiculo " + veiculo.getIdVeiculo());
+//                            System.out.println("bagulho concluido com sucesso");
+                            JOptionPane.showMessageDialog(this, "CARGAS SAÍNDO PRA ENTREGA COM SUCESSO!","SUCESSO",JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
 
@@ -402,6 +424,10 @@ public class FormPedidos extends javax.swing.JFrame {
         formCarga.setVisible(true);
     }//GEN-LAST:event_jBT_VisualizarCargasActionPerformed
 
+    private void jBT_ProtocoloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBT_ProtocoloActionPerformed
+        preencherTabelaPedido();
+    }//GEN-LAST:event_jBT_ProtocoloActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -438,6 +464,7 @@ public class FormPedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBT_AdicionarPedidoNoCaminhao;
+    private javax.swing.JButton jBT_Protocolo;
     private javax.swing.JButton jBT_VisualizarCargas;
     private javax.swing.JComboBox jCB_Status;
     private javax.swing.JLabel jLB_Background;
@@ -447,5 +474,6 @@ public class FormPedidos extends javax.swing.JFrame {
     private javax.swing.JPanel jPN_Background;
     private javax.swing.JScrollPane jSP_Pedidos;
     private javax.swing.JTable jTB_Pedidos;
+    private javax.swing.JTextField jTF_Protocolo;
     // End of variables declaration//GEN-END:variables
 }
